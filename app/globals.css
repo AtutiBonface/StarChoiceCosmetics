@@ -1,26 +1,97 @@
-@import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-color: #F8F1E9;          /* Ivory - Main Background */
+  --secondary-color: #A9BA9D;       /* Sage Green - Section Backgrounds, Borders */
+  --accent-color-1: #B7410E;        /* Clay Red - Primary CTAs, Promos */
+  --accent-color-2: #FFC107;        /* Sunflower Yellow - Badges, Highlights */
+  --text-color-1: #333333;          /* Charcoal Gray - Primary Text */
+  --text-color-2: #5C4033;          /* Cocoa Brown - Secondary Text, Logo */
+  --text-contrast: #FFFFFF;         /* White - Text on Colored Backgrounds */
+  --accent-color-1-rgb: rgba(183, 65, 14, 0.5);
 }
+@import "tailwindcss";
 
 @theme inline {
-  --color-background: var(--background);
+  --color-background: var(--primary-color);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
 
+
+
 body {
-  background: var(--background);
+  background: var(--primary-color);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-primary {
+  background: var(--primary-color);
+}
+.bg-secondary {
+  background: var(--secondary-color);
+}
+.bg-accent-1 {
+  background: var(--accent-color-1);
+}
+.bg-accent-2 {
+  background: var(--accent-color-2);
+}
+.text-primary {
+  color: var(--text-color-1);
+}
+.text-secondary {
+  color: var(--text-color-2);
+}
+.text-contrast {
+  color: var(--text-contrast);
+}
+.text-accent-1 {
+  color: var(--accent-color-1);
+}
+.text-accent-2 {
+  color: var(--accent-color-2);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee {
+  animation: marquee 25s linear infinite;
+}
+
+button{
+  cursor: pointer;
+}
+.product-title{
+    position: relative;
+
+}
+.product-title::before{
+    content: "";
+    position: absolute !important;
+    display: block;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(128, 128, 128, 0.397);
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
