@@ -66,7 +66,7 @@ const TopBrands = () => {
 
   return (
     <section className="bg-[#A9BA9D] py-5 w-full">
-      <div className="mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="product-title relative  flex justify-center items-center mb-2 mx-3">
           <h2 className="text-3xl font-bold text-[#333333] bg-[#A9BA9D] px-3 z-10 ">
             Our Top Brands
@@ -146,7 +146,7 @@ const TopBrands = () => {
                 onClick={() => setCurrentSlide(index)}
                 className={`transition-all duration-300 ${
                   currentSlide === index 
-                    ? 'w-8 h-2 bg-[#F8F1E9]' 
+                    ? 'w-8 h-2 bg-pink-600' 
                     : 'w-2 h-2 bg-[#F8F1E9]/50'
                 } rounded-full`}
                 aria-label={`Go to slide ${index + 1}`}

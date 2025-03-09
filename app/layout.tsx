@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BottomBar from "@/components/navigation/bottombar";
 import TopBar from "@/components/navigation/topbar";
+import Whatsapp from "@/components/navigation/whatsapp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased pb-16 md:pb-0`}
       >
        
         <TopBar/>
         {children}
+        <Whatsapp/>
         <BottomBar/>
       </body>
     </html>

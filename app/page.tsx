@@ -4,7 +4,7 @@ import PromotionSlider from "@/components/promotion-slider/promotion-slider";
 
 export default function Home() {
   return (    
-    <div className="mt-16 gap-4 flex flex-col items-center">
+    <div className="w-full mt-28 md:mt-38 gap-4 flex flex-col items-center">
      <PromotionSlider/>
      <TopBrands/>
      <NewArrivals/>

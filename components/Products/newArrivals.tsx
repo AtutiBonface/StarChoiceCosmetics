@@ -2,6 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { ShoppingCart } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 interface Product {
   id: number
@@ -97,18 +98,21 @@ const products: Product[] = [
   
 
 const NewArrivals = () => {
+
+  const  router = useRouter()
   return (
-    <section className="mx-auto md:mx-12 px-2 py-2">
+    <section className="max-w-7xl mx-auto md:mx-12 px-2 py-2">
         <div className="product-title relative  flex justify-center items-center mb-2 mx-3">
             <span className="text-3xl font-bold text-[#333333] bg-[#F8F1E9] px-3 z-10">New Arrivals</span>
         </div>
 
        
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-2 md:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-2 md:gap-4 cursor-pointer">
         {products.map((product) => (
           <div 
             key={product.id} 
+            onClick={()=>{router.push("/products/"+product.id)}}
             className="bg-transparent p-4"
           >
             {/* Product Image */}
@@ -128,7 +132,7 @@ const NewArrivals = () => {
 
             {/* Price Section */}
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-lg font-bold text-accent-1">
+              <span className="text-lg font-bold text-pink-600">
                 KES {product.price.toLocaleString()}
               </span>
               {product.oldPrice && (
@@ -140,11 +144,11 @@ const NewArrivals = () => {
 
             {/* Action Button */}
             {product.hasVariants ? (
-              <button className="w-full bg-secondary hover:bg-secondary/90 text-white py-2 px-4 rounded-md transition-colors">
+              <button className="w-full bg-secondary hover:bg-secondary/90 text-white py-2 px-4 rounded-[1px] transition-colors">
                 Select Options
               </button>
             ) : (
-              <button className="w-full bg-accent-1 hover:bg-accent-1/90 text-white py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2">
+              <button className="w-full bg-pink-600 hover:bg-pink-600/90 text-white py-2 px-4 rounded-[1px] transition-colors flex items-center justify-center gap-2">
                 <ShoppingCart size={18} />
                 Add to Cart
               </button>
