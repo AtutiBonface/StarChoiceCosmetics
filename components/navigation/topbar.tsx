@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 const TopBar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const isLoggedIn = true// Replace with your auth logic
+  const isLoggedIn = false// Replace with your auth logic
   const router = useRouter()
   const pathname = usePathname()
 
@@ -23,7 +23,6 @@ const TopBar = () => {
                         
   console.log(pathname, "path name is here")
 
-  const hideTopbar = pathname?.startsWith('/menu')
 
   const handleMouseEnter = (dropdown: string) => {
     setActiveDropdown(dropdown)
@@ -45,10 +44,6 @@ const TopBar = () => {
     setActiveDropdown(null)
   }
 
-
-  if (hideTopbar) {
-    return null
-  }
 
   return (
     <div className='fixed top-0 left-0 w-full z-50 border-b border-[#A9BA9D] bg-primary'>
@@ -84,9 +79,9 @@ const TopBar = () => {
               <input
                 type="text"
                 placeholder="Search products..."
-                className="w-full px-4 py-2 ring-1 ring-pink-600 focus:outline-none focus:ring-pink-600/50 rounded-[4px]"
+                className="w-full px-4 py-2 ring-1 ring-pink-600 focus:outline-none focus:ring-pink-600/50 rounded-[1px]"
               />
-              <button className="absolute right-3 top-1/2 -translate-y-1/2 ">
+              <button className="absolute right-0 top-1/2 -translate-y-1/2  bg-pink-600 h-full w-[50px] flex items-center justify-center">
                 <Search className="w-5 h-5 text-gray-500" />
               </button>
             </div>
@@ -291,7 +286,10 @@ const TopBar = () => {
           </div>
         </div>
       </div>
-      <CategoryNav/>
+      <div className="hidden md:block mt-auto">
+        <CategoryNav/>
+      </div>
+
     </div>
   )
 }

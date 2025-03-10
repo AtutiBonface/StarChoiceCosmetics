@@ -39,7 +39,7 @@ const ProfileSidebar = () => {
   }
 
   return (
-    <div className="">
+    <div>
       <div className="bg-primary h-full">
         <div className="md:hidden">
           <div className="flex flex-col p-4 bg-secondary border-b border-[#A9BA9D]">
@@ -51,7 +51,7 @@ const ProfileSidebar = () => {
         </div>
 
         {/* Navigation Links */}
-        <nav className="px-0 py-2 space-y-1 flex flex-col h-[calc(100%-180px)] md:h-[calc(100%-80px)]">
+        <nav className="px-0  space-y-1 flex flex-col h-[calc(100%-180px)] md:h-[calc(100%-80px)]">
           {navigation.map((item) => {
             const Icon = item.icon
             const isStatic = isMobile && item.isMobileStatic

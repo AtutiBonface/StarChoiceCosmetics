@@ -80,7 +80,7 @@ const ProductPreview = () => {
   }
 
   return (
-    <>
+    <div className='mb-18 md:mb-0' > {/* margin bottom for mobile sticky actions */}
       <Toast
         message={toastMessage}
         type={toastType}
@@ -88,8 +88,8 @@ const ProductPreview = () => {
         onClose={() => setShowToast(false)}
       />
       
-      {/* Sticky Mobile Actions - Add this at the top level */}
-      <div className="fixed bottom-0 left-0 right-0 bg-primary border-t border-[#A9BA9D] p-4 md:hidden z-50">
+      {/* Sticky Mobile Actions */}
+      <div className="fixed h-18 bottom-0 left-0 right-0 bg-primary border-t border-[#A9BA9D] p-2 md:hidden z-50">
         <div className="flex items-center gap-4">
           <div className="flex items-center border border-gray-200 rounded-[1px]">
             <button
@@ -117,14 +117,14 @@ const ProductPreview = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-full pb-2 md:pb-0"> {/* Add padding bottom on mobile */}
+      <div className="w-full pb-2  md:pb-0"> 
         {/* Breadcrumb */}
-        <div className="w-full bg-[#A9BA9D] mt-28 md:mt-38">
+        <div className="w-full bg-[#A9BA9D]">
           <div className="max-w-7xl mx-auto px-4 py-2">
             <div className="flex items-center gap-2 text-sm text-[#333333]">
               <Link href="/" className="hover:text-pink-600">Home</Link>
               <ChevronRight size={16} />
-              <Link href="/skincare" className="hover:text-pink-600">Skincare</Link>
+              <Link href={`/search?category=${encodeURIComponent("skincare")}`} className="hover:text-pink-600">Skincare</Link>
               <ChevronRight size={16} />
               <span className="text-pink-600">SKU-12345</span>
             </div>
@@ -353,7 +353,7 @@ const ProductPreview = () => {
       </div>
 
       <RelatedProducts/>
-    </>
+    </div>
   )
 }
 

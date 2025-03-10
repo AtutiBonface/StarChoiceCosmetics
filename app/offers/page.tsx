@@ -50,7 +50,7 @@ export default function OffersPage() {
   return (
 
     <>
-        <div className="w-full bg-[#A9BA9D] mt-28 md:mt-38">
+        <div className="w-full bg-[#A9BA9D]">
         <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center gap-2 text-sm text-[#333333]">
             <Link href="/" className="hover:text-pink-600">Home</Link>

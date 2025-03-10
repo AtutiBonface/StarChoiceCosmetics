@@ -44,7 +44,7 @@ const deliveryInfo = [
 
 export default function ShippingPage() {
   return (
-    <div className="w-full mt-28 md:mt-38">
+    <div>
       {/* Breadcrumb */}
       <div className="w-full bg-[#A9BA9D]">
         <div className="max-w-7xl mx-auto px-4 py-2">

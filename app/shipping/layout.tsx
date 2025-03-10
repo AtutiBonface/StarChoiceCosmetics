@@ -39,10 +39,10 @@ export default function ShippingLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="">
-      <main className="">
+    
+      <main>
         {children}
       </main>
-    </div>
+   
   )
 }

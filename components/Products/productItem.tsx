@@ -6,7 +6,7 @@ import { Product } from './utils';
 
 interface ProductProps {
   product: Product
-  handleAddToCart: (e: React.MouseEvent, productId: number) => void;
+  handleAddToCart: (e: React.MouseEvent, productId: string) => void;
 }
 // Product item component to avoid duplication
 export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCart }) => {
@@ -82,7 +82,7 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
         </button>
       ) : (
         <button 
-          onClick={(e) => handleAddToCart(e, product.id)}
+          onClick={(e) => handleAddToCart(e, product.id.toString())}
           className="w-full bg-pink-600 hover:bg-pink-600/90 text-white py-2 px-4 rounded-[1px] transition-colors flex items-center justify-center gap-2"
         >
           <ShoppingCart size={18} />

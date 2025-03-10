@@ -24,11 +24,11 @@ export const metadata: Metadata = {
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
 
   return (
-    <div className="min-h-screen bg-primary pt-28 md:pt-38 ">
+   
       <div className="max-w-7xl mx-auto">
         <div className="md:flex gap-8 w-full">
           {/* Sidebar */}
-          <div className="hidden md:block px-4">
+          <div className="hidden md:block ">
             <ProfileSidebar/>
           </div>
 
@@ -38,6 +38,6 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           </main>
         </div>
       </div>
-    </div>
+   
   )
 }

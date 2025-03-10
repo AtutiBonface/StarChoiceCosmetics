@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Product } from "./utils";
 import { ProductItem } from "./productItem";
+import { Loader } from "lucide-react";
 
 
 interface MobileProductGridProps {
@@ -9,12 +10,12 @@ interface MobileProductGridProps {
   products: Product[];
   loadMoreThreshold?: number;
 }
-export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, products, loadMoreThreshold = 200 }) => {
+export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, products, loadMoreThreshold = 100 }) => {
   const [visibleItems, setVisibleItems] = useState(6);
   const [loading, setLoading] = useState(false);
-  const observerTarget = useRef(null);
+  const observerTarget = useRef<HTMLDivElement>(null);
 
-  const handleAddToCart = (e , productId: string) => {
+  const handleAddToCart = (e:React.MouseEvent , productId: string) => {
     e.stopPropagation();
     console.log('Adding to cart:', productId);
   };
@@ -23,7 +24,7 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
     if (loading || visibleItems >= products.length) return;
     
     setLoading(true);
-    // Simulate network request with setTimeout
+    // nime simulate network request with setTimeout. 
     setTimeout(() => {
       setVisibleItems(prev => Math.min(prev + 4, products.length));
       setLoading(false);
@@ -40,13 +41,14 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
       { threshold: 0.1, rootMargin: `0px 0px ${loadMoreThreshold}px 0px` }
     );
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
     }
 
     return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
       }
     };
   }, [observerTarget, loading, visibleItems, products.length]);
@@ -70,8 +72,8 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
       {visibleItems < products.length && (
         <div ref={observerTarget} className="h-4 w-full my-4">
           {loading && (
-            <div className="flex justify-center">
-              <div className="animate-pulse bg-gray-200 h-4 w-12 rounded"></div>
+            <div className="flex justify-center">              
+              <Loader className="h-5 w-5 animate-spin text-pink-600" />      
             </div>
           )}
         </div>

@@ -39,11 +39,10 @@ export default function FAQsLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <div className="">
-      <main className="">
-        {children}
-      </main>
-    </div>
+  return (  
+    <main>
+      {children}
+    </main>
+  
   )
 }

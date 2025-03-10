@@ -84,7 +84,10 @@ body {
     opacity: 1;
   }
 }
-
+@keyframes progress {
+  0% { width: 0% }
+  100% { width: 100% }
+}
 .marquee {
   animation: marquee 25s linear infinite;
 }

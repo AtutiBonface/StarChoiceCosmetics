@@ -68,7 +68,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-primary pt-30  md:pt-40">
+    <div className="min-h-screen bg-primary pt-2">
       <div className="max-w-7xl mx-auto px-4 pb-16">
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left Column - Order Details */}

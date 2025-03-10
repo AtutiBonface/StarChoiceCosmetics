@@ -36,7 +36,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <TopBar />
-        <main className={`flex-1 ${hasBottomNav ? 'pb-16' : ''}`}>
+        <main className={`flex-1 ${hasBottomNav ? 'pb-16' : ''} w-full mt-16 md:mt-38`}>
           {children}
         </main>
         <Whatsapp />        

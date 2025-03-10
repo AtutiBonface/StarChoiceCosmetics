@@ -39,10 +39,9 @@ export default function ReturnsLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="">
-      <main className="">
+    
+      <main >
         {children}
       </main>
-    </div>
   )
 }
