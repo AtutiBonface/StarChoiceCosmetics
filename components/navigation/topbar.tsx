@@ -10,13 +10,20 @@ import Image from 'next/image'
 
 const TopBar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const isLoggedIn = true // Replace with your auth logic
+  const isLoggedIn = true// Replace with your auth logic
   const router = useRouter()
   const pathname = usePathname()
 
   const shouldShowBack = pathname?.startsWith('/products') || 
                         pathname?.startsWith('/search') || 
-                        pathname?.startsWith('/category')
+                        pathname?.startsWith('/category')|| 
+                        (pathname?.startsWith('/customer') && !pathname?.startsWith('/customer/account'))
+
+        
+                        
+  console.log(pathname, "path name is here")
+
+  const hideTopbar = pathname?.startsWith('/menu')
 
   const handleMouseEnter = (dropdown: string) => {
     setActiveDropdown(dropdown)
@@ -38,14 +45,28 @@ const TopBar = () => {
     setActiveDropdown(null)
   }
 
+
+  if (hideTopbar) {
+    return null
+  }
+
   return (
     <div className='fixed top-0 left-0 w-full z-50 border-b border-[#A9BA9D] bg-primary'>
       <AnnouncementBar/>
       <div className="max-w-7xl mx-auto border-b border-gray-200">
         <div className="h-16 w-full text-gray-800 px-4 flex justify-between items-center z-50">
           {/* Logo Section - Hidden on mobile */}
-          <Link href="/" className="hidden md:block text-xl font-bold">
-            StarChoice<span className="text-pink-600">Cosmetics</span>
+          <Link href="/" className="hidden md:flex items-center gap-2 text-xl font-bold">
+            <div className="relative w-10 h-10">
+              <Image 
+                src="/icons/starchoice-logo.svg"  
+                alt='StarChoice Cosmetics' 
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-[#333333]">StarChoice</span>
           </Link>
 
           {/* Search Section with conditional back button */}
@@ -108,7 +129,7 @@ const TopBar = () => {
                       {/* Navigation Links */}
                       <div className="py-2">
                         <Link 
-                          href="/account/orders" 
+                          href="/customer/orders" 
                           className="flex items-center gap-3 px-4 py-2.5 hover:bg-pink-50 text-sm text-[#333333] transition-colors"
                         >
                           <Package size={16} />
@@ -118,7 +139,7 @@ const TopBar = () => {
                           </div>
                         </Link>
                         <Link 
-                          href="/account/profile" 
+                          href="/customer/profile" 
                           className="flex items-center gap-3 px-4 py-2.5 hover:bg-pink-50 text-sm text-[#333333] transition-colors"
                         >
                           <User size={16} />

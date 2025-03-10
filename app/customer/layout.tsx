@@ -1,29 +1,36 @@
-'use client'
-
-import { useState } from 'react'
 import ProfileSidebar from '@/components/accounts/profile-sidebar'
-import { Menu } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | My Account',
+    default: 'My Account | StarChoice Cosmetics'
+  },
+  description: 'Manage your StarChoice Cosmetics account, view orders, update profile, and track your beauty purchases.',
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nocache: true,
+    nosnippet: true,
+  },
+  alternates: {
+    canonical: 'https://starchoice.co.ke/customer'
+  },
+  
+  
+}
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-28 md:pt-32">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="md:flex gap-8">
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="md:hidden mb-4 p-2 hover:text-pink-600 transition-colors"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-
+    <div className="min-h-screen bg-primary pt-28 md:pt-38 ">
+      <div className="max-w-7xl mx-auto">
+        <div className="md:flex gap-8 w-full">
           {/* Sidebar */}
-          <ProfileSidebar 
-            isOpen={isSidebarOpen}
-            onClose={() => setIsSidebarOpen(false)}
-          />
+          <div className="hidden md:block px-4">
+            <ProfileSidebar/>
+          </div>
 
           {/* Main Content */}
           <main className="flex-1">

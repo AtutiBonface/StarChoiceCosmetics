@@ -1,0 +1,19 @@
+import { DesktopProductGrid } from "./desktopProductGrid";
+import { MobileProductGrid } from "./mobileProductGrid";
+import products from "./utils";
+// Example 2: Using the components separately
+export  const RelatedProducts = () => {
+  return (
+    <>
+      <DesktopProductGrid 
+        title="Related Products" 
+        products={products} 
+        initialRows={1} // Only show 1 row initially
+      />
+      <MobileProductGrid 
+        title="Related Products" 
+        products={products} 
+      />
+    </>
+  );
+}

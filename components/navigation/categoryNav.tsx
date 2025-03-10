@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ChevronDown, MapPin } from 'lucide-react'
 
 const categories = [
-  { id: 1, name: "New + Best Sellers", href: "/new-arrivals" },
+  { id: 1, name: "New + Best Sellers", href: `/search?category=${encodeURIComponent("New arrivals, Best Selling")}` },
   { id: 2, name: "All Brands", href: "/brands" , hasDropdown: true},
   { id: 3, name: "Offers", href: "/offers" }
 ]

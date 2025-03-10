@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Minus, Plus, Trash2, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 // Mock cart data - replace with your actual data
 const initialCartItems = [
@@ -24,7 +25,7 @@ const initialCartItems = [
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(initialCartItems)
-
+  const router = useRouter()
   const updateQuantity = (id: number, change: number) => {
     setCartItems(items =>
       items.map(item =>
@@ -51,7 +52,7 @@ const Cart = () => {
           <div className="flex items-center gap-2 text-sm text-[#333333]">
             <Link href="/" className="hover:text-pink-600">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Shopping Cart</span>
+            <span className="text-pink-600">Shopping Cart ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</span>
           </div>
         </div>
       </div>
@@ -72,12 +73,11 @@ const Cart = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-6">
-              <h2 className="text-xl font-semibold text-[#333333]">Your Shopping Cart ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</h2>
               
               {cartItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="flex flex-col sm:flex-row gap-6 p-6 rounded shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
+                  className="flex flex-col sm:flex-row gap-6 p-6  border border-[#A9BA9D] rounded-[#A9BA9D] hover:shadow-md transition-shadow duration-300 cursor-pointer"
                 >
                   {/* Product Image */}
                   <div className="relative w-full sm:w-32 h-40 sm:h-32 self-center sm:self-start">
@@ -164,7 +164,7 @@ const Cart = () => {
                 </div>
               </div>
               
-              <button className="w-full bg-pink-600 text-white py-3 rounded-[1px] mt-6 hover:bg-pink-600/90 transition-colors font-medium">
+              <button onClick={()=> router.push("/checkout")} className="w-full bg-pink-600 text-white py-3 rounded-[1px] mt-6 hover:bg-pink-600/90 transition-colors font-medium">
                 Proceed to Checkout
               </button>
               

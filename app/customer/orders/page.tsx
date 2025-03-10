@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock, Package, ShoppingBag, Truck } from 'lucide-react'
+import { ChevronRight, Clock, Package, ShoppingBag, Truck } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -72,93 +72,97 @@ const orders = [
 
 export default function OrdersPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-[#333333] mb-6">My Orders</h1>
 
-      <div className="space-y-6">
-        {orders.map((order) => {
-          const status = orderStatuses[order.status as keyof typeof orderStatuses]
-          const StatusIcon = status.icon
 
-          return (
-            <div 
-              key={order.id}
-              className="bg-white rounded-[1px] shadow-sm border border-[#A9BA9D] overflow-hidden"
-            >
-              {/* Order Header */}
-              <div className="p-4 border-b border-[#A9BA9D] flex flex-col sm:flex-row justify-between gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">Order #{order.id}</p>
-                  <p className="text-sm text-gray-500">
-                    Placed on {new Date(order.date).toLocaleDateString()}
-                  </p>
-                </div>
-                <div className={`
-                  flex items-center gap-2 px-3 py-1 rounded-full
-                  ${status.bg} ${status.border} ${status.color}
-                  text-sm font-medium
-                `}>
-                  <StatusIcon className="w-4 h-4" />
-                  {status.label}
-                </div>
-              </div>
-
-              {/* Order Items */}
-              <div className="p-4">
-                {order.items.map((item) => (
-                  <div key={item.id} className="flex gap-4">
-                    <div className="relative w-20 h-20 flex-shrink-0">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover rounded-[1px]"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-sm font-medium text-[#333333]">{item.name}</h3>
-                      <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
-                      <p className="text-sm font-medium text-pink-600">
-                        KES {item.price.toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Order Footer */}
-              <div className="p-4 border-t border-[#A9BA9D] bg-gray-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div className="text-sm">
-                  <span className="text-gray-500">Total: </span>
-                  <span className="font-bold text-[#333333]">
-                    KES {order.total.toLocaleString()}
-                  </span>
-                </div>
-                <Link
-                  href={`/customer/orders/${order.id}`}
-                  className="inline-flex items-center justify-center px-4 py-2 bg-pink-600 text-white text-sm font-medium rounded-[1px] hover:bg-pink-600/90 transition-colors"
-                >
-                  See Details
-                </Link>
-              </div>
+    <div className="w-full">
+      <div className="w-full bg-[#A9BA9D]">
+          <div className="max-w-7xl mx-auto px-4 py-2">
+            <div className="flex items-center gap-2 text-sm text-[#333333]">
+              <Link href="/" className="hover:text-pink-600">Home</Link>
+              <ChevronRight size={16} />
+              <span className="text-pink-600">My Orders</span>
             </div>
-          )
-        })}
-      </div>
-
-      {orders.length === 0 && (
-        <div className="text-center py-12">
-          <ShoppingBag className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-lg font-medium text-[#333333] mb-2">No orders yet</h2>
-          <p className="text-gray-500 mb-6">When you place an order, it will appear here</p>
-          <Link
-            href="/"
-            className="inline-flex items-center justify-center px-6 py-3 bg-pink-600 text-white font-medium rounded-[1px] hover:bg-pink-600/90 transition-colors"
-          >
-            Start Shopping
-          </Link>
+          </div>
         </div>
-      )}
+
+      <div className="px-4 py-4 bg-primary shadow-sm rounded-[1px] w-full">        
+
+          <div className="space-y-4">
+            {orders.map((order) => {
+              const status = orderStatuses[order.status as keyof typeof orderStatuses]
+              const StatusIcon = status.icon
+
+              return (
+                <div 
+                  key={order.id}
+                  className="bg-primary rounded-[1px] border border-[#A9BA9D] p-4 relative"
+                >
+                  {/* View Details Button - Moved to top right */}
+                  <Link
+                    href={`/customer/orders/${order.id}`}
+                    className="absolute top-4 right-4 inline-flex items-center px-3 py-1.5 text-sm font-medium text-pink-600 hover:bg-pink-50 rounded-[1px] transition-colors"
+                  >
+                    View Details
+                  </Link>
+
+                  {order.items.map((item) => (
+                    <div key={item.id} className="flex items-start pr-24"> {/* Added right padding for button space */}
+                      {/* Left - Image */}
+                      <div className="relative w-20 h-20 flex-shrink-0">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover rounded-[1px]"
+                        />
+                      </div>
+
+                      {/* Center - Order Details */}
+                      <div className="flex-1 px-4">
+                        <div className="text-left">
+                          {/* Order ID */}
+                          <p className="text-sm text-gray-500 mb-2">Order #{order.id}</p>
+                          
+                          {/* Product Name */}
+                          <h3 className="font-medium text-gray-800 mb-2">{item.name}</h3>
+                          
+                          {/* Status and Date Row */}
+                          <div className="flex items-center gap-3">
+                            <div className={`
+                              inline-flex items-center gap-1.5 px-3 py-1 rounded-[20px] text-sm font-medium
+                              border ${status.border} ${status.bg} ${status.color}
+                            `}>
+                              <StatusIcon className="w-4 h-4" />
+                              {status.label}
+                            </div>
+                            <span className="text-gray-300">•</span>
+                            <p className="text-sm text-gray-500">
+                              {new Date(order.date).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            })}
+          </div>
+
+        {orders.length === 0 && (
+          <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-200">
+            <ShoppingBag className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <h2 className="text-lg font-medium text-gray-800 mb-2">No orders yet</h2>
+            <p className="text-gray-500 mb-6">When you place an order, it will appear here</p>
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center px-6 py-3 bg-pink-600 text-white font-medium rounded-md hover:bg-pink-700 transition-colors"
+            >
+              Start Shopping
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

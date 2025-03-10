@@ -1,68 +1,85 @@
 'use client'
 
-import { User, Mail, Phone, Package, Heart, Star, MapPin } from 'lucide-react'
+import { User, Mail, Phone, Package, Heart, Star, MapPin, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
-interface AccountSummaryProps {
-  isDesktop?: boolean
-}
-
-const AccountSummary = ({ isDesktop = false }: AccountSummaryProps) => {
+const AccountSummary = () => {
   const userData = {
-    name: "John Doe",
-    email: "john@example.com",
+    name: "Admin",
+    email: "admin@atuti.com",
     phone: "+254712345678"
   }
 
   return (
-    <div className={`bg-white rounded-[1px] border border-[#A9BA9D] ${isDesktop ? 'p-6' : 'p-4'}`}>
+    <div className="w-full">
+        <div className="w-full bg-[#A9BA9D]">
+          <div className="max-w-7xl mx-auto px-4 py-2">
+            <div className="flex items-center gap-2 text-sm text-[#333333]">
+              <Link href="/" className="hover:text-pink-600">Home</Link>
+              <ChevronRight size={16} />
+              <span className="text-pink-600">My Account</span>
+            </div>
+          </div>
+        </div>
+        <div className="bg-primary shadow-sm rounded-[1px] p-4 w-full">
+
       {/* User Info */}
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-4 mb-2 border-b border-[#A9BA9D] pb-2">
         <div className="w-16 h-16 rounded-full bg-pink-600 flex items-center justify-center">
-          <User className="w-8 h-8 text-white" />
+          <User className="w-6 h-6 text-white" />
         </div>
         <div>
           <h1 className="text-xl font-bold text-[#333333]">{userData.name}</h1>
-          <p className="text-gray-500">Member since March 2024</p>
+          <p className="text-gray-500 text-sm">Member since March 2024</p>
         </div>
       </div>
 
       {/* Contact Details */}
-      <div className="space-y-4">
+      <div className="space-y-4 mb-2 bg-pink-50 p-4 rounded-[1px] border border-pink-100">
+        <h2 className="font-medium text-[#333333] mb-3">Personal Information</h2>
         <div className="flex items-center gap-3">
-          <Mail className="w-5 h-5 text-gray-400" />
+          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+            <Mail className="w-4 h-4 text-pink-600" />
+          </div>
           <span className="text-sm text-[#333333]">{userData.email}</span>
         </div>
         <div className="flex items-center gap-3">
-          <Phone className="w-5 h-5 text-gray-400" />
+          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+            <Phone className="w-4 h-4 text-pink-600" />
+          </div>
           <span className="text-sm text-[#333333]">{userData.phone}</span>
         </div>
       </div>
-
-      {/* Quick Links - Only show on mobile */}
-      {!isDesktop && (
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          {[
-            { name: 'Orders', href: '/customer/orders', icon: Package },
-            { name: 'Wishlist', href: '/customer/wishlist', icon: Heart },
-            { name: 'Reviews', href: '/customer/reviews', icon: Star },
-            { name: 'Addresses', href: '/customer/address', icon: MapPin },
-          ].map((item) => {
-            const Icon = item.icon
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-[1px] hover:bg-pink-50 transition-colors"
-              >
-                <Icon className="w-6 h-6 text-pink-600" />
+      
+      <h2 className="font-medium text-[#333333] mb-4">Quick Actions</h2>
+      <div className="grid grid-cols-2 gap-4">
+        {[
+          { name: 'My Orders', href: '/customer/orders', icon: Package, description: 'Track your orders' },
+          { name: 'Wishlist', href: '/wishlist', icon: Heart, description: 'Saved items' },
+          { name: 'Reviews', href: '/customer/reviews', icon: Star, description: 'Rate products' },
+          { name: 'Addresses', href: '/customer/address', icon: MapPin, description: 'Delivery locations' },
+        ].map((item) => {
+          const Icon = item.icon
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="flex flex-col p-4 bg-white rounded-[1px] hover:bg-pink-50 transition-colors border border-[#A9BA9D] hover:border-pink-200 group"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-pink-50 group-hover:bg-white flex items-center justify-center transition-colors">
+                  <Icon className="w-5 h-5 text-pink-600" />
+                </div>
                 <span className="text-sm font-medium text-[#333333]">{item.name}</span>
-              </Link>
-            )
-          })}
-        </div>
-      )}
+              </div>
+              <p className="text-xs text-gray-500 pl-13">{item.description}</p>
+            </Link>
+          )
+        })}
+      </div>
     </div>
+    </div>
+    
   )
 }
 
