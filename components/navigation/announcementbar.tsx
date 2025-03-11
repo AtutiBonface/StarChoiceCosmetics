@@ -2,7 +2,7 @@ import { MessageSquare, Phone } from "lucide-react"
 
 const AnnouncementBar = () => {
   return (
-    <div className="bg-pink-600 h-10 hidden md:block text-white py-2 overflow-hidden">
+    <div className="bg-accent-1 h-10 hidden md:block text-white py-2 overflow-hidden">
       <div className="max-w-7xl mx-auto  overflow-hidden">
         <div className="marquee whitespace-nowrap flex gap-4">
           <span className="text-white mx-4">

@@ -51,12 +51,12 @@ export default function RecentlyViewedPage() {
   return (
     <div className="w-full">
       {/* Breadcrumb */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Recently Viewed</span>
+            <span className="text-accent-1">Recently Viewed</span>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function RecentlyViewedPage() {
                   {/* Wishlist Button - Moved to top right */}
                   <button
                     onClick={() => handleAddToWishlist(product.id)}
-                    className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-full text-[#333333] hover:text-pink-600 transition-colors z-10"
+                    className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white shadow-sm rounded-full text-secondary hover:text-accent-1 transition-colors z-10"
                   >
                     <Heart size={18} />
                   </button>
@@ -103,11 +103,11 @@ export default function RecentlyViewedPage() {
                     <p className="text-xs text-gray-500">{product.brand}</p>
                     <Link 
                       href={`/products/${product.slug}`}
-                      className="block font-medium text-sm text-[#333333] hover:text-pink-600 truncate"
+                      className="block font-medium text-sm text-primary hover:text-accent-1 truncate"
                     >
                       {product.name}
                     </Link>
-                    <p className="text-sm font-semibold text-pink-600">
+                    <p className="text-sm font-semibold text-accent-1">
                       KES {product.price.toLocaleString()}
                     </p>
                   </div>
@@ -115,7 +115,7 @@ export default function RecentlyViewedPage() {
                   <div className="mt-2 pt-2">
                     <button
                       onClick={() => handleAddToCart(product.id)}
-                      className="w-full flex items-center justify-center gap-2 bg-pink-600 text-white py-2 hover:bg-pink-700 transition-colors rounded-[1px]"
+                      className="w-full flex items-center justify-center gap-2 bg-accent-1 text-white py-2 hover:bg-pink-700 transition-colors rounded-[1px]"
                     >
                       <ShoppingCart size={16} />
                       <span className="text-sm">Add to Cart</span>

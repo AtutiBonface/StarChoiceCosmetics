@@ -64,12 +64,12 @@ export default function ReviewsPage() {
 
   return (
     <div className="w-full">
-        <div className="w-full bg-[#A9BA9D]">
+        <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
-            <div className="flex items-center gap-2 text-sm text-[#333333]">
-              <Link href="/" className="hover:text-pink-600">Home</Link>
+            <div className="flex items-center gap-2 text-sm text-secondary">
+              <Link href="/" className="hover:text-accent-1">Home</Link>
               <ChevronRight size={16} />
-              <span className="text-pink-600">Pending Reviews</span>
+              <span className="text-accent-1">Pending Reviews</span>
             </div>
           </div>
         </div>
@@ -82,13 +82,13 @@ export default function ReviewsPage() {
              {/* Reviews List */}
             <div className="space-y-4">
                 {pendingReviews.length === 0 ? (
-                <div className="text-center py-8 border border-[#A9BA9D] rounded-[1px] bg-primary text-gray-500">
+                <div className="text-center py-8 border border-medium rounded-[1px] bg-primary text-gray-500">
                     <p className="text-lg mb-1">No pending reviews</p>
                     <p className="text-sm">Your future purchases will appear here for review</p>
                 </div>
                 ) : (
                 pendingReviews.map((review) => (
-                    <div key={review.id} className="border border-[#A9BA9D] rounded-[1px] bg-primary">
+                    <div key={review.id} className="border border-medium rounded-[1px] bg-primary">
                     {/* Product Info */}
                     <div className="h-24 p-4 relative"> {/* Changed to relative positioning */}
                         <div className="flex items-center gap-4">
@@ -101,7 +101,7 @@ export default function ReviewsPage() {
                             />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <h3 className="font-medium text-[#333333] truncate">{review.productName}</h3>
+                            <h3 className="font-medium text-secondary truncate">{review.productName}</h3>
                             <p className="text-sm text-gray-500 mt-1">
                             Order: {review.orderNumber} | Purchased: {new Date(review.orderDate).toLocaleDateString()}
                             </p>
@@ -111,7 +111,7 @@ export default function ReviewsPage() {
                         {!review.isExpanded && (
                         <button
                             onClick={() => toggleReview(review.id)}
-                            className="absolute top-2 right-2 px-4 py-2 bg-transparent text-pink-600   hover:bg-pink-50 transition-colors text-sm whitespace-nowrap"
+                            className="absolute top-2 right-2 px-4 py-2 bg-transparent text-accent-1   hover:bg-pink-50 transition-colors text-sm whitespace-nowrap"
                         >
                             Write Review
                         </button>
@@ -120,11 +120,11 @@ export default function ReviewsPage() {
 
                         {/* Review Form */}
                     {review.isExpanded && (
-                        <div className="p-4 border-t border-[#A9BA9D] bg-primary">
+                        <div className="p-4 border-t border-medium bg-primary">
                         <div className="space-y-4">
                             {/* Star Rating */}
                             <div>
-                            <label className="block text-sm font-medium text-[#333333] mb-2">
+                            <label className="block text-sm font-medium text-secondary mb-2">
                                 Your Rating
                             </label>
                             <div className="flex gap-1">
@@ -144,14 +144,14 @@ export default function ReviewsPage() {
 
                             {/* Review Text */}
                             <div>
-                            <label className="block text-sm font-medium text-[#333333] mb-2">
+                            <label className="block text-sm font-medium text-secondary mb-2">
                                 Your Review
                             </label>
                             <textarea
                                 value={reviewText}
                                 onChange={(e) => setReviewText(e.target.value)}
                                 rows={4}
-                                className="w-full px-4 py-2 border border-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                                className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                                 placeholder="Share your experience with this product..."
                             />
                             </div>
@@ -160,7 +160,7 @@ export default function ReviewsPage() {
                             {/* Cancel Button */}
                             <button
                                 onClick={() => toggleReview(review.id)}
-                                className="flex-1 bg-transparent text-red-600  py-2 px-4 rounded-[1px] hover:text-pink-600 transition-colors"
+                                className="flex-1 bg-transparent text-red-600  py-2 px-4 rounded-[1px] hover:text-accent-1 transition-colors"
                             >
                                 Cancel
                             </button>
@@ -169,7 +169,7 @@ export default function ReviewsPage() {
                             <button
                                 onClick={() => handleSubmitReview(review.id)}
                                 disabled={!rating || !reviewText.trim()}
-                                className="flex-1 bg-pink-600 text-white py-2 px-4 rounded-[1px] hover:bg-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 bg-accent-1 text-white py-2 px-4 rounded-[1px] hover:bg-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Submit Review
                             </button>

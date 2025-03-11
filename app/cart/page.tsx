@@ -86,12 +86,12 @@ const Cart = () => {
   return (
     <div>
       {/* Breadcrumb Navigation */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Shopping Cart ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</span>
+            <span className="text-accent-1">Shopping Cart ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</span>
           </div>
         </div>
       </div>
@@ -100,12 +100,12 @@ const Cart = () => {
         {cartItems.length === 0 ? (
           <div className="text-center py-12">
             <div className="mb-4">
-              <ShoppingBag className="w-12 h-12 text-pink-600 mx-auto" />
+              <ShoppingBag className="w-12 h-12 text-accent-1 mx-auto" />
             </div>
             <p className="text-[#5C4033] mb-6">Your cart is empty</p>
             <Link 
               href="/"
-              className="inline-block bg-pink-600 text-white px-6 py-3 rounded-[1px] hover:bg-pink-600/90 transition-colors"
+              className="inline-block bg-accent-1 text-white px-6 py-3 rounded-[1px] hover:bg-accent-1/90 transition-colors"
             >
               Continue Shopping
             </Link>
@@ -115,15 +115,15 @@ const Cart = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2">
               {/* Mobile Summary */}
-              <div className="lg:hidden bg-secondary mb-4 p-4 border border-gray-200 rounded-[1px]">
+              <div className="lg:hidden bg-secondary mb-4 p-4 border border-medium rounded-[1px]">
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-sm text-[#333333]">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</p>
-                    <p className="font-bold text-lg text-pink-600">KES {total.toLocaleString()}</p>
+                    <p className="text-sm text-secondary">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</p>
+                    <p className="font-bold text-lg text-accent-1">KES {total.toLocaleString()}</p>
                   </div>
                   <button 
                     onClick={() => router.push("/checkout")}
-                    className="bg-pink-600 text-white py-2 px-4 rounded-[1px] text-sm hover:bg-pink-600/90 transition-colors"
+                    className="bg-accent-1 text-white py-2 px-4 rounded-[1px] text-sm hover:bg-accent-1/90 transition-colors"
                   >
                     Checkout
                   </button>
@@ -136,14 +136,14 @@ const Cart = () => {
               </div>
               
               {/* Cart Items Container */}
-              <div className="bg-primary border border-[#A9BA9D] rounded-[1px] overflow-hidden mb-4">
+              <div className="bg-primary rounded-[1px] overflow-hidden mb-">
 
-                <div className="p-4 border-b border-[#A9BA9D]">
-                  <h2 className="font-bold text-lg text-[#333333]">Shopping Cart</h2>
+                <div className="py-2">
+                  <h2 className="font-bold text-lg text-secondary">Shopping Cart</h2>
                 </div>
-                <div className="divide-y divide-[#A9BA9D]">
+                <div>
                   {cartItems.map((item) => (
-                    <div key={item.id} className="p-4">
+                    <div key={item.id} className="p-4  border border-medium mb-2">
                       {/* Desktop View */}
                       <div className="hidden sm:flex gap-6">
                         {/* Product Image */}
@@ -160,14 +160,14 @@ const Cart = () => {
                         <div className="flex-1 flex flex-col">
                           <div className="flex-1">
                             <Link href={`/products/${item.id}`}>
-                              <h3 className="font-medium text-lg text-[#333333] hover:text-pink-600">{item.name}</h3>
+                              <h3 className="font-medium text-lg text-secondary hover:text-accent-1">{item.name}</h3>
                             </Link>
                             <div className="flex items-center gap-2 mt-1">
                               {renderRating(item.rating)}
                               <span className="text-xs text-gray-500">({item.reviewCount})</span>
                             </div>
                             <div className="flex items-center gap-2 mt-2">
-                              <span className="text-lg font-bold text-pink-600">
+                              <span className="text-lg font-bold text-accent-1">
                                 KES {item.price.toLocaleString()}
                               </span>
                               {item.oldPrice && (
@@ -182,7 +182,7 @@ const Cart = () => {
 
                           {/* Quantity and Remove Controls */}
                           <div className="flex flex-wrap items-center justify-between gap-4 mt-4">
-                            <div className="flex items-center border border-gray-200 rounded overflow-hidden">
+                            <div className="flex items-center border border-medium rounded overflow-hidden">
                               <button
                                 onClick={() => updateQuantity(item.id, -1)}
                                 className="p-2 hover:bg-gray-100 transition-colors"
@@ -232,11 +232,11 @@ const Cart = () => {
                           {/* Product Details */}
                           <div className="flex-1">
                             <Link href={`/products/${item.id}`}>
-                              <h3 className="font-medium text-sm text-[#333333] hover:text-pink-600 line-clamp-2">{item.name}</h3>
+                              <h3 className="font-medium text-sm text-secondary hover:text-accent-1 line-clamp-2">{item.name}</h3>
                             </Link>
                             
                             <div className="flex items-center gap-2 mt-1">
-                              <span className="text-base font-bold text-pink-600">
+                              <span className="text-base font-bold text-accent-1">
                                 KES {item.price.toLocaleString()}
                               </span>
                               {item.oldPrice && (
@@ -269,7 +269,7 @@ const Cart = () => {
                                 const change = newQty - item.quantity;
                                 updateQuantity(item.id, change);
                               }}
-                              className="border border-[#A9BA9D] rounded-[1px] text-sm p-1"
+                              className="border border-medium rounded-[1px] text-sm p-1"
                             >
                               {[...Array(10)].map((_, i) => (
                                 <option key={i} value={i+1}>{i+1}</option>
@@ -280,12 +280,12 @@ const Cart = () => {
                           <div className="flex items-center gap-3">
                             <button
                               onClick={() => removeItem(item.id)}
-                              className="text-red-600 text-xs hover:text-pink-600"
+                              className="text-red-600 text-xs hover:text-accent-1"
                             >
                               Delete
                             </button>
                             <span className="text-gray-300">|</span>
-                            <button className="text-gray-700 text-xs hover:text-pink-600">
+                            <button className="text-gray-700 text-xs hover:text-accent-1">
                               Save for later
                             </button>
                           </div>
@@ -295,10 +295,10 @@ const Cart = () => {
                   ))}
                 </div>
                 
-                <div className="p-4 border-t border-[#A9BA9D] text-right">
-                  <div className="font-bold text-lg text-[#333333]">
+                <div className="p-4 border-t border-medium text-right">
+                  <div className="font-bold text-lg text-secondary">
                     Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items): 
-                    <span className="text-pink-600 ml-2">KES {subtotal.toLocaleString()}</span>
+                    <span className="text-accent-1 ml-2">KES {subtotal.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -307,7 +307,7 @@ const Cart = () => {
               <div className="lg:hidden mb-24">
                 <Link
                   href="/"
-                  className="bg-secondary flex justify-center items-center text-sm text-[#333333] hover:text-pink-600 py-3  rounded-[1px] w-full"
+                  className="bg-secondary flex justify-center items-center text-sm text-secondary hover:text-accent-1 py-3  rounded-[1px] w-full"
                 >
                   <ChevronRight size={16} className="mr-1" /> Continue Shopping
                 </Link>
@@ -315,21 +315,21 @@ const Cart = () => {
             </div>
 
             {/* Order Summary - Desktop */}
-            <div className="hidden lg:block bg-secondary p-6 rounded-[1px] shadow-sm border border-gray-200 h-fit sticky top-4">
-              <h2 className="text-xl font-bold text-[#333333] mb-6">Order Summary</h2>
+            <div className="hidden lg:block bg-secondary p-6 rounded-[1px] shadow-sm border border-medium h-fit sticky top-4">
+              <h2 className="text-xl font-bold text-secondary mb-6">Order Summary</h2>
               <div className="space-y-4 text-sm">
                 <div className="flex justify-between pb-2">
-                  <span className="text-[#333333]">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
-                  <span className="font-medium text-[#333333]">KES {subtotal.toLocaleString()}</span>
+                  <span className="text-secondary">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
+                  <span className="font-medium text-secondary">KES {subtotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between pb-2">
-                  <span className="text-[#333333]">Shipping</span>
-                  <span className="font-medium text-[#333333]">
+                  <span className="text-secondary">Shipping</span>
+                  <span className="font-medium text-secondary">
                     {shipping === 0 ? 'Free' : `KES ${shipping.toLocaleString()}`}
                   </span>
                 </div>
-                <div className="border-t border-gray-200 pt-4 mt-2">
-                  <div className="flex justify-between font-bold text-lg text-[#333333]">
+                <div className="border-t border-medium pt-4 mt-2">
+                  <div className="flex justify-between font-bold text-lg text-secondary">
                     <span>Total</span>
                     <span>KES {total.toLocaleString()}</span>
                   </div>
@@ -344,24 +344,24 @@ const Cart = () => {
               
               <button 
                 onClick={() => router.push("/checkout")} 
-                className="w-full bg-pink-600 text-white py-3 rounded-[1px] mt-6 hover:bg-pink-600/90 transition-colors font-medium"
+                className="w-full bg-accent-1 text-white py-3 rounded-[1px] mt-6 hover:bg-accent-1/90 transition-colors font-medium"
               >
                 Proceed to Checkout
               </button>
               
               <Link
                 href="/"
-                className="flex justify-center items-center text-sm text-[#333333] hover:text-pink-600 mt-4 py-2"
+                className="flex justify-center items-center text-sm text-secondary hover:text-accent-1 mt-4 py-2"
               >
                 <ChevronRight size={16} className="mr-1" /> Continue Shopping
               </Link>
             </div>
 
             {/* Fixed Checkout Bar on Mobile - Appears when scrolling */}
-            <div className="lg:hidden fixed bottom-16 sm:bottom-0 bg-primary left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-20">
+            <div className="lg:hidden fixed bottom-16 sm:bottom-0 bg-primary left-0 right-0 bg-white border-t border-medium p-4 shadow-lg z-20">
               <button 
                 onClick={() => router.push("/checkout")} 
-                className="w-full bg-pink-600 text-white py-3 rounded-[1px] hover:bg-pink-600/90 transition-colors font-medium flex items-center justify-center gap-2"
+                className="w-full bg-accent-1 text-white py-3 rounded-[1px] hover:bg-accent-1/90 transition-colors font-medium flex items-center justify-center gap-2"
               >
                 Proceed to Checkout • KES {total.toLocaleString()}
               </button>

@@ -37,14 +37,14 @@ const TopBrands = () => {
   }
 
   return (
-    <section className="bg-[#A9BA9D] py-12 w-full">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="product-title relative flex justify-center items-center mb-8 mx-2">
-          <h2 className="text-3xl font-bold text-[#333333] bg-[#A9BA9D] px-3 z-10">
+    <section className="bg-secondary py-6 w-full">
+      <div className="max-w-6xl mx-auto px-2">
+        <div className="product-title relative flex justify-center items-center mb-6">
+          <h2 className="text-3xl font-bold text-primary bg-secondary px-3 z-10">
             Our Top Brands
           </h2>
          
-          <div className="absolute top-1/2 left-0 w-full h-px bg-gray-100 -z-0  "></div>
+          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-100 -z-0 p-0 "></div>
         </div>
 
         {/* Selected Brand Showcase */}
@@ -54,10 +54,10 @@ const TopBrands = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 0.95 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="relative bg-white rounded-md shadow-2xl p-6 mb-10 max-w-3xl mx-auto"
+              className="relative bg-primary rounded-md shadow-2xl p-6 mb-10 max-w-3xl mx-auto"
             >
               <button 
-                className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
+                className="absolute right-4 top-4 text-secondary hover:text-primary"
                 onClick={() => setSelectedBrand(null)}
               >
                 <X size={24} />
@@ -72,11 +72,11 @@ const TopBrands = () => {
                   />
                 </div>
                 <div className="md:ml-8 text-center md:text-left">
-                  <h3 className="text-2xl font-bold text-[#333333]">{selectedBrand.name}</h3>
-                  <p className="mt-2 text-gray-600">{selectedBrand.description}</p>
+                  <h3 className="text-2xl font-bold text-primary">{selectedBrand.name}</h3>
+                  <p className="mt-2 text-secondary">{selectedBrand.description}</p>
                   <button 
                     onClick={() => handleGoShopping(selectedBrand.name)}
-                    className="mt-4 bg-pink-600 text-white px-6 py-2 rounded-[1px] hover:bg-pink-700 transition-colors"
+                    className="mt-4 bg-accent-1 text-contrast px-6 py-2 rounded-[1px] hover:bg-accent-1/90 transition-colors"
                   >
                     Go Shopping
                   </button>
@@ -89,9 +89,9 @@ const TopBrands = () => {
         {/* Brand Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
           {visibleBrands.map((brand) => (
-              <div key={brand.id} onClick={() => setSelectedBrand(brand)} className="bg-white p-4 rounded-md shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative">
-                <div className="absolute -right-12 -top-12 w-24 h-24 bg-pink-600/10 rounded-full group-hover:bg-pink-600/20 transition-all duration-300"></div>
-                <div className="absolute -left-12 -bottom-12 w-24 h-24 bg-[#A9BA9D]/10 rounded-full group-hover:bg-[#A9BA9D]/20 transition-all duration-300"></div>
+              <div key={brand.id} onClick={() => setSelectedBrand(brand)} className="bg-primary p-4 rounded-md shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative">
+                <div className="absolute -right-12 -top-12 w-24 h-24 bg-accent-light rounded-full group-hover:bg-accent-1/20 transition-all duration-300"></div>
+                <div className="absolute -left-12 -bottom-12 w-24 h-24 bg-secondary rounded-full group-hover:bg-secondary/20 transition-all duration-300"></div>
                 
                 <div className="relative h-28 md:h-36 flex items-center justify-center">
                   <Image
@@ -101,9 +101,9 @@ const TopBrands = () => {
                     className="object-contain p-3"
                   />
                 </div>
-                <h3 className="text-center font-medium text-[#333333] mt-3 truncate">{brand.name}</h3>
+                <h3 className="text-center font-medium text-primary mt-3 truncate">{brand.name}</h3>
                 <div className="h-0 overflow-hidden group-hover:h-auto transition-all duration-300">
-                  <button className="mx-auto mt-3 bg-pink-600 text-white text-sm px-4 py-1 block rounded-[1px] hover:bg-pink-700 transition-colors">
+                  <button className="mx-auto mt-3 bg-accent-1 text-contrast text-sm px-4 py-1 block rounded-[1px] hover:bg-accent-1/90 transition-colors">
                     View
                   </button>
                 </div>
@@ -121,7 +121,7 @@ const TopBrands = () => {
           >
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-2 px-6 py-2 bg-pink-600 text-white rounded-[1px] hover:bg-pink-700 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-2 bg-accent-1 text-contrast rounded-[1px] hover:bg-accent-1/90 transition-colors"
             >
               {isExpanded ? (
                 <>

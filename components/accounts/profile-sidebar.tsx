@@ -44,7 +44,7 @@ const ProfileSidebar = () => {
         <div className="md:hidden">
           <div className="flex flex-col p-4 bg-secondary border-b border-[#A9BA9D]">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-lg font-medium text-[#333333]">Welcome  {userData.name}</h2>
+              <h2 className="text-lg font-medium text-secondary">Welcome  {userData.name}</h2>
             </div>
             <p className="text-sm text-gray-500">{userData.email}</p>
           </div>
@@ -64,7 +64,7 @@ const ProfileSidebar = () => {
                   flex items-center justify-between w-full p-3 rounded-[1px] transition-colors
                   ${isActive 
                     ? 'bg-secondary text-pink-600' 
-                    : 'text-[#333333] hover:bg-gray-50'
+                    : 'text-secondary hover:bg-gray-50'
                   }
                   ${isStatic ? 'cursor-default' : 'cursor-pointer'}
                 `}

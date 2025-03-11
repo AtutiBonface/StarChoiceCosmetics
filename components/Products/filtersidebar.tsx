@@ -65,8 +65,8 @@ const FilterSidebar = ({
     `}>
       <div className="flex flex-col h-full max-w-md mx-auto lg:max-w-none">
         {/* Header */}
-        <div className="p-4 border-b border-[#A9BA9D] flex justify-between items-center bg-primary">
-          <h2 className="font-bold text-lg text-[#333333]">Filter Products</h2>
+        <div className="p-4 border-b border-medium flex justify-between items-center bg-primary">
+          <h2 className="font-bold text-lg text-secondary">Filter Products</h2>
           <button
             onClick={onClose}
             className="lg:hidden p-2 hover:text-pink-600 transition-colors"
@@ -80,7 +80,7 @@ const FilterSidebar = ({
         <div className="p-4 overflow-y-auto flex-1">
           <div className="space-y-4">
             {/* Brand Filter */}
-            <div className="border-b border-gray-200 pb-4">
+            <div className="border-b border-medium pb-4">
               <button 
                 onClick={() => toggleSection('brands')} 
                 className="w-full flex justify-between items-center font-medium py-1"

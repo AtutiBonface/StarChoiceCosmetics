@@ -69,17 +69,17 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-primary pt-2">
-      <div className="max-w-7xl mx-auto px-4 pb-16">
+      <div className="max-w-7xl mx-auto px-2 pb-16">
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left Column - Order Details */}
           <div className="space-y-8">
             {/* Delivery Details */}
-            <div className="bg-primary p-6 rounded-[1px] border border-[#A9BA9D]">
+            <div className="bg-primary p-6 rounded-[1px] border border-medium">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold text-[#333333]">Delivery Details</h2>
+                <h2 className="text-lg font-bold text-secondary">Delivery Details</h2>
                 <Link
                   href="/customer/address"
-                  className="text-sm text-pink-600 hover:text-pink-700 flex items-center gap-2"
+                  className="text-sm text-accent-1 hover:text-pink-700 flex items-center gap-2"
                 >
                   <Edit2 className="w-4 h-4" />
                   Change Address
@@ -96,8 +96,8 @@ export default function CheckoutPage() {
                       className={`
                         flex items-center justify-between p-4 rounded-[1px] border cursor-pointer
                         ${deliveryMethod === method.id 
-                            ?'border-pink-600 bg-pink-100' 
-                            :'border-[#A9BA9D] hover:bg-pink-100'
+                            ?'border-accent-1  bg-secondary' 
+                            :'border-medium hover:bg-secondary'
                         }
                       `}
                     >
@@ -108,17 +108,17 @@ export default function CheckoutPage() {
                           value={method.id}
                           checked={deliveryMethod === method.id}
                           onChange={(e) => handleDeliveryMethodChange(e.target.value as DeliveryMethod)}
-                          className="text-pink-600 focus:ring-pink-600"
+                          className="text-accent-1 focus:ring-pink-600"
                         />
                         <div className="flex items-center gap-3">
-                          <Icon className="w-5 h-5 text-[#333333]" />
+                          <Icon className="w-5 h-5 text-secondary" />
                           <div>
-                            <p className="font-medium text-[#333333]">{method.name}</p>
+                            <p className="font-medium text-secondary">{method.name}</p>
                             <p className="text-sm text-gray-500">{method.description}</p>
                           </div>
                         </div>
                       </div>
-                      <span className="font-medium text-[#333333]">
+                      <span className="font-medium text-secondary">
                         {method.price === 0 ? 'FREE' : `KES ${method.price.toLocaleString()}`}
                       </span>
                     </label>
@@ -128,14 +128,14 @@ export default function CheckoutPage() {
 
               {/* Delivery Address - Show only for courier delivery */}
               {deliveryMethod === 'courier' && (
-                <div className="mt-6 pt-6 border-t border-[#A9BA9D]">
+                <div className="mt-6 pt-6 border-t border-medium">
                   <div className="flex items-start gap-3 mb-4">
                     <div className="w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-4 h-4 text-pink-600" />
+                      <MapPin className="w-4 h-4 text-accent-1" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-[#333333] mb-1">Delivery Address</h3>
-                      <p className="text-sm text-[#333333]">{userAddress.name}</p>
+                      <h3 className="font-medium text-secondary mb-1">Delivery Address</h3>
+                      <p className="text-sm text-secondary">{userAddress.name}</p>
                       <p className="text-sm text-gray-500">{userAddress.phone}</p>
                       <p className="text-sm text-gray-500">{userAddress.address}</p>
                       <p className="text-sm text-gray-500">{userAddress.city}</p>
@@ -146,14 +146,14 @@ export default function CheckoutPage() {
 
               {/* Store Address - Show only for store collection */}
               {deliveryMethod === 'store' && (
-                <div className="mt-6 pt-6 border-t border-[#A9BA9D]">
+                <div className="mt-6 pt-6 border-t border-medium">
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center flex-shrink-0">
-                      <Store className="w-4 h-4 text-pink-600" />
+                      <Store className="w-4 h-4 text-accent-1" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-[#333333] mb-1">Collection Point</h3>
-                      <p className="text-sm text-[#333333]">Star Choice Cosmetics</p>
+                      <h3 className="font-medium text-secondary mb-1">Collection Point</h3>
+                      <p className="text-sm text-secondary">Star Choice Cosmetics</p>
                       <p className="text-sm text-gray-500">Karen Shopping Center</p>
                       <p className="text-sm text-gray-500">Nairobi, Kenya</p>
                       <p className="text-sm text-gray-500">Mon-Sat: 9AM-6PM</p>
@@ -164,8 +164,8 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-primary p-6 rounded-[1px] border border-[#A9BA9D]">
-              <h2 className="text-lg font-bold text-[#333333] mb-4">Payment Method</h2>
+            <div className="bg-primary p-6 rounded-[1px] border border-medium">
+              <h2 className="text-lg font-bold text-secondary mb-4">Payment Method</h2>
               <div className="space-y-4">
                 {/* Pay at Store - Show first when store collection is selected */}
                 {deliveryMethod === 'store' && (
@@ -173,8 +173,8 @@ export default function CheckoutPage() {
                     className={`
                       flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
                       ${paymentMethod === 'pay_at_store' 
-                        ? 'border-pink-600 bg-pink-100' 
-                        : 'border-[#A9BA9D] hover:bg-pink-100'
+                        ? 'border-accent-1  bg-secondary' 
+                        : 'border-medium hover:bg-secondary'
                       }
                     `}
                   >
@@ -184,12 +184,12 @@ export default function CheckoutPage() {
                       value="pay_at_store"
                       checked={paymentMethod === 'pay_at_store'}
                       onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                      className="text-pink-600 focus:ring-pink-600"
+                      className="text-accent-1 focus:ring-pink-600"
                     />
                     <div className="flex items-center gap-3">
-                      <Store className="w-5 h-5 text-[#333333]" />
+                      <Store className="w-5 h-5 text-secondary" />
                       <div>
-                        <span className="font-medium text-[#333333]">Pay at Store</span>
+                        <span className="font-medium text-secondary">Pay at Store</span>
                         <p className="text-sm text-gray-500">Pay when you collect your order</p>
                       </div>
                     </div>
@@ -202,8 +202,8 @@ export default function CheckoutPage() {
                     className={`
                       flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
                       ${paymentMethod === 'pay_on_delivery' 
-                        ? 'border-pink-600 bg-pink-100' 
-                        : 'border-[#A9BA9D] hover:bg-pink-100'
+                        ? 'border-accent-1  bg-secondary' 
+                        : 'border-medium hover:bg-secondary'
                       }
                     `}
                   >
@@ -213,12 +213,12 @@ export default function CheckoutPage() {
                       value="pay_on_delivery"
                       checked={paymentMethod === 'pay_on_delivery'}
                       onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                      className="text-pink-600 focus:ring-pink-600"
+                      className="text-accent-1 focus:ring-pink-600"
                     />
                     <div className="flex items-center gap-3">
-                      <Truck className="w-5 h-5 text-[#333333]" />
+                      <Truck className="w-5 h-5 text-secondary" />
                       <div>
-                        <span className="font-medium text-[#333333]">Pay on Delivery</span>
+                        <span className="font-medium text-secondary">Pay on Delivery</span>
                         <p className="text-sm text-gray-500">Cash or card payment to courier</p>
                       </div>
                     </div>
@@ -230,8 +230,8 @@ export default function CheckoutPage() {
                   className={`
                     flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
                     ${paymentMethod === 'mpesa' 
-                      ? 'border-pink-600 bg-pink-100' 
-                      : 'border-[#A9BA9D] hover:bg-pink-100'
+                      ? 'border-accent-1  bg-secondary' 
+                      : 'border-medium hover:bg-secondary'
                     }
                   `}
                 >
@@ -241,11 +241,11 @@ export default function CheckoutPage() {
                     value="mpesa"
                     checked={paymentMethod === 'mpesa'}
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                    className="text-pink-600 focus:ring-pink-600"
+                    className="text-accent-1 focus:ring-pink-600"
                   />
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-green-600" />
-                    <span className="font-medium text-[#333333]">M-PESA</span>
+                    <span className="font-medium text-secondary">M-PESA</span>
                   </div>
                 </label>
 
@@ -254,8 +254,8 @@ export default function CheckoutPage() {
                   className={`
                     flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
                     ${paymentMethod === 'card' 
-                      ? 'border-pink-600 bg-pink-100' 
-                      : 'border-[#A9BA9D] hover:bg-pink-100'
+                      ? 'border-accent-1  bg-secondary' 
+                      : 'border-medium hover:bg-secondary'
                     }
                   `}
                 >
@@ -265,11 +265,11 @@ export default function CheckoutPage() {
                     value="card"
                     checked={paymentMethod === 'card'}
                     onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                    className="text-pink-600 focus:ring-pink-600"
+                    className="text-accent-1 focus:ring-pink-600"
                   />
                   <div className="flex items-center gap-3">
-                    <CreditCard className="w-5 h-5 text-[#333333]" />
-                    <span className="font-medium text-[#333333]">Credit/Debit Card</span>
+                    <CreditCard className="w-5 h-5 text-secondary" />
+                    <span className="font-medium text-secondary">Credit/Debit Card</span>
                   </div>
                 </label>
               </div>
@@ -277,8 +277,8 @@ export default function CheckoutPage() {
           </div>
 
           {/* Right Column - Order Summary */}
-          <div className="bg-secondary p-6 rounded-[1px] border border-[#A9BA9D] h-fit">
-            <h2 className="text-lg font-bold text-[#333333] mb-4">Order Summary</h2>
+          <div className="bg-secondary p-6 rounded-[1px] border border-medium h-fit">
+            <h2 className="text-lg font-bold text-secondary mb-4">Order Summary</h2>
             
             {/* Cart Items */}
             <div className="space-y-4 mb-6">
@@ -293,9 +293,9 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-sm font-medium text-[#333333]">{item.name}</h3>
+                    <h3 className="text-sm font-medium text-secondary">{item.name}</h3>
                     <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
-                    <p className="text-sm font-medium text-pink-600">
+                    <p className="text-sm font-medium text-accent-1">
                       KES {item.price.toLocaleString()}
                     </p>
                   </div>
@@ -304,24 +304,24 @@ export default function CheckoutPage() {
             </div>
 
             {/* Order Totals */}
-            <div className="space-y-3 py-4 border-y border-[#A9BA9D]">
+            <div className="space-y-3 py-4 border-y border-medium">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Subtotal</span>
-                <span className="text-[#333333]">KES {subtotal.toLocaleString()}</span>
+                <span className="text-secondary">KES {subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Delivery Fee</span>
-                <span className="text-[#333333]">KES {deliveryFee.toLocaleString()}</span>
+                <span className="text-secondary">KES {deliveryFee.toLocaleString()}</span>
               </div>
               <div className="flex justify-between font-medium">
-                <span className="text-[#333333]">Total</span>
-                <span className="text-pink-600">KES {total.toLocaleString()}</span>
+                <span className="text-secondary">Total</span>
+                <span className="text-accent-1">KES {total.toLocaleString()}</span>
               </div>
             </div>
 
             {/* Checkout Button */}
             <button
-              className="w-full mt-6 px-6 py-3 bg-pink-600 text-white font-medium rounded-[1px] hover:bg-pink-600/90 transition-colors flex items-center justify-center gap-2"
+              className="w-full mt-6 px-6 py-3 bg-accent-1 text-white font-medium rounded-[1px] hover:bg-pink-600/90 transition-colors flex items-center justify-center gap-2"
             >
               Place Order
               <ChevronRight className="w-4 h-4" />

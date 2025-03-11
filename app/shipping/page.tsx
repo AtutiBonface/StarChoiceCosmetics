@@ -1,29 +1,22 @@
 'use client'
 
-import { ChevronRight, Truck, Clock, MapPin, Info } from 'lucide-react'
+import { ChevronRight,  Info } from 'lucide-react'
 import Link from 'next/link'
 
 const shippingMethods = [
   {
-    name: "Standard Delivery",
-    time: "2-5 business days",
-    cost: "KES 250",
-    description: "Available for all locations within Kenya",
-    icon: Truck
+    name: 'Standard Shipping',
+    description: 'Delivered within 5-7 business days',
+    time: '5-7 days',
+    cost: 'KES 500',
+    icon: ChevronRight
   },
   {
-    name: "Express Delivery",
-    time: "Next business day",
-    cost: "KES 450",
-    description: "Available in Nairobi and major towns",
-    icon: Clock
-  },
-  {
-    name: "Store Pickup",
-    time: "Same day",
-    cost: "Free",
-    description: "Available at our Nairobi store locations",
-    icon: MapPin
+    name: 'Express Shipping',
+    description: 'Delivered within 2-3 business days',
+    time: '2-3 days',
+    cost: 'KES 1000',
+    icon: ChevronRight
   }
 ]
 
@@ -44,21 +37,21 @@ const deliveryInfo = [
 
 export default function ShippingPage() {
   return (
-    <div>
+    <div className="bg-primary text-primary">
       {/* Breadcrumb */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Shipping Information</span>
+            <span className="text-accent-1">Shipping Information</span>
           </div>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-4">
         {/* Title */}
-        <h1 className="text-3xl font-bold text-[#333333] mb-8">
+        <h1 className="text-3xl font-bold text-primary mb-8">
           Shipping Information
         </h1>
 
@@ -69,21 +62,21 @@ export default function ShippingPage() {
             return (
               <div 
                 key={index}
-                className="border border-[#A9BA9D] rounded-[1px] p-6 bg-secondary"
+                className="border border-medium rounded-[1px] p-6 bg-secondary"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-pink-50 rounded-full">
-                    <Icon className="w-5 h-5 text-pink-600" />
+                  <div className="p-2 bg-accent-1 rounded-full">
+                    <Icon className="w-5 h-5 text-contrast" />
                   </div>
-                  <h3 className="font-semibold text-[#333333]">{method.name}</h3>
+                  <h3 className="font-semibold text-primary">{method.name}</h3>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-gray-600">{method.description}</p>
-                  <p className="font-medium text-[#333333]">
-                    Delivery Time: <span className="text-gray-600">{method.time}</span>
+                  <p className="text-secondary">{method.description}</p>
+                  <p className="font-medium text-primary">
+                    Delivery Time: <span className="text-secondary">{method.time}</span>
                   </p>
-                  <p className="font-medium text-[#333333]">
-                    Cost: <span className="text-pink-600">{method.cost}</span>
+                  <p className="font-medium text-primary">
+                    Cost: <span className="text-accent-1">{method.cost}</span>
                   </p>
                 </div>
               </div>
@@ -96,27 +89,27 @@ export default function ShippingPage() {
           {deliveryInfo.map((info, index) => (
             <div 
               key={index}
-              className="border border-[#A9BA9D] rounded-[1px] p-6 bg-secondary"
+              className="border border-medium rounded-[1px] p-6 bg-secondary"
             >
-              <h3 className="font-semibold text-[#333333] mb-2">{info.title}</h3>
-              <p className="text-gray-600">{info.content}</p>
+              <h3 className="font-semibold text-primary mb-2">{info.title}</h3>
+              <p className="text-secondary">{info.content}</p>
             </div>
           ))}
         </div>
 
         {/* Important Notice */}
-        <div className="mt-12 bg-pink-50 border border-pink-100 rounded-[1px] p-6">
+        <div className="mt-12 bg-accent-1/10 border border-medium rounded-[1px] p-6">
           <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-pink-600 mt-1" />
+            <Info className="w-5 h-5 text-accent-1 mt-1" />
             <div>
-              <h3 className="font-semibold text-[#333333] mb-2">Important Notice</h3>
-              <p className="text-gray-600">
+              <h3 className="font-semibold text-primary mb-2">Important Notice</h3>
+              <p className="text-secondary">
                 Delivery times may vary during peak seasons and holidays. For urgent 
                 deliveries or special arrangements, please contact our customer service team.
               </p>
               <Link 
                 href="/contact"
-                className="inline-block mt-4 text-pink-600 hover:text-pink-700"
+                className="inline-block mt-4 text-accent-1 hover:text-accent-2"
               >
                 Contact Customer Service
               </Link>

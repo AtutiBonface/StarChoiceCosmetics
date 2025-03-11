@@ -80,7 +80,7 @@ const ProductPreview = () => {
   }
 
   return (
-    <div className='mb-18 md:mb-0' > {/* margin bottom for mobile sticky actions */}
+    <div className="bg-primary text-primary mb-18 md:mb-0"> {/* margin bottom for mobile sticky actions */}
       <Toast
         message={toastMessage}
         type={toastType}
@@ -89,7 +89,7 @@ const ProductPreview = () => {
       />
       
       {/* Sticky Mobile Actions */}
-      <div className="fixed h-18 bottom-0 left-0 right-0 bg-primary border-t border-[#A9BA9D] p-2 md:hidden z-50">
+      <div className="fixed h-18 bottom-0 left-0 right-0 bg-primary border-t border-medium p-2 md:hidden z-50">
         <div className="flex items-center gap-4">
           <div className="flex items-center border border-gray-200 rounded-[1px]">
             <button
@@ -119,9 +119,9 @@ const ProductPreview = () => {
       {/* Main Content */}
       <div className="w-full pb-2  md:pb-0"> 
         {/* Breadcrumb */}
-        <div className="w-full bg-[#A9BA9D]">
+        <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
-            <div className="flex items-center gap-2 text-sm text-[#333333]">
+            <div className="flex items-center gap-2 text-sm text-secondary">
               <Link href="/" className="hover:text-pink-600">Home</Link>
               <ChevronRight size={16} />
               <Link href={`/search?category=${encodeURIComponent("skincare")}`} className="hover:text-pink-600">Skincare</Link>
@@ -172,7 +172,7 @@ const ProductPreview = () => {
 
             {/* Product Info */}
             <div className="space-y-6">
-              <h1 className="text-2xl font-bold text-[#333333]">{product.name}</h1>
+              <h1 className="text-2xl font-bold text-secondary">{product.name}</h1>
 
               {/* Price */}
               <div className="flex items-center gap-4">
@@ -188,7 +188,7 @@ const ProductPreview = () => {
 
               {/* Quantity Selector */}
               <div className="flex items-center gap-4">
-                <span className="text-sm font-medium text-[#333333]">Quantity:</span>
+                <span className="text-sm font-medium text-secondary">Quantity:</span>
                 <div className="flex items-center border border-gray-200 rounded-[1px]">
                   <button
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
@@ -228,7 +228,7 @@ const ProductPreview = () => {
               </div>
 
               {/* Stock Status */}
-              <p className="text-sm text-[#333333]">
+              <p className="text-sm text-secondary">
                 <span className="font-medium">Availability:</span>{' '}
                 {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
               </p>
@@ -238,13 +238,13 @@ const ProductPreview = () => {
           {/* Centered Tabs */}
           <div className="mt-8 w-screen relative left-1/2 right-1/2 -mx-[50vw] bg-secondary">
             <div className="max-w-7xl mx-auto px-4">
-              <div className="flex justify-center border-b border-[#A9BA9D]">
+              <div className="flex justify-center border-b border-medium">
                 <button
                   onClick={() => setActiveTab('info')}
                   className={`py-3 px-6 text-sm font-medium border-b-2 -mb-[2px] transition-colors ${
                     activeTab === 'info'
                       ? 'border-pink-600 text-pink-600'
-                      : 'border-transparent text-[#333333] hover:text-pink-600'
+                      : 'border-transparent text-secondary hover:text-pink-600'
                   }`}
                 >
                   Product Info
@@ -254,7 +254,7 @@ const ProductPreview = () => {
                   className={`py-3 px-6 text-sm font-medium border-b-2 -mb-[2px] transition-colors ${
                     activeTab === 'reviews'
                       ? 'border-pink-600 text-pink-600'
-                      : 'border-transparent text-[#333333] hover:text-pink-600'
+                      : 'border-transparent text-secondary hover:text-pink-600'
                   }`}
                 >
                   Reviews ({reviews.length})
@@ -267,28 +267,28 @@ const ProductPreview = () => {
                   {activeTab === 'info' && (
                     <div className="space-y-2">
                       <div>
-                        <h2 className="text-xl font-bold text-[#333333] sticky top-0 bg-secondary py-2 ">
+                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2 ">
                           Product Details
                         </h2>
-                        <p className="text-sm text-[#333333] whitespace-pre-line leading-relaxed">
+                        <p className="text-sm text-secondary whitespace-pre-line leading-relaxed">
                           {productInfo.details}
                         </p>
                       </div>
 
                       <div>
-                        <h2 className="text-xl font-bold text-[#333333] sticky top-0 bg-secondary py-2 mb-3">
+                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2 mb-3">
                           Ingredients
                         </h2>
-                        <p className="text-sm text-[#333333] leading-relaxed">
+                        <p className="text-sm text-secondary leading-relaxed">
                           {productInfo.ingredients}
                         </p>
                       </div>
 
                       <div>
-                        <h2 className="text-xl font-bold text-[#333333] sticky top-0 bg-secondary py-2 mb-3">
+                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2 mb-3">
                           How to Use
                         </h2>
-                        <p className="text-sm text-[#333333] leading-relaxed">
+                        <p className="text-sm text-secondary leading-relaxed">
                           {productInfo.howToUse}
                         </p>
                       </div>
@@ -305,12 +305,12 @@ const ProductPreview = () => {
                         reviews.map(review => (
                           <div 
                             key={review.id} 
-                            className="bg-white p-4 rounded-[1px] border border-[#A9BA9D] hover:border-pink-600/20 transition-colors"
+                            className="bg-primary p-4 rounded-[1px] border border-medium hover:border-pink-600/20 transition-colors"
                           >
                             <div className="flex items-start justify-between gap-4">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2">
-                                  <h3 className="font-medium text-[#333333]">{review.user}</h3>
+                                  <h3 className="font-medium text-secondary">{review.user}</h3>
                                   <span className="text-xs text-gray-500">
                                     {new Date(review.date).toLocaleDateString('en-US', {
                                       year: 'numeric',
@@ -332,7 +332,7 @@ const ProductPreview = () => {
                                     />
                                   ))}
                                 </div>
-                                <p className="text-sm text-[#333333] leading-relaxed">
+                                <p className="text-sm text-secondary leading-relaxed">
                                   {review.comment}
                                 </p>
                               </div>

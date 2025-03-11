@@ -64,7 +64,7 @@ const PromotionSlider = () => {
               onClick={() => setCurrentSlide(index)}
               className={`w-3 h-3 rounded-full transition-all ${
                 currentSlide === index 
-                  ? 'bg-pink-600 scale-110' 
+                  ? 'bg-accent-1 scale-110' 
                   : 'bg-white/50 hover:bg-white/70'
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -75,14 +75,14 @@ const PromotionSlider = () => {
         {/* Navigation arrows */}
         <div className="max-w-7xl mx-auto w-full h-full relative">
           <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-pink-600 hover:bg-[#A9BA9D] text-white p-2 rounded-[4px] hidden md:block z-10"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-accent-1 hover:bg-accent-2 text-contrast p-2 rounded-[4px] hidden md:block z-10"
             onClick={() => setCurrentSlide(prev => (prev === 0 ? promotions.length - 1 : prev - 1))}
             aria-label="Previous slide"
           >
             ←
           </button>
           <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-pink-600 hover:bg-[#A9BA9D] text-white p-2 rounded-[4px] hidden md:block z-10"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-accent-1 hover:bg-accent-2 text-contrast p-2 rounded-[4px] hidden md:block z-10"
             onClick={() => setCurrentSlide(prev => (prev === promotions.length - 1 ? 0 : prev + 1))}
             aria-label="Next slide"
           >

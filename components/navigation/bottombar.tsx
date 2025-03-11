@@ -1,5 +1,5 @@
 'use client'
-import {  Heart, House,  Menu,  ShoppingCart, User } from 'lucide-react'
+import { Heart, House, Menu, ShoppingCart, User } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -14,16 +14,13 @@ const BottomBar = () => {
     { icon: Menu, href: '/menu', label: 'menu' }
   ]
 
-  const isActive = (href : string) => {
-    // For root path, only match exactly
+  const isActive = (href: string) => {
     if (href === '/') {
       return pathname === '/'
     }
-    
-    // For customer paths, we want any path starting with /customer/ to be active
     if (href.startsWith('/customer/')) {
       return pathname.startsWith('/customer/')
-    }    
+    }
     return pathname === href || pathname.startsWith(href + '/')
   }
 
@@ -34,7 +31,7 @@ const BottomBar = () => {
   }
 
   return (
-    <div className="md:hidden h-16 fixed bottom-0 left-0 w-full bg-primary text-gray-800 border-t border-[#A9BA9D] px-2 flex justify-between items-center z-50">
+    <div className="md:hidden h-16 fixed bottom-0 left-0 w-full bg-primary text-secondary border-t border-medium px-2 flex justify-between items-center z-50">
       {navItems.map((item) => {
         const Icon = item.icon
         const active = isActive(item.href)
@@ -45,10 +42,10 @@ const BottomBar = () => {
             href={item.href}
             className="cursor-pointer h-full w-[60px] relative flex items-center justify-center"
           >
-            <Icon className={active ? 'text-pink-600' : 'text-[#333333]'} />
+            <Icon className={active ? 'text-accent-1' : 'text-primary'} />
             <div 
               className={`absolute inset-0 h-[5px] w-full rounded-b-lg ${
-                active ? 'bg-pink-600 shadow-lg' : ''
+                active ? 'bg-accent-1 shadow-lg' : ''
               }`} 
             />
           </Link>

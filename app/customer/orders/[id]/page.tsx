@@ -94,14 +94,14 @@ export default function OrderDetailsPage() {
   return (
     <div className="w-full">
       {/* Header with Breadcrumb */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <Link href="/customer/orders" className="hover:text-pink-600">My Orders</Link>
+            <Link href="/customer/orders" className="hover:text-accent-1">My Orders</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Order #{order.id}</span>
+            <span className="text-accent-1">Order #{order.id}</span>
           </div>
         </div>
       </div>
@@ -110,10 +110,10 @@ export default function OrderDetailsPage() {
         <div className="grid md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-6">
             {/* Order Header with Status and Track Button */}
-            <div className="bg-primary border border-[#A9BA9D] rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[1px] p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h1 className="text-xl font-bold text-[#333333]">
+                  <h1 className="text-xl font-bold text-secondary">
                     Order #{order.id}
                   </h1>
                   <p className="text-sm text-gray-500 mt-1">
@@ -130,7 +130,7 @@ export default function OrderDetailsPage() {
                   </div>
                   <Link 
                     href={`/customer/orders/${order.id}/track`}
-                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-pink-600 border border-pink-600 rounded-[1px] hover:bg-pink-50 transition-colors"
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-accent-1 bg-secondary rounded-[1px] hover:bg-pink-50 transition-colors"
                   >
                     Track Order
                   </Link>
@@ -139,8 +139,8 @@ export default function OrderDetailsPage() {
             </div>
 
             {/* Order Items */}
-            <div className="bg-primary border border-[#A9BA9D] rounded-[1px] p-6">
-              <h2 className="text-lg font-medium text-[#333333] mb-4">Order Items</h2>
+            <div className="bg-primary border border-medium rounded-[1px] p-6">
+              <h2 className="text-lg font-medium text-secondary mb-4">Order Items</h2>
               <div className="space-y-6">
                 {order.items.map((item) => (
                   <div key={item.id} className="flex items-start">
@@ -154,8 +154,8 @@ export default function OrderDetailsPage() {
                     </div>
                     <div className="flex-1 ml-4">
                       <div className="flex justify-between">
-                        <h3 className="font-medium text-[#333333]">{item.name}</h3>
-                        <div className="text-sm font-medium text-pink-600">
+                        <h3 className="font-medium text-secondary">{item.name}</h3>
+                        <div className="text-sm font-medium text-accent-1">
                           KES {item.price.toLocaleString()}
                         </div>
                       </div>
@@ -180,23 +180,23 @@ export default function OrderDetailsPage() {
           
           <div className="md:col-span-1 space-y-6">
             {/* Order Summary */}
-            <div className="bg-primary border border-[#A9BA9D] rounded-[1px] p-6">
-              <h2 className="text-lg font-medium text-[#333333] mb-4">Order Summary</h2>
+            <div className="bg-primary border border-medium rounded-[1px] p-6">
+              <h2 className="text-lg font-medium text-secondary mb-4">Order Summary</h2>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Subtotal</span>
-                  <span className="text-[#333333]">
+                  <span className="text-secondary">
                     KES {order.total.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Shipping</span>
-                  <span className="text-[#333333]">KES 250</span>
+                  <span className="text-secondary">KES 250</span>
                 </div>
-                <div className="pt-2 mt-2 border-t border-[#A9BA9D]">
+                <div className="pt-2 mt-2 border-t border-medium">
                   <div className="flex justify-between font-medium">
-                    <span className="text-[#333333]">Total</span>
-                    <span className="text-pink-600">
+                    <span className="text-secondary">Total</span>
+                    <span className="text-accent-1">
                       KES {(order.total + 250).toLocaleString()}
                     </span>
                   </div>
@@ -205,19 +205,19 @@ export default function OrderDetailsPage() {
             </div>
             
             {/* Payment Information */}
-            <div className="bg-primary border border-[#A9BA9D] rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[1px] p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-medium text-[#333333]">Payment Information</h2>
+                <h2 className="text-lg font-medium text-secondary">Payment Information</h2>
                 <CreditCard className="w-5 h-5 text-gray-400" />
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Method</span>
-                  <span className="text-[#333333]">{order.payment.method}</span>
+                  <span className="text-secondary">{order.payment.method}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Card</span>
-                  <span className="text-[#333333]">{order.payment.cardNumber}</span>
+                  <span className="text-secondary">{order.payment.cardNumber}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Status</span>
@@ -230,19 +230,19 @@ export default function OrderDetailsPage() {
             </div>
             
             {/* Shipping Details */}
-            <div className="bg-primary border border-[#A9BA9D] rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[1px] p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-medium text-[#333333]">Shipping Details</h2>
+                <h2 className="text-lg font-medium text-secondary">Shipping Details</h2>
                 <MapPin className="w-5 h-5 text-gray-400" />
               </div>
               <div className="space-y-2 text-sm">
-                <p className="font-medium text-[#333333]">{order.shipping.name}</p>
+                <p className="font-medium text-secondary">{order.shipping.name}</p>
                 <p className="text-gray-500">{order.shipping.phone}</p>
                 <p className="text-gray-500">{order.shipping.address}</p>
                 <p className="text-gray-500">{order.shipping.city}</p>
-                <div className="pt-2 mt-2 border-t border-[#A9BA9D]">
-                  <p className="text-gray-500">Method: <span className="text-[#333333]">{order.shipping.method}</span></p>
-                  <p className="text-gray-500">Estimated Delivery: <span className="text-[#333333]">{order.shipping.estimatedDelivery}</span></p>
+                <div className="pt-2 mt-2 border-t border-medium">
+                  <p className="text-gray-500">Method: <span className="text-secondary">{order.shipping.method}</span></p>
+                  <p className="text-gray-500">Estimated Delivery: <span className="text-secondary">{order.shipping.estimatedDelivery}</span></p>
                 </div>
               </div>
             </div>

@@ -55,8 +55,8 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
 
   return (
     <section className="max-w-7xl mx-auto px-2 py-2 md:hidden">
-      <div className="product-title relative flex justify-center items-center mb-2 mx-3">
-        <span className="text-2xl font-bold text-[#333333] bg-[#F8F1E9] px-3 z-10">{title}</span>
+      <div className="product-title relative flex justify-center items-center mb-2">
+        <span className="text-2xl font-bold text-primary bg-primary px-3 z-10">{title}</span>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
@@ -73,7 +73,7 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
         <div ref={observerTarget} className="h-4 w-full my-4">
           {loading && (
             <div className="flex justify-center">              
-              <Loader className="h-5 w-5 animate-spin text-pink-600" />      
+              <Loader className="h-5 w-5 animate-spin text-accent-1" />      
             </div>
           )}
         </div>

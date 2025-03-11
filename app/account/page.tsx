@@ -44,7 +44,7 @@ const Accounts = () => {
           {/* Back Button - Only on Mobile */}
           <button 
             onClick={() => router.back()}
-            className="absolute top-4 left-4 p-2 text-[#333333] md:hidden hover:text-pink-600 transition-colors"
+            className="absolute top-4 left-4 p-2 text-secondary md:hidden hover:text-accent-1 transition-colors"
             aria-label="Go back"
           >
             <ArrowLeft className="w-6 h-6" />
@@ -63,7 +63,7 @@ const Accounts = () => {
           </div>
 
           {/* Forms Container */}
-          <div className="w-full max-w-md mx-auto bg-white p-6 rounded-[1px] border border-[#A9BA9D] shadow-sm">
+          <div className="w-full max-w-md mx-auto bg-secondary p-6 rounded-[1px] border border-medium shadow-sm">
             {/* Logo and Title */}
             <div className="flex items-center gap-3 mb-6">
               <div className="relative w-10 h-10">
@@ -76,8 +76,8 @@ const Accounts = () => {
                 />
               </div>
               <div>
-                <p className="text-sm text-[#333333]">StarChoice Cosmetics</p>
-                <h2 className="text-lg font-medium text-[#333333]">
+                <p className="text-sm text-secondary">StarChoice Cosmetics</p>
+                <h2 className="text-lg font-medium text-secondary">
                   {formStage === 'credentials' && (
                     activeTab === 'login' ? 'Sign in to continue' : 'Create your account'
                   )}
@@ -96,7 +96,7 @@ const Accounts = () => {
                     <>
                       <form className="space-y-4" onSubmit={handleLogin}>
                         <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-[#333333] mb-1">
+                          <label htmlFor="email" className="block text-sm font-medium text-secondary mb-1">
                             Email address
                           </label>
                           <div className="relative">
@@ -105,7 +105,7 @@ const Accounts = () => {
                               id="email"
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
-                              className="block w-full px-3 py-2 pl-10 text-[#333333] ring-1 ring-[#A9BA9D] rounded-[1px] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your email"
                               required
                             />
@@ -114,14 +114,14 @@ const Accounts = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="password" className="block text-sm font-medium text-[#333333] mb-1">
+                          <label htmlFor="password" className="block text-sm font-medium text-secondary mb-1">
                             Password
                           </label>
                           <div className="relative">
                             <input
                               type="password"
                               id="password"
-                              className="block w-full px-3 py-2 pl-10 text-[#333333] ring-1 ring-[#A9BA9D] rounded-[1px] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your password"
                               required
                             />
@@ -131,27 +131,27 @@ const Accounts = () => {
 
                         <div className="flex items-center justify-between pt-1">
                           <label className="flex items-center gap-2">
-                            <input type="checkbox" className="rounded-[1px] text-pink-600 focus:ring-pink-500" />
-                            <span className="text-sm text-[#333333]">Remember me</span>
+                            <input type="checkbox" className="rounded-[1px] text-accent-1 focus:ring-pink-500" />
+                            <span className="text-sm text-secondary">Remember me</span>
                           </label>
-                          <Link href="/forgot-password" className="text-sm text-pink-600 hover:text-pink-700 font-medium">
+                          <Link href="/forgot-password" className="text-sm text-accent-1 hover:text-pink-700 font-medium">
                             Forgot password?
                           </Link>
                         </div>
 
                         <button
                           type="submit"
-                          className="w-full bg-pink-600 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
+                          className="w-full bg-accent-1 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
                         >
                           Sign in
                         </button>
                       </form>
 
-                      <p className="mt-5 text-center text-sm text-[#333333]">
+                      <p className="mt-5 text-center text-sm text-secondary">
                         Not registered?{' '}
                         <button
                           onClick={() => setActiveTab('register')}
-                          className="text-pink-600 hover:text-pink-700 font-medium"
+                          className="text-accent-1 hover:text-pink-700 font-medium"
                         >
                           Create an account
                         </button>
@@ -162,25 +162,25 @@ const Accounts = () => {
                       <form className="space-y-4" onSubmit={handleRegister}>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label htmlFor="first-name" className="block text-sm font-medium text-[#333333] mb-1">
+                            <label htmlFor="first-name" className="block text-sm font-medium text-secondary mb-1">
                               First Name
                             </label>
                             <input
                               type="text"
                               id="first-name"
-                              className="w-full px-4 py-2 ring-1 ring-[#A9BA9D] focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="First name"
                               required
                             />
                           </div>
                           <div>
-                            <label htmlFor="last-name" className="block text-sm font-medium text-[#333333] mb-1">
+                            <label htmlFor="last-name" className="block text-sm font-medium text-secondary mb-1">
                               Last Name
                             </label>
                             <input
                               type="text"
                               id="last-name"
-                              className="w-full px-4 py-2 ring-1 ring-[#A9BA9D] focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="Last name"
                               required
                             />
@@ -188,7 +188,7 @@ const Accounts = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="register-email" className="block text-sm font-medium text-[#333333] mb-1">
+                          <label htmlFor="register-email" className="block text-sm font-medium text-secondary mb-1">
                             Email Address
                           </label>
                           <div className="relative">
@@ -197,7 +197,7 @@ const Accounts = () => {
                               id="register-email"
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
-                              className="w-full px-4 py-2 pl-10 ring-1 ring-[#A9BA9D] focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="Enter your email"
                               required
                             />
@@ -206,14 +206,14 @@ const Accounts = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="register-password" className="block text-sm font-medium text-[#333333] mb-1">
+                          <label htmlFor="register-password" className="block text-sm font-medium text-secondary mb-1">
                             Password
                           </label>
                           <div className="relative">
                             <input
                               type="password"
                               id="register-password"
-                              className="w-full px-4 py-2 pl-10 ring-1 ring-[#A9BA9D] focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="Create a password"
                               required
                             />
@@ -223,17 +223,17 @@ const Accounts = () => {
 
                         <button
                           type="submit"
-                          className="w-full bg-pink-600 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
+                          className="w-full bg-accent-1 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
                         >
                           Create Account
                         </button>
                       </form>
 
-                      <p className="mt-5 text-center text-sm text-[#333333]">
+                      <p className="mt-5 text-center text-sm text-secondary">
                         Already have an account?{' '}
                         <button
                           onClick={() => setActiveTab('login')}
-                          className="text-pink-600 hover:text-pink-700 font-medium"
+                          className="text-accent-1 hover:text-pink-700 font-medium"
                         >
                           Sign in
                         </button>
@@ -257,7 +257,7 @@ const Accounts = () => {
                             key={index}
                             type="text"
                             maxLength={1}
-                            className="w-12 h-12 text-center text-xl font-bold text-[#333333] ring-1 ring-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-2 focus:ring-pink-600"
+                            className="w-12 h-12 text-center text-xl font-bold text-secondary border border-medium rounded-[1px] focus:outline-none focus:ring-2 focus:ring-pink-600"
                             required
                             autoFocus={index === 0}
                             onChange={(e) => {
@@ -278,7 +278,7 @@ const Accounts = () => {
 
                       <button
                         type="submit"
-                        className="w-full bg-pink-600 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm"
+                        className="w-full bg-accent-1 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm"
                       >
                         Verify
                       </button>
@@ -286,7 +286,7 @@ const Accounts = () => {
                       <div className="mt-4 text-center space-y-2">
                         <div className="flex items-center justify-center gap-1">
                           <span className="text-sm text-gray-600">Didn&apos;t receive a code?</span>
-                          <button type="button" className="text-sm text-pink-600 hover:text-pink-700 font-medium">
+                          <button type="button" className="text-sm text-accent-1 hover:text-pink-700 font-medium">
                             Resend
                           </button>
                         </div>

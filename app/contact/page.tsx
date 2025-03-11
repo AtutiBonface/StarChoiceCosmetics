@@ -33,12 +33,12 @@ export default function ContactPage() {
   return (
     <div>
       {/* Breadcrumb */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Contact Us</span>
+            <span className="text-accent-1">Contact Us</span>
           </div>
         </div>
       </div>
@@ -47,40 +47,40 @@ export default function ContactPage() {
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div>
-            <h1 className="text-3xl font-bold text-[#333333] mb-6">Get in Touch</h1>
+            <h1 className="text-3xl font-bold text-secondary mb-6">Get in Touch</h1>
             <p className="text-gray-600 mb-8">
               Have questions about our products or services? We&apos;re here to help. Contact us using any of the methods below.
             </p>
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-pink-50 rounded-full">
-                  <Phone className="w-6 h-6 text-pink-600" />
+                <div className="p-3 bg-accent-3 rounded-full">
+                  <Phone className="w-6 h-6 text-accent-1" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-[#333333] mb-1">Phone</h3>
+                  <h3 className="font-medium text-secondary mb-1">Phone</h3>
                   <p className="text-gray-600">+254 712 345 678</p>
                   <p className="text-gray-600">Mon - Fri, 9am - 6pm EAT</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-pink-50 rounded-full">
-                  <Mail className="w-6 h-6 text-pink-600" />
+                <div className="p-3 bg-accent-3 rounded-full">
+                  <Mail className="w-6 h-6 text-accent-1" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-[#333333] mb-1">Email</h3>
+                  <h3 className="font-medium text-secondary mb-1">Email</h3>
                   <p className="text-gray-600">info@starchoice.co.ke</p>
                   <p className="text-gray-600">We reply within 24 hours</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-pink-50 rounded-full">
-                  <MapPin className="w-6 h-6 text-pink-600" />
+                <div className="p-3 bg-accent-3 rounded-full">
+                  <MapPin className="w-6 h-6 text-accent-1" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-[#333333] mb-1">Location</h3>
+                  <h3 className="font-medium text-secondary mb-1">Location</h3>
                   <p className="text-gray-600">123 Mama Ngina Street</p>
                   <p className="text-gray-600">Nairobi, Kenya</p>
                 </div>
@@ -89,11 +89,11 @@ export default function ContactPage() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-secondary p-6 border border-[#A9BA9D] rounded-[1px]">
-            <h2 className="text-2xl font-bold text-[#333333] mb-6">Send us a Message</h2>
+          <div className="bg-secondary p-6 border border-medium rounded-[1px]">
+            <h2 className="text-2xl font-bold text-secondary mb-6">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-[#333333] mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-secondary mb-1">
                   Name
                 </label>
                 <input
@@ -101,13 +101,13 @@ export default function ContactPage() {
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-[#333333] mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-secondary mb-1">
                   Email
                 </label>
                 <input
@@ -115,13 +115,13 @@ export default function ContactPage() {
                   id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-[#333333] mb-1">
+                <label htmlFor="subject" className="block text-sm font-medium text-secondary mb-1">
                   Subject
                 </label>
                 <input
@@ -129,13 +129,13 @@ export default function ContactPage() {
                   id="subject"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-[#333333] mb-1">
+                <label htmlFor="message" className="block text-sm font-medium text-secondary mb-1">
                   Message
                 </label>
                 <textarea
@@ -143,7 +143,7 @@ export default function ContactPage() {
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 ></textarea>
               </div>
@@ -151,7 +151,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-pink-600 text-white py-2 px-4 rounded-[1px] hover:bg-pink-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-accent-1 text-white py-2 px-4 rounded-[1px] hover:bg-accent-2 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   'Sending...'

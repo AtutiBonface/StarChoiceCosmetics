@@ -25,15 +25,15 @@ const Toast = ({ message, type, isVisible, onClose }: ToastProps) => {
   if (!isVisible) return null
 
   const icons = {
-    success: <CheckCircle2 className="w-5 h-5 text-green-500" />,
-    error: <XCircle className="w-5 h-5 text-red-500" />,
-    info: <AlertCircle className="w-5 h-5 text-blue-500" />
+    success: <CheckCircle2 className="w-5 h-5 text-success-color" />,
+    error: <XCircle className="w-5 h-5 text-error-color" />,
+    info: <AlertCircle className="w-5 h-5 text-accent-2" />
   }
 
   const backgrounds = {
-    success: 'bg-green-600 border-green-600',
-    error: 'bg-red-50 border-red-200',
-    info: 'bg-blue-50 border-blue-200'
+    success: 'bg-success-color border-success-color',
+    error: 'bg-error-color border-error-color',
+    info: 'bg-accent-2 border-accent-2'
   }
 
   return (
@@ -43,13 +43,13 @@ const Toast = ({ message, type, isVisible, onClose }: ToastProps) => {
         ${backgrounds[type]}
       `}>
         {icons[type]}
-        <p className="text-sm text-[#333333]">{message}</p>
+        <p className="text-sm text-contrast">{message}</p>
         <button
           onClick={onClose}
           className="ml-4 hover:opacity-75 transition-opacity"
           aria-label="Close notification"
         >
-          <X className="w-4 h-4 text-[#333333]" />
+          <X className="w-4 h-4 text-contrast" />
         </button>
       </div>
     </div>

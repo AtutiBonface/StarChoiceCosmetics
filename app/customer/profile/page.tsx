@@ -43,30 +43,30 @@ export default function ProfilePage() {
 
   return (
     <div className="w-full">
-        <div className="w-full bg-[#A9BA9D]">
+        <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
-            <div className="flex items-center gap-2 text-sm text-[#333333]">
-              <Link href="/" className="hover:text-pink-600">Home</Link>
+            <div className="flex items-center gap-2 text-sm text-secondary">
+              <Link href="/" className="hover:text-accent-1">Home</Link>
               <ChevronRight size={16} />
-              <span className="text-pink-600">My profile</span>
+              <span className="text-accent-1">My profile</span>
             </div>
           </div>
         </div>
         <div className='px-4 py-4 bg-primary shadow-sm rounded-[1px]'>
             <div className="mb-2">
-                <h1 className="text-2xl font-bold text-[#333333]">Account Settings</h1>
+                <h1 className="text-2xl font-bold text-secondary">Account Settings</h1>
                 <p className="text-gray-500 mt-1">Manage your account details and security</p>
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-[#A9BA9D] mb-6">
+            <div className="flex border-b border-medium mb-6">
                 <button
                 onClick={() => setActiveTab('profile')}
                 className={`
                     flex items-center gap-2 px-6 py-3 font-medium text-sm
                     ${activeTab === 'profile'
-                    ? 'text-pink-600 border-b-2 border-pink-600'
-                    : 'text-[#333333] hover:text-pink-600'
+                    ? 'text-accent-1 border-b-2 border-pink-600'
+                    : 'text-secondary hover:text-accent-1'
                     }
                 `}
                 >
@@ -78,8 +78,8 @@ export default function ProfilePage() {
                 className={`
                     flex items-center gap-2 px-6 py-3 font-medium text-sm
                     ${activeTab === 'security'
-                    ? 'text-pink-600 border-b-2 border-pink-600'
-                    : 'text-[#333333] hover:text-pink-600'
+                    ? 'text-accent-1 border-b-2 border-pink-600'
+                    : 'text-secondary hover:text-accent-1'
                     }
                 `}
                 >
@@ -92,44 +92,44 @@ export default function ProfilePage() {
             {activeTab === 'profile' && (
                 <form onSubmit={handleProfileSubmit} className="space-y-6 max-w-lg">
                 <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                     Full Name
                     </label>
                     <input
                     type="text"
                     value={profileData.name}
                     onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                     Email Address
                     </label>
                     <input
                     type="email"
                     value={profileData.email}
                     onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                     Phone Number
                     </label>
                     <input
                     type="tel"
                     value={profileData.phone}
                     onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="px-8 py-2 bg-pink-600 text-white rounded-[1px] hover:bg-pink-600/90 transition-colors"
+                    className="px-8 py-2 bg-accent-1 text-white rounded-[1px] hover:bg-accent-1/90 transition-colors"
                 >
                     Update Profile
                 </button>
@@ -141,7 +141,7 @@ export default function ProfilePage() {
             <div className="space-y-8">
                 <form onSubmit={handlePasswordSubmit} className="space-y-6 max-w-lg">
                     <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                         Current Password
                     </label>
                     <div className="relative md:w-96">
@@ -149,7 +149,7 @@ export default function ProfilePage() {
                         type={showPassword ? 'text' : 'password'}
                         value={passwordData.currentPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                         />
                         <button
                         type="button"
@@ -162,7 +162,7 @@ export default function ProfilePage() {
                     </div>
 
                     <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                         New Password
                     </label>
                     <div className="relative md:w-96">
@@ -170,7 +170,7 @@ export default function ProfilePage() {
                         type={showNewPassword ? 'text' : 'password'}
                         value={passwordData.newPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                         />
                         <button
                         type="button"
@@ -183,27 +183,27 @@ export default function ProfilePage() {
                     </div>
 
                     <div>
-                    <label className="block text-sm font-medium text-[#333333] mb-2">
+                    <label className="block text-sm font-medium text-secondary mb-2">
                         Confirm New Password
                     </label>
                     <input
                         type="password"
                         value={passwordData.confirmPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-[#A9BA9D] rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                     </div>
 
                     <button
                     type="submit"
-                    className="px-8 py-2 bg-pink-600 text-white rounded-[1px] hover:bg-pink-600/90 transition-colors"
+                    className="px-8 py-2 bg-accent-1 text-white rounded-[1px] hover:bg-accent-1/90 transition-colors"
                     >
                     Update Password
                     </button>
                 </form>
 
                 {/* Delete Account Section */}
-                <div className="border-t border-[#A9BA9D] pt-8">
+                <div className="border-t border-medium pt-8">
                     <div className="bg-red-50 border border-red-200 rounded-[1px] p-4">
                     <h3 className="text-lg font-medium text-red-600 mb-1">Delete Account</h3>
                     <p className="text-sm text-gray-600 mb-4">
@@ -236,7 +236,7 @@ export default function ProfilePage() {
                             <button
                             type="button"
                             onClick={() => setShowDeleteConfirm(false)}
-                            className="px-4 py-2 border border-[#A9BA9D] text-[#333333] rounded-[1px] hover:bg-gray-50 transition-colors"
+                            className="px-4 py-2 border border-medium text-secondary rounded-[1px] hover:bg-gray-50 transition-colors"
                             >
                             Cancel
                             </button>

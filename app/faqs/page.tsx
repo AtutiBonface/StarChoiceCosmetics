@@ -57,19 +57,19 @@ export default function FAQsPage() {
   return (
     <div>
       {/* Breadcrumb */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">FAQs</span>
+            <span className="text-accent-1">FAQs</span>
           </div>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-4">
         {/* Title */}
-        <h1 className="text-3xl font-bold text-[#333333] text-center mb-2">
+        <h1 className="text-3xl font-bold text-secondary text-center mb-2">
           Frequently Asked Questions
         </h1>
 
@@ -79,8 +79,8 @@ export default function FAQsPage() {
             onClick={() => setActiveCategory('All')}
             className={`px-4 py-2 rounded-[1px] text-sm font-medium transition-colors
               ${activeCategory === 'All' 
-                ? 'bg-pink-600 text-white' 
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-accent-1 text-white' 
+                : 'bg-transparent text-gray-600 hover:bg-gray-200'
               }`}
           >
             All
@@ -91,7 +91,7 @@ export default function FAQsPage() {
               onClick={() => setActiveCategory(category)}
               className={`px-4 py-2 rounded-[1px] text-sm font-medium transition-colors
                 ${activeCategory === category 
-                  ? 'bg-pink-600 text-white' 
+                  ? 'bg-accent-1 text-white' 
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
             >
@@ -105,13 +105,13 @@ export default function FAQsPage() {
           {filteredFAQs.map((faq) => (
             <div 
               key={faq.id}
-              className="border border-[#A9BA9D] rounded-[1px] overflow-hidden"
+              className="border border-medium bg-secondary rounded-[1px] overflow-hidden"
             >
               <button
                 onClick={() => setOpenFAQ(openFAQ === faq.id ? null : faq.id)}
                 className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50"
               >
-                <span className="font-medium text-[#333333]">{faq.question}</span>
+                <span className="font-medium text-secondary">{faq.question}</span>
                 {openFAQ === faq.id ? (
                   <ChevronUp className="w-5 h-5 text-gray-400" />
                 ) : (
@@ -120,7 +120,7 @@ export default function FAQsPage() {
               </button>
               
               {openFAQ === faq.id && (
-                <div className="px-4 pb-4">
+                <div className="px-4 pb-4  bg-secondary">
                   <p className="text-gray-600">{faq.answer}</p>
                 </div>
               )}
@@ -132,7 +132,7 @@ export default function FAQsPage() {
         <div className="mt-12 text-center">
           <p className="text-gray-600">
             Can&apos;t find what you&apos;re looking for?{' '}
-            <Link href="/contact" className="text-pink-600 hover:text-pink-700">
+            <Link href="/contact" className="text-accent-1 hover:text-pink-700">
               Contact our support team
             </Link>
           </p>

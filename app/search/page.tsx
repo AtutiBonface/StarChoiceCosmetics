@@ -69,12 +69,12 @@ const SearchResults = () => {
   return (
     <div>
       {/* Breadcrumb */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Search Results</span>
+            <span className="text-accent-1">Search Results</span>
           </div>
         </div>
       </div>
@@ -93,14 +93,14 @@ const SearchResults = () => {
           <div className="flex items-center justify-between lg:hidden">
             <button
               onClick={() => setIsFilterOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded shadow-sm hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 border border-medium rounded shadow-sm hover:bg-gray-50 transition-colors"
             >
               <Filter size={18} />
               <span>Filter{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}</span>
             </button>
             
             {/* You could add sorting options here */}
-            <select className="border border-gray-300 rounded py-2 px-3 shadow-sm">
+            <select className="border border-medium rounded py-2 px-3 shadow-sm">
               <option>Featured</option>
               <option>Price: Low to High</option>
               <option>Price: High to Low</option>
@@ -124,7 +124,7 @@ const SearchResults = () => {
               <p className="text-sm text-gray-600">
                 Showing <span className="font-medium">{products.length}</span> results
               </p>
-              <select className="border border-gray-300 rounded py-2 px-3">
+              <select className="border border-medium rounded py-2 px-3">
                 <option>Featured</option>
                 <option>Price: Low to High</option>
                 <option>Price: High to Low</option>
@@ -148,13 +148,13 @@ const SearchResults = () => {
                   
                   {/* Product Info */}
                   <Link href={`/products/${product.id}`}>
-                    <h3 className="text-sm font-medium text-[#333333] line-clamp-2 hover:text-pink-600">
+                    <h3 className="text-sm font-medium text-secondary line-clamp-2 hover:text-accent-1">
                       {product.name}
                     </h3>
                   </Link>
 
                   <div className="flex items-center gap-2 mt-2 mb-3">
-                    <span className="text-pink-600 font-bold">
+                    <span className="text-accent-1 font-bold">
                       KES {product.price.toLocaleString()}
                     </span>
                     {product.oldPrice && (

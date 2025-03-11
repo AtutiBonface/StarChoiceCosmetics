@@ -50,12 +50,12 @@ export default function InboxPage() {
 
   return (
     <div className="w-full">
-        <div className="w-full bg-[#A9BA9D]">
+        <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
-            <div className="flex items-center gap-2 text-sm text-[#333333]">
-              <Link href="/" className="hover:text-pink-600">Home</Link>
+            <div className="flex items-center gap-2 text-sm text-secondary">
+              <Link href="/" className="hover:text-accent-1">Home</Link>
               <ChevronRight size={16} />
-              <span className="text-pink-600">My Inbox</span>
+              <span className="text-accent-1">My Inbox</span>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@ export default function InboxPage() {
         <div className="px-4 py-2 bg-primary shadow-sm rounded-[1px] w-full">
         {/* Header */}
         <div className="mb-2">
-            <h1 className="text-2xl font-bold text-[#333333]">Inbox</h1>
+            <h1 className="text-2xl font-bold text-secondary">Inbox</h1>
             <p className="text-gray-600">Manage your messages and notifications</p>
         </div>
 
@@ -74,8 +74,8 @@ export default function InboxPage() {
                 onClick={() => setActiveTab('all')}
                 className={`px-4 py-2 text-sm font-medium rounded-[1px] ${
                 activeTab === 'all' 
-                    ? 'bg-pink-600 text-white' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-accent-1 text-white' 
+                    : 'bg-secondary text-gray-600 hover:bg-gray-200'
                 }`}
             >
                 All
@@ -84,8 +84,8 @@ export default function InboxPage() {
                 onClick={() => setActiveTab('messages')}
                 className={`px-4 py-2 text-sm font-medium rounded-[1px] flex items-center gap-2 ${
                 activeTab === 'messages' 
-                    ? 'bg-pink-600 text-white' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-accent-1 text-white' 
+                    : 'bg-secondary text-gray-600 hover:bg-gray-200'
                 }`}
             >
                 <Mail size={16} />
@@ -95,8 +95,8 @@ export default function InboxPage() {
                 onClick={() => setActiveTab('notifications')}
                 className={`px-4 py-2 text-sm font-medium rounded-[1px] flex items-center gap-2 ${
                 activeTab === 'notifications' 
-                    ? 'bg-pink-600 text-white' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-accent-1 text-white' 
+                    : 'bg-secondary text-gray-600 hover:bg-gray-200'
                 }`}
             >
                 <Bell size={16} />
@@ -125,7 +125,7 @@ export default function InboxPage() {
             filteredMessages.map((message) => (
                 <div
                 key={message.id}
-                className={`p-4 border border-[#A9BA9D] rounded-[1px] ${
+                className={`p-4 border border-medium rounded-[1px] ${
                     message.isRead ? 'bg-primary' : 'bg-pink-50'
                 }`}
                 >
@@ -145,9 +145,9 @@ export default function InboxPage() {
                     <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                         {!message.isRead && (
-                        <Circle className="w-2 h-2 fill-pink-600 text-pink-600" />
+                        <Circle className="w-2 h-2 fill-pink-600 text-accent-1" />
                         )}
-                        <h3 className="font-medium text-[#333333]">
+                        <h3 className="font-medium text-secondary">
                         {message.title}
                         </h3>
                     </div>

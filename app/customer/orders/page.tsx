@@ -75,17 +75,17 @@ export default function OrdersPage() {
 
 
     <div className="w-full">
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
-            <div className="flex items-center gap-2 text-sm text-[#333333]">
-              <Link href="/" className="hover:text-pink-600">Home</Link>
+            <div className="flex items-center gap-2 text-sm text-secondary">
+              <Link href="/" className="hover:text-accent-1">Home</Link>
               <ChevronRight size={16} />
-              <span className="text-pink-600">My Orders</span>
+              <span className="text-accent-1">My Orders</span>
             </div>
           </div>
         </div>
 
-      <div className="px-4 py-4 bg-primary shadow-sm rounded-[1px] w-full">        
+      <div className="px-2 md:px-4 py-4 bg-primary shadow-sm rounded-[1px] w-full">        
 
           <div className="space-y-4">
             {orders.map((order) => {
@@ -95,12 +95,12 @@ export default function OrdersPage() {
               return (
                 <div 
                   key={order.id}
-                  className="bg-primary rounded-[1px] border border-[#A9BA9D] p-4 relative"
+                  className="bg-primary rounded-[1px] border border-medium p-4 relative"
                 >
                   {/* View Details Button - Moved to top right */}
                   <Link
                     href={`/customer/orders/${order.id}`}
-                    className="absolute top-4 right-4 inline-flex items-center px-3 py-1.5 text-sm font-medium text-pink-600 hover:bg-pink-50 rounded-[1px] transition-colors"
+                    className="absolute top-4 right-4 inline-flex items-center px-3 py-1.5 text-sm font-medium text-accent-1 hover:bg-pink-50 rounded-[1px] transition-colors"
                   >
                     View Details
                   </Link>

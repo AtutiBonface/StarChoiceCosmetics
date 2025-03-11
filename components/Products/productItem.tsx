@@ -1,4 +1,3 @@
-
 import { ShoppingCart, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,7 +15,7 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
         {/* Discount Badge - Left */}
         {product.discount && (
           <div className="absolute top-2 left-2 z-10">
-            <span className="bg-pink-600 text-white text-xs font-medium px-2 py-1 rounded-full">
+            <span className="bg-accent-1 text-contrast text-xs font-medium px-2 py-1 rounded-full">
               {product.discount}% OFF
             </span>
           </div>
@@ -25,7 +24,7 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
         {/* New Badge - Right */}
         {product.isNew && (
           <div className="absolute top-2 right-2 z-10">
-            <span className="bg-green-600 text-white text-xs font-medium px-2 py-1 rounded-full">
+            <span className="bg-success-color text-contrast text-xs font-medium px-2 py-1 rounded-full">
               New
             </span>
           </div>
@@ -42,7 +41,7 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
         </div>
 
         {/* Product Name */}
-        <h3 className="text-sm font-medium mb-2 h-12 overflow-hidden group-hover:text-pink-600">
+        <h3 className="text-sm font-medium mb-2 h-12 overflow-hidden group-hover:text-accent-1">
           <span className="line-clamp-2">{product.name}</span>
         </h3>
       </Link>
@@ -52,9 +51,9 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
         {product.rating ? (
           <div className="flex items-center gap-1">
             <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-            <span className="text-xs text-[#333333]">{product.rating}</span>
+            <span className="text-xs text-primary">{product.rating}</span>
             {product.reviews && (
-              <span className="text-xs text-gray-500">({product.reviews})</span>
+              <span className="text-xs text-secondary">({product.reviews})</span>
             )}
           </div>
         ) : null}
@@ -62,11 +61,11 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
 
       {/* Price Section */}
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-lg font-bold text-pink-600">
+        <span className="text-lg font-bold text-accent-1">
           KES {product.price.toLocaleString()}
         </span>
         {product.oldPrice && (
-          <span className="text-sm text-gray-500 line-through">
+          <span className="text-sm text-secondary line-through">
             KES {product.oldPrice.toLocaleString()}
           </span>
         )}
@@ -76,14 +75,14 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
       {product.hasVariants ? (
         <button 
           onClick={(e) => e.stopPropagation()}
-          className="w-full bg-secondary hover:bg-secondary/90 text-white py-2 px-4 rounded-[1px] transition-colors"
+          className="w-full bg-secondary hover:bg-secondary/90 text-contrast py-2 px-4 rounded-[1px] transition-colors"
         >
           Select Options
         </button>
       ) : (
         <button 
           onClick={(e) => handleAddToCart(e, product.id.toString())}
-          className="w-full bg-pink-600 hover:bg-pink-600/90 text-white py-2 px-4 rounded-[1px] transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-accent-1 hover:bg-accent-1/90 text-contrast py-2 px-4 rounded-[1px] transition-colors flex items-center justify-center gap-2"
         >
           <ShoppingCart size={18} />
           Add to Cart

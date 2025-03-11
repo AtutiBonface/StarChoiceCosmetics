@@ -11,7 +11,7 @@ interface ErrorProps {
 
 export default function Error({ reset }: ErrorProps) {
   return (
-    <main className="fixed inset-0 z-100 grid min-h-screen place-items-center bg-[#A9BA9D] px-6 py-12">
+    <main className="fixed inset-0 z-100 grid min-h-screen place-items-center bg-primary px-6 py-12">
       <div className="text-center">
         {/* Error Image */}
         <div className="relative h-48 w-48 md:h-64 md:w-64 mx-auto mb-8">
@@ -25,7 +25,7 @@ export default function Error({ reset }: ErrorProps) {
         </div>
 
         {/* Error Content */}
-        <h1 className="text-2xl md:text-3xl font-bold text-[#333333] mb-4">
+        <h1 className="text-2xl md:text-3xl font-bold text-secondary mb-4">
           Something went wrong!
         </h1>
         <p className="text-[#5C4033] mb-8 max-w-md mx-auto">
@@ -47,8 +47,8 @@ export default function Error({ reset }: ErrorProps) {
           <Link
             href="/"
             className="w-full sm:w-auto flex items-center justify-center gap-2 
-              bg-[#A9BA9D]  hover:text-pink-600/90 
-              text-[#333333] px-6 py-3 rounded-[1px] transition-colors"
+              bg-accent-1  hover:text-pink-600/90 
+              text-secondary px-6 py-3 rounded-[1px] transition-colors"
           >
             <HomeIcon size={20} />
             Go Home

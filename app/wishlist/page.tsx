@@ -48,7 +48,7 @@ const initialWishlistItems = [
   },
 ]
 
-const Wishlist = () => {
+export default function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState(initialWishlistItems)
 
   const removeFromWishlist = (id :number) => {
@@ -74,14 +74,14 @@ const Wishlist = () => {
   }
 
   return (
-    <div>
+    <div className="bg-primary text-primary">
       {/* Breadcrumb */}
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+          <div className="flex items-center gap-2 text-sm text-secondary">
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Wishlist</span>
+            <span className="text-accent-1">Wishlist</span>
           </div>
         </div>
       </div>
@@ -171,7 +171,7 @@ const Wishlist = () => {
               {wishlistItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="flex border border-[#A9BA9D]  rounded-[1px] overflow-hidden relative py-2"
+                  className="flex border border-medium   rounded-[1px] overflow-hidden relative py-2"
                 >
                   {/* Product Image */}
                   <div className="relative w-32 h-32 my-auto ml-2  flex-shrink-0">
@@ -242,5 +242,3 @@ const Wishlist = () => {
     </div>
   )
 }
-
-export default Wishlist

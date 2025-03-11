@@ -35,9 +35,9 @@ const returnPolicySections = [
 export default function ReturnsPage() {
   return (
     <div>
-      <div className="w-full bg-[#A9BA9D]">
+      <div className="w-full bg-primary">
         <div className="max-w-7xl mx-auto px-4 py-2">
-          <div className="flex items-center gap-2 text-sm text-[#333333]">
+          <div className="flex items-center gap-2 text-sm text-secondary">
             <Link href="/" className="hover:text-pink-600">Home</Link>
             <ChevronRight size={16} />
             <span className="text-pink-600">Returns Policy</span>
@@ -47,7 +47,7 @@ export default function ReturnsPage() {
 
       <div className="max-w-3xl mx-auto px-4 py-4">
         {/* Title */}
-        <h1 className="text-3xl font-bold text-[#333333] mb-2">Returns Policy</h1>
+        <h1 className="text-3xl font-bold text-secondary mb-2">Returns Policy</h1>
 
         {/* Introduction */}
         <p className="text-gray-600 mb-8">
@@ -58,8 +58,8 @@ export default function ReturnsPage() {
         {/* Policy Sections */}
         <div className="space-y-8">
           {returnPolicySections.map((section, index) => (
-            <div key={index} className="bg-secondary border border-[#A9BA9D] rounded-[1px] p-6">
-              <h2 className="text-xl font-semibold text-[#333333] mb-4">
+            <div key={index} className="bg-secondary border border-medium rounded-[1px] p-6">
+              <h2 className="text-xl font-semibold text-secondary mb-4">
                 {section.title}
               </h2>
               
@@ -80,7 +80,7 @@ export default function ReturnsPage() {
 
         {/* Contact Section */}
         <div className="mt-12 bg-pink-50 border border-pink-100 rounded-[1px] p-6">
-          <h2 className="text-xl font-semibold text-[#333333] mb-4">
+          <h2 className="text-xl font-semibold text-secondary mb-4">
             Need Help with a Return?
           </h2>
           <p className="text-gray-600 mb-4">
