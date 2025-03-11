@@ -44,7 +44,6 @@ const TopBrands = () => {
             Our Top Brands
           </h2>
          
-          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-100 -z-0 p-0 "></div>
         </div>
 
         {/* Selected Brand Showcase */}

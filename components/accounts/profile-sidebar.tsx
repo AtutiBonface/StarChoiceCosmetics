@@ -42,7 +42,7 @@ const ProfileSidebar = () => {
     <div>
       <div className="bg-primary h-full">
         <div className="md:hidden">
-          <div className="flex flex-col p-4 bg-secondary border-b border-[#A9BA9D]">
+          <div className="flex flex-col p-4 bg-secondary border-b border-medium">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-lg font-medium text-secondary">Welcome  {userData.name}</h2>
             </div>
@@ -91,7 +91,7 @@ const ProfileSidebar = () => {
           })}
           
           {/* Logout Button */}
-          <div className="mt-auto pt-4 border-t  border-[#A9BA9D] md:border-none">
+          <div className="mt-auto pt-4 border-t  border-medium md:border-none">
             <button
               onClick={handleLogout}
               className="flex items-center gap-3 w-full p-3 text-red-600 hover:bg-red-50 rounded-[1px] transition-colors"
