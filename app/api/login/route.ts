@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
         headers: { "Set-Cookie": cookieOptions }
       }
     );
-  } catch (error) {
+  } catch{
     return new Response(
       JSON.stringify({ 
         success: false, 

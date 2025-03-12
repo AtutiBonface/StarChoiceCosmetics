@@ -1,9 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Heart, Star, ChevronRight, ShoppingCart } from 'lucide-react'
+import { Heart, Star, ChevronRight } from 'lucide-react'
 
 // Mock data for offers
 const offers = [
@@ -36,16 +35,7 @@ const offers = [
   // Add more offer items...
 ]
 
-export default function OffersPage() {
-  const [wishlist, setWishlist] = useState<number[]>([])
-
-  const toggleWishlist = (id: number) => {
-    setWishlist(prev => 
-      prev.includes(id) 
-        ? prev.filter(item => item !== id)
-        : [...prev, id]
-    )
-  }
+export default function OffersPage() {  
 
   return (
     <div className="bg-primary text-primary">

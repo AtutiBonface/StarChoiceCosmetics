@@ -35,16 +35,14 @@ const ProfileSidebar = () => {
 
 
   const handleLogout = async() => {
-      try{
-        const resp = await axios.get('/api/logout')
-
+      
+      await axios.get('/api/logout').then(()=>{
         window.location.href = "/"
         alert("Logged out successfully")
-        
-      }catch(error){
+      }).catch((error)=>{
         alert("Failed to logout")
         console.error(error)
-      }
+      })
   }
 
   return (

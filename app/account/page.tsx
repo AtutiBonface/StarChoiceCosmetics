@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { Mail, Lock, ArrowLeft, CheckCircle } from 'lucide-react'
+import { Mail, Lock, ArrowLeft} from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -97,26 +97,15 @@ const Accounts = () => {
           {/* Forms Container */}
           <div className="w-full max-w-md mx-auto bg-primary p-6 rounded-[4px] border border-medium shadow-sm">
             {/* Logo and Title */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-10 h-10">
-                <Image
-                  src="/icons/starchoice-logo.svg"
-                  alt="StarChoice"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              <div>
-                <p className="text-sm text-secondary">StarChoice Cosmetics</p>
-                <h2 className="text-lg font-medium text-secondary">
-                  {formStage === 'credentials' && (
-                    activeTab === 'login' ? 'Sign in to continue' : 'Create your account'
-                  )}
-                  {formStage === 'verification' && 'Verify your account'}
-                  {formStage === 'success' && 'Success!'}
-                </h2>
-              </div>
+            <div className="mb-4 px-1 text-center">
+              <p className="text-xs font-medium text-accent-1 mb-1 ">StarChoice Cosmetics</p>
+              <h2 className="text-2xl font-semibold text-secondary">
+                {formStage === 'credentials' && (
+                  activeTab === 'login' ? 'Sign in to continue' : 'Create your account'
+                )}
+                {formStage === 'verification' && 'Verify your account'}
+                {formStage === 'success' && 'Success!'}
+              </h2>
             </div>
 
             {/* Different form stages */}
@@ -137,11 +126,11 @@ const Accounts = () => {
                               name='email'
                               value={loginformData.email}
                               onChange={handleLoginFormChange}
-                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium rounded-[4px]  focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-2 pl-10 text-sm text-secondary border border-medium rounded-[4px]  focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your email"
                               required
                             />
-                            <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <Mail className="w-4 h-4 text-accent-1 absolute left-3 top-1/2 -translate-y-1/2" />
                           </div>
                         </div>
 
@@ -153,13 +142,13 @@ const Accounts = () => {
                             <input
                               type="password"
                               name="password"
-                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-2 pl-10 text-sm text-secondary border border-medium  rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your password"
                               required
                               value={loginformData.password}
                               onChange={handleLoginFormChange}
                             />
-                            <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <Lock className="w-4 h-4 text-accent-1 absolute left-3 top-1/2 -translate-y-1/2" />
                           </div>
                         </div>
 
@@ -201,9 +190,8 @@ const Accounts = () => {
                             </label>
                             <input
                               type="text"
-                              id="first-name"
                               name = 'first_name'
-                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="First name"
                               required
                               onChange={handleRegisterFormChange}
@@ -215,9 +203,8 @@ const Accounts = () => {
                             </label>
                             <input
                               type="text"
-                              id="last-name"
                               name='last_name'
-                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Last name"
                               required
                               onChange={handleRegisterFormChange}
@@ -232,14 +219,13 @@ const Accounts = () => {
                           <div className="relative">
                             <input
                               type="email"
-                              id="register-email"
                               name='register_email'
                               onChange={handleRegisterFormChange}
-                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Enter your email"
                               required
                             />
-                            <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <Mail className="w-4 h-4 text-accent-1 absolute left-3 top-1/2 -translate-y-1/2" />
                           </div>
                         </div>
 
@@ -250,14 +236,13 @@ const Accounts = () => {
                           <div className="relative">
                             <input
                               type="password"
-                              id="register-password"
                               name = 'register_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Create a password"
                               required
                               onChange={handleRegisterFormChange}
                             />
-                            <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <Lock className="w-4 h-4 text-accent-1 absolute left-3 top-1/2 -translate-y-1/2" />
                           </div>
                         </div>
                         <div>
@@ -269,12 +254,12 @@ const Accounts = () => {
                               type="password"
                               id="register-password"
                               name = 'confirm_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Confirm a password"
                               required
                               onChange={handleRegisterFormChange}
                             />
-                            <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <Lock className="w-4 h-4 text-accent-1 absolute left-3 top-1/2 -translate-y-1/2" />
                           </div>
                         </div>
 

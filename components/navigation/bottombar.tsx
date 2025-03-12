@@ -40,6 +40,7 @@ const BottomBar = () => {
           <Link 
             key={item.href}
             href={item.href}
+            prefetch = {true}
             className="cursor-pointer h-full w-[60px] relative flex items-center justify-center"
           >
             <Icon className={active ? 'text-accent-1' : 'text-primary'} />
