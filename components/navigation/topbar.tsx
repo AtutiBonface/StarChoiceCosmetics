@@ -1,18 +1,40 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import AnnouncementBar from './announcementbar'
 import CategoryNav from './categoryNav'
 import Image from 'next/image'
+import axios from 'axios'
 
 const TopBar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const isLoggedIn = true // Replace with your auth logic
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
   const router = useRouter()
   const pathname = usePathname()
+
+
+  useEffect(() => {
+    const fetchToken = async()=>{
+      const resp = await axios("/api/auth/status")
+      setIsAuthenticated(resp.data?.isAuthenticated)      
+    }
+    fetchToken()
+  }, []);
+
+  const handleLogout = async()=>{
+    try{
+      const resp = await axios.get('/api/logout')
+      window.location.href = "/"
+      
+      closeDropdown()
+      console.log(resp)
+    }catch{
+      console.error("Cant logout")
+    }
+  }
 
   const shouldShowBack = pathname?.startsWith('/products') || 
                         pathname?.startsWith('/search') || 
@@ -35,6 +57,8 @@ const TopBar = () => {
   const closeDropdown = () => {
     setActiveDropdown(null)
   }
+
+
 
   return (
     <div className='fixed top-0 left-0 w-full z-50 border-b border-medium bg-primary'>
@@ -97,7 +121,7 @@ const TopBar = () => {
               </button>
               {activeDropdown === 'account' && (
                 <div className="absolute right-0 mt-2 w-64 bg-primary rounded-[1px] shadow-lg border border-medium overflow-hidden">
-                  {isLoggedIn ? (
+                  {isAuthenticated ? (
                     <>
                       {/* User Info Section */}
                       <div className="p-4 border-b border-medium bg-primary">
@@ -107,7 +131,7 @@ const TopBar = () => {
                           </div>
                           <div>
                             <h3 className="font-medium text-primary">Admin</h3>
-                            <p className="text-xs text-secondary">admin@atuti.com</p>
+                            <p className="text-xs text-secondary">admin@admin.com</p>
                           </div>
                         </div>
                       </div>
@@ -136,7 +160,7 @@ const TopBar = () => {
                         </Link>
                         <button 
                           className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-error-color/10 text-sm text-error-color transition-colors border-t border-medium mt-2"
-                          onClick={() => {/* Add logout logic */}}
+                          onClick={handleLogout}
                         >
                           <LogOut size={16} />
                           <span>Logout</span>
@@ -166,11 +190,22 @@ const TopBar = () => {
               {/* Wishlist Button */}
               <button 
                 className="flex items-center gap-1 hover:text-accent-1"
-                onClick={() => activeDropdown === 'wishlist' ? closeDropdown() : handleMouseEnter('wishlist')}
+                onClick={() => {
+                  if(isAuthenticated){
+                    if(activeDropdown === 'wishlist' ){
+                      closeDropdown()
+                    }
+                    else{
+                      handleMouseEnter('wishlist')
+                     } 
+                  }else{
+                    router.push('/account')
+                  }
+                }}
               >
                 <div className="relative">
                   <Heart className="w-5 h-5" />
-                  {wishlistItems.length > 0 && (
+                  {(wishlistItems.length > 0  && isAuthenticated )&& (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
                       {wishlistItems.length}
                     </span>
@@ -181,7 +216,8 @@ const TopBar = () => {
                   <ChevronDown className="w-4 h-4" />
                 </span>
               </button>
-              {activeDropdown === 'wishlist' && (
+              {activeDropdown === 'wishlist' && (                                
+                 
                 <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[1px] shadow-lg border border-medium p-4">
                   {wishlistItems.length > 0 ? (
                     <>
@@ -221,7 +257,8 @@ const TopBar = () => {
                   ) : (
                     <p className="text-sm text-primary text-center">Your wishlist is empty</p>
                   )}
-                </div>
+
+                </div>                
               )}
             </div>
 
@@ -230,11 +267,22 @@ const TopBar = () => {
               {/* Cart Button */}
               <button
                 className="flex items-center gap-1 hover:text-accent-1"
-                onClick={() => activeDropdown === 'cart' ? closeDropdown() : handleMouseEnter('cart')}
+                onClick={() => {
+                  if(isAuthenticated){
+                    if(activeDropdown === 'cart' ){
+                      closeDropdown()
+                    }
+                    else{
+                      handleMouseEnter('cart')
+                     } 
+                  }else{
+                    router.push('/account')
+                  }
+                }}
               >
                 <div className="relative">
                   <ShoppingCart className="w-5 h-5" />
-                  {cartItems.length > 0 && (
+                  {(cartItems.length > 0 && isAuthenticated)  && (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
                       {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
                     </span>

@@ -4,27 +4,48 @@ import { Mail, Lock, ArrowLeft, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-
+import axios from 'axios'
+import Loading from '../loading'
 type TabType = 'login' | 'register'
 type FormStage = 'credentials' | 'verification' | 'success'
 
 const Accounts = () => {
   const [activeTab, setActiveTab] = useState<TabType>('login')
   const [formStage, setFormStage] = useState<FormStage>('credentials')
-  const [email, setEmail] = useState('')
+  const [loginformData, setLoginFormData] = useState({email: "", password:""})
+  const [isloading , setIsLoading] = useState(false)
+  const [registerformData, setRegisterFormData] = useState({first_name: "",last_name: "", email: "", register_password:"", confirm_password:""})
+
   const router = useRouter()
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    setFormStage('verification')
+    try{
+      setIsLoading(true)
+      const resp = await  axios.post('/api/login', JSON.stringify(loginformData))
+      console.log(resp)
+      window.location.href = "/cart"
+
+    }catch(error){
+      console.error(error)
+    }finally{
+      setIsLoading(false)
+    }
+
+    /* setFormStage('verification') */
   }
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault()
-    setFormStage('verification')
+
+
+    alert("This has not been set up yet")
+
+
+    /* setFormStage('verification') */
   }
 
-  const handleVerification = (e: React.FormEvent) => {
+  /* const handleVerification = (e: React.FormEvent) => {
     e.preventDefault()
     setFormStage('success')
     // Redirect to dashboard after 2 seconds
@@ -32,11 +53,22 @@ const Accounts = () => {
       router.push('/customer/profile')
     }, 2000)
   }
-
-  const resetForm = () => {
+ */
+  /* const resetForm = () => {
     setFormStage('credentials')
+  } */
+
+
+  const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    setLoginFormData({...loginformData, [e.target?.name]: e.target.value})
+
+  }
+  const handleRegisterFormChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+    setRegisterFormData({...registerformData, [e.target?.name]: e.target.value})
+
   }
 
+  if (isloading) return <Loading/>
   return (
     <div className="fixed inset-0 z-50 w-full h-screen bg-primary">
       <div className="h-full flex items-center justify-center px-4 py-6">
@@ -102,9 +134,9 @@ const Accounts = () => {
                           <div className="relative">
                             <input
                               type="email"
-                              id="email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
+                              name='email'
+                              value={loginformData.email}
+                              onChange={handleLoginFormChange}
                               className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your email"
                               required
@@ -120,10 +152,12 @@ const Accounts = () => {
                           <div className="relative">
                             <input
                               type="password"
-                              id="password"
+                              name="password"
                               className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your password"
                               required
+                              value={loginformData.password}
+                              onChange={handleLoginFormChange}
                             />
                             <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                           </div>
@@ -168,9 +202,11 @@ const Accounts = () => {
                             <input
                               type="text"
                               id="first-name"
+                              name = 'first_name'
                               className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="First name"
                               required
+                              onChange={handleRegisterFormChange}
                             />
                           </div>
                           <div>
@@ -180,9 +216,11 @@ const Accounts = () => {
                             <input
                               type="text"
                               id="last-name"
+                              name='last_name'
                               className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="Last name"
                               required
+                              onChange={handleRegisterFormChange}
                             />
                           </div>
                         </div>
@@ -195,8 +233,8 @@ const Accounts = () => {
                             <input
                               type="email"
                               id="register-email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
+                              name='register_email'
+                              onChange={handleRegisterFormChange}
                               className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="Enter your email"
                               required
@@ -213,9 +251,28 @@ const Accounts = () => {
                             <input
                               type="password"
                               id="register-password"
+                              name = 'register_password'
                               className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
                               placeholder="Create a password"
                               required
+                              onChange={handleRegisterFormChange}
+                            />
+                            <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                          </div>
+                        </div>
+                        <div>
+                          <label htmlFor="register-password" className="block text-sm font-medium text-secondary mb-1">
+                            Confirm Password
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="password"
+                              id="register-password"
+                              name = 'confirm_password'
+                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              placeholder="Confirm a password"
+                              required
+                              onChange={handleRegisterFormChange}
                             />
                             <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                           </div>
@@ -245,7 +302,8 @@ const Accounts = () => {
 
               {/* Verification Stage - Made more compact */}
               {formStage === 'verification' && (
-                <div className="transition-opacity duration-300 opacity-100">
+
+               /*  <div className="transition-opacity duration-300 opacity-100">
                   <form onSubmit={handleVerification}>
                     <div className="mb-4">
                       <p className="text-center text-gray-600 mb-4">
@@ -300,13 +358,14 @@ const Accounts = () => {
                       </div>
                     </div>
                   </form>
-                </div>
+                </div> */
+                <div></div>
               )}
 
               {/* Success Stage - Made more compact */}
               {formStage === 'success' && (
                 <div className="text-center py-4">
-                  <div className="flex justify-center mb-3">
+                  {/* <div className="flex justify-center mb-3">
                     <CheckCircle className="w-12 h-12 text-green-500" />
                   </div>
                   <h3 className="text-lg font-medium text-gray-800 mb-2">
@@ -321,7 +380,7 @@ const Accounts = () => {
                     <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
                       <div className="h-full bg-green-500 rounded-full animate-[progress_2s_ease-in-out]"></div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               )}
             </div>

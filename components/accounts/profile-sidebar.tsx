@@ -1,9 +1,9 @@
 'use client'
 
-import { Package, MessageSquare, Star, Heart, Clock,/*  CreditCard, MapPin, */ ChevronRight,  User, LogOut, Lock } from 'lucide-react'
+import axios from 'axios';
+import { Package, MessageSquare, Star, Heart, Clock, ChevronRight,  User, LogOut, Lock, CreditCard, MapPin } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
 // Add user data type
 interface UserData {
   name: string;
@@ -24,18 +24,27 @@ const navigation = [
   { name: 'Pending Reviews', href: '/customer/reviews', icon: Star },
   { name: 'My Wishlist', href: '/wishlist', icon: Heart },
   { name: 'Recently Viewed', href: '/customer/recently-viewed', icon: Clock },
-  /* { name: 'Payment Settings', href: '/customer/payment', icon: CreditCard },
-  { name: 'Address Book', href: '/customer/address', icon: MapPin }, */
+  { name: 'Payment Settings', href: '/customer/payment', icon: CreditCard },
+  { name: 'Address Book', href: '/customer/address', icon: MapPin },
   { name: 'Account Management', href: '/customer/profile', icon: Lock },
 ]
-
+ 
 const ProfileSidebar = () => {
   const pathname = usePathname()
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
-  const handleLogout = () => {
-    // Add your logout logic here
-    console.log('Logging out...')
+
+  const handleLogout = async() => {
+      try{
+        const resp = await axios.get('/api/logout')
+
+        window.location.href = "/"
+        alert("Logged out successfully")
+        
+      }catch(error){
+        alert("Failed to logout")
+        console.error(error)
+      }
   }
 
   return (
