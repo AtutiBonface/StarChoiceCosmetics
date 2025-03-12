@@ -70,7 +70,7 @@ const ProfileSidebar = () => {
               <div
                 key={item.name}
                 className={`
-                  flex items-center justify-between w-full p-3 rounded-[1px] transition-colors
+                  flex items-center justify-between w-full p-3 rounded-[4px] transition-colors
                   ${isActive 
                     ? 'bg-secondary text-pink-600' 
                     : 'text-secondary hover:bg-gray-50'
@@ -103,7 +103,7 @@ const ProfileSidebar = () => {
           <div className="mt-auto pt-4 border-t  border-medium md:border-none">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full p-3 text-red-600 hover:bg-red-50 rounded-[1px] transition-colors"
+              className="flex items-center gap-3 w-full p-3 text-red-600 hover:bg-red-50 rounded-[4px] transition-colors"
             >
               <LogOut className="w-5 h-5" />
               <span className="text-sm font-medium">Logout</span>

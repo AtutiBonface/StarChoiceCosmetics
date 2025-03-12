@@ -77,7 +77,7 @@ export default function FAQsPage() {
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           <button
             onClick={() => setActiveCategory('All')}
-            className={`px-4 py-2 rounded-[1px] text-sm font-medium transition-colors
+            className={`px-4 py-2 rounded-[4px] text-sm font-medium transition-colors
               ${activeCategory === 'All' 
                 ? 'bg-accent-1 text-white' 
                 : 'bg-transparent text-gray-600 hover:bg-gray-200'
@@ -89,7 +89,7 @@ export default function FAQsPage() {
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 rounded-[1px] text-sm font-medium transition-colors
+              className={`px-4 py-2 rounded-[4px] text-sm font-medium transition-colors
                 ${activeCategory === category 
                   ? 'bg-accent-1 text-white' 
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -105,7 +105,7 @@ export default function FAQsPage() {
           {filteredFAQs.map((faq) => (
             <div 
               key={faq.id}
-              className="border border-medium bg-secondary rounded-[1px] overflow-hidden"
+              className="border border-medium bg-secondary rounded-[4px] overflow-hidden"
             >
               <button
                 onClick={() => setOpenFAQ(openFAQ === faq.id ? null : faq.id)}

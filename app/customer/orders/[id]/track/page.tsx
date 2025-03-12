@@ -69,8 +69,8 @@ export default function TrackingPage({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <div className="px-4 py-4 bg-primary shadow-sm rounded-[1px] w-full">
-        <div className="bg-primary border border-medium rounded-[1px] p-4">
+      <div className="px-4 py-4 bg-primary shadow-sm rounded-[4px] w-full">
+        <div className="bg-primary border border-medium rounded-[4px] p-4">
           <h1 className="text-xl font-bold text-primary mb-4">
             Track Order #{params.id}
           </h1>

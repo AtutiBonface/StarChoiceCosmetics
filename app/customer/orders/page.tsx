@@ -85,7 +85,7 @@ export default function OrdersPage() {
           </div>
         </div>
 
-      <div className="px-2 md:px-4 py-4 bg-primary shadow-sm rounded-[1px] w-full">        
+      <div className="px-2 md:px-4 py-4 bg-primary shadow-sm rounded-[4px] w-full">        
 
           <div className="space-y-4">
             {orders.map((order) => {
@@ -95,12 +95,12 @@ export default function OrdersPage() {
               return (
                 <div 
                   key={order.id}
-                  className="bg-primary rounded-[1px] border border-medium p-4 relative"
+                  className="bg-primary rounded-[4px] border border-medium p-4 relative"
                 >
                   {/* View Details Button - Moved to top right */}
                   <Link
                     href={`/customer/orders/${order.id}`}
-                    className="absolute top-4 right-4 inline-flex items-center px-3 py-1.5 text-sm font-medium text-accent-1 hover:bg-pink-50 rounded-[1px] transition-colors"
+                    className="absolute top-4 right-4 inline-flex items-center px-3 py-1.5 text-sm font-medium text-accent-1 hover:bg-pink-50 rounded-[4px] transition-colors"
                   >
                     View Details
                   </Link>
@@ -113,7 +113,7 @@ export default function OrdersPage() {
                           src={item.image}
                           alt={item.name}
                           fill
-                          className="object-cover rounded-[1px]"
+                          className="object-cover rounded-[4px]"
                         />
                       </div>
 

@@ -75,7 +75,7 @@ const TopBrands = () => {
                   <p className="mt-2 text-secondary">{selectedBrand.description}</p>
                   <button 
                     onClick={() => handleGoShopping(selectedBrand.name)}
-                    className="mt-4 bg-accent-1 text-contrast px-6 py-2 rounded-[1px] hover:bg-accent-1/90 transition-colors"
+                    className="mt-4 bg-accent-1 text-contrast px-6 py-2 rounded-[4px] hover:bg-accent-1/90 transition-colors"
                   >
                     Go Shopping
                   </button>
@@ -102,7 +102,7 @@ const TopBrands = () => {
                 </div>
                 <h3 className="text-center font-medium text-primary mt-3 truncate">{brand.name}</h3>
                 <div className="h-0 overflow-hidden group-hover:h-auto transition-all duration-300">
-                  <button className="mx-auto mt-3 bg-accent-1 text-contrast text-sm px-4 py-1 block rounded-[1px] hover:bg-accent-1/90 transition-colors">
+                  <button className="mx-auto mt-3 bg-accent-1 text-contrast text-sm px-4 py-1 block rounded-[4px] hover:bg-accent-1/90 transition-colors">
                     View
                   </button>
                 </div>
@@ -120,7 +120,7 @@ const TopBrands = () => {
           >
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-2 px-6 py-2 bg-accent-1 text-contrast rounded-[1px] hover:bg-accent-1/90 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-2 bg-accent-1 text-contrast rounded-[4px] hover:bg-accent-1/90 transition-colors"
             >
               {isExpanded ? (
                 <>

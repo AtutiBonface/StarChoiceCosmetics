@@ -43,8 +43,8 @@
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   box-sizing: border-box;
 }
 
@@ -204,4 +204,11 @@ button{
 
 .text-contrast{
   color: var(--text-contrast);
+}
+
+.bg-success{
+  background-color: var(--success-color);
+}
+.bg-error{
+  background-color: var(--error-color);
 }

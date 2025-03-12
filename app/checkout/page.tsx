@@ -74,7 +74,7 @@ export default function CheckoutPage() {
           {/* Left Column - Order Details */}
           <div className="space-y-8">
             {/* Delivery Details */}
-            <div className="bg-primary p-6 rounded-[1px] border border-medium">
+            <div className="bg-primary p-6 rounded-[4px] border border-medium">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-lg font-bold text-secondary">Delivery Details</h2>
                 <Link
@@ -94,7 +94,7 @@ export default function CheckoutPage() {
                     <label
                       key={method.id}
                       className={`
-                        flex items-center justify-between p-4 rounded-[1px] border cursor-pointer
+                        flex items-center justify-between p-4 rounded-[4px] border cursor-pointer
                         ${deliveryMethod === method.id 
                             ?'border-accent-1  bg-secondary' 
                             :'border-medium hover:bg-secondary'
@@ -164,14 +164,14 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment Method */}
-            <div className="bg-primary p-6 rounded-[1px] border border-medium">
+            <div className="bg-primary p-6 rounded-[4px] border border-medium">
               <h2 className="text-lg font-bold text-secondary mb-4">Payment Method</h2>
               <div className="space-y-4">
                 {/* Pay at Store - Show first when store collection is selected */}
                 {deliveryMethod === 'store' && (
                   <label
                     className={`
-                      flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
+                      flex items-center gap-4 p-4 rounded-[4px] border cursor-pointer
                       ${paymentMethod === 'pay_at_store' 
                         ? 'border-accent-1  bg-secondary' 
                         : 'border-medium hover:bg-secondary'
@@ -200,7 +200,7 @@ export default function CheckoutPage() {
                 {deliveryMethod === 'courier' && (
                   <label
                     className={`
-                      flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
+                      flex items-center gap-4 p-4 rounded-[4px] border cursor-pointer
                       ${paymentMethod === 'pay_on_delivery' 
                         ? 'border-accent-1  bg-secondary' 
                         : 'border-medium hover:bg-secondary'
@@ -228,7 +228,7 @@ export default function CheckoutPage() {
                 {/* M-PESA */}
                 <label
                   className={`
-                    flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
+                    flex items-center gap-4 p-4 rounded-[4px] border cursor-pointer
                     ${paymentMethod === 'mpesa' 
                       ? 'border-accent-1  bg-secondary' 
                       : 'border-medium hover:bg-secondary'
@@ -252,7 +252,7 @@ export default function CheckoutPage() {
                 {/* Card Payment */}
                 <label
                   className={`
-                    flex items-center gap-4 p-4 rounded-[1px] border cursor-pointer
+                    flex items-center gap-4 p-4 rounded-[4px] border cursor-pointer
                     ${paymentMethod === 'card' 
                       ? 'border-accent-1  bg-secondary' 
                       : 'border-medium hover:bg-secondary'
@@ -277,7 +277,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Right Column - Order Summary */}
-          <div className="bg-secondary p-6 rounded-[1px] border border-medium h-fit">
+          <div className="bg-secondary p-6 rounded-[4px] border border-medium h-fit">
             <h2 className="text-lg font-bold text-secondary mb-4">Order Summary</h2>
             
             {/* Cart Items */}
@@ -289,7 +289,7 @@ export default function CheckoutPage() {
                       src={item.image}
                       alt={item.name}
                       fill
-                      className="object-cover rounded-[1px]"
+                      className="object-cover rounded-[4px]"
                     />
                   </div>
                   <div className="flex-1">
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
 
             {/* Checkout Button */}
             <button
-              className="w-full mt-6 px-6 py-3 bg-accent-1 text-white font-medium rounded-[1px] hover:bg-pink-600/90 transition-colors flex items-center justify-center gap-2"
+              className="w-full mt-6 px-6 py-3 bg-accent-1 text-white font-medium rounded-[4px] hover:bg-pink-600/90 transition-colors flex items-center justify-center gap-2"
             >
               Place Order
               <ChevronRight className="w-4 h-4" />

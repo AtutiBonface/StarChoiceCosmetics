@@ -52,7 +52,7 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className='px-4 py-4 bg-primary shadow-sm rounded-[1px]'>
+        <div className='px-4 py-4 bg-primary shadow-sm rounded-[4px]'>
             <div className="mb-2">
                 <h1 className="text-2xl font-bold text-secondary">Account Settings</h1>
                 <p className="text-gray-500 mt-1">Manage your account details and security</p>
@@ -99,7 +99,7 @@ export default function ProfilePage() {
                     type="text"
                     value={profileData.name}
                     onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                 </div>
 
@@ -111,7 +111,7 @@ export default function ProfilePage() {
                     type="email"
                     value={profileData.email}
                     onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                 </div>
 
@@ -123,13 +123,13 @@ export default function ProfilePage() {
                     type="tel"
                     value={profileData.phone}
                     onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="px-8 py-2 bg-accent-1 text-white rounded-[1px] hover:bg-accent-1/90 transition-colors"
+                    className="px-8 py-2 bg-accent-1 text-white rounded-[4px] hover:bg-accent-1/90 transition-colors"
                 >
                     Update Profile
                 </button>
@@ -149,7 +149,7 @@ export default function ProfilePage() {
                         type={showPassword ? 'text' : 'password'}
                         value={passwordData.currentPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                         />
                         <button
                         type="button"
@@ -170,7 +170,7 @@ export default function ProfilePage() {
                         type={showNewPassword ? 'text' : 'password'}
                         value={passwordData.newPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                         />
                         <button
                         type="button"
@@ -190,13 +190,13 @@ export default function ProfilePage() {
                         type="password"
                         value={passwordData.confirmPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                     />
                     </div>
 
                     <button
                     type="submit"
-                    className="px-8 py-2 bg-accent-1 text-white rounded-[1px] hover:bg-accent-1/90 transition-colors"
+                    className="px-8 py-2 bg-accent-1 text-white rounded-[4px] hover:bg-accent-1/90 transition-colors"
                     >
                     Update Password
                     </button>
@@ -204,7 +204,7 @@ export default function ProfilePage() {
 
                 {/* Delete Account Section */}
                 <div className="border-t border-medium pt-8">
-                    <div className="bg-red-50 border border-red-200 rounded-[1px] p-4">
+                    <div className="bg-red-50 border border-red-200 rounded-[4px] p-4">
                     <h3 className="text-lg font-medium text-red-600 mb-1">Delete Account</h3>
                     <p className="text-sm text-gray-600 mb-4">
                         Once you delete your account, there is no going back. Please be certain.
@@ -214,7 +214,7 @@ export default function ProfilePage() {
                         <button
                         type="button"
                         onClick={() => setShowDeleteConfirm(true)}
-                        className="inline-flex items-center gap-2 px-4 py-2 border border-red-600 text-red-600 rounded-[1px] hover:bg-red-50 transition-colors"
+                        className="inline-flex items-center gap-2 px-4 py-2 border border-red-600 text-red-600 rounded-[4px] hover:bg-red-50 transition-colors"
                         >
                         <AlertTriangle className="w-4 h-4" />
                         Delete Account
@@ -229,14 +229,14 @@ export default function ProfilePage() {
                             <button
                             type="button"
                             onClick={handleDeleteAccount}
-                            className="px-4 py-2 bg-red-600 text-white rounded-[1px] hover:bg-red-700 transition-colors"
+                            className="px-4 py-2 bg-red-600 text-white rounded-[4px] hover:bg-red-700 transition-colors"
                             >
                             Yes, Delete My Account
                             </button>
                             <button
                             type="button"
                             onClick={() => setShowDeleteConfirm(false)}
-                            className="px-4 py-2 border border-medium text-secondary rounded-[1px] hover:bg-gray-50 transition-colors"
+                            className="px-4 py-2 border border-medium text-secondary rounded-[4px] hover:bg-gray-50 transition-colors"
                             >
                             Cancel
                             </button>

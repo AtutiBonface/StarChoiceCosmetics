@@ -192,7 +192,7 @@ const FilterSidebar = ({
         <div className="p-4 border-t border-[#A9BA9D] bg-white lg:hidden">
           <div className="flex gap-3">
             <button 
-              className="flex-1 border border-[#A9BA9D] py-2 rounded-[1px] hover:bg-gray-50 transition-colors"
+              className="flex-1 border border-[#A9BA9D] py-2 rounded-[4px] hover:bg-gray-50 transition-colors"
               onClick={() => {
                 setFilters({
                   brands: [],
@@ -207,7 +207,7 @@ const FilterSidebar = ({
               Clear All
             </button>
             <button 
-              className="flex-1 bg-pink-600 text-white py-2 rounded-[1px] hover:bg-pink-600/90 transition-colors"
+              className="flex-1 bg-pink-600 text-white py-2 rounded-[4px] hover:bg-pink-600/90 transition-colors"
               onClick={onClose}
             >
               Apply Filters

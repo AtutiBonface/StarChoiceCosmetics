@@ -94,10 +94,10 @@ const TopBar = () => {
               <input
                 type="text"
                 placeholder="Search products..."
-                className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-accent-1/50 rounded-[1px]"
+                className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-accent-1/50 rounded-[4px]"
               />
-              <button className="absolute right-0 top-1/2 -translate-y-1/2 bg-accent-1 h-full w-[50px] flex items-center justify-center">
-                <Search className="w-5 h-5 text-secondary" />
+              <button className="absolute right-0 top-1/2 -translate-y-1/2 bg-accent-1 h-full w-[50px] rounded-r-[4px] flex items-center justify-center">
+                <Search className="w-5 h-5 text-white" />
               </button>
             </div>
           </div>
@@ -120,7 +120,7 @@ const TopBar = () => {
                 </span>
               </button>
               {activeDropdown === 'account' && (
-                <div className="absolute right-0 mt-2 w-64 bg-primary rounded-[1px] shadow-lg border border-medium overflow-hidden">
+                <div className="absolute right-0 mt-2 w-64 bg-primary rounded-[4px] shadow-lg border border-medium overflow-hidden">
                   {isAuthenticated ? (
                     <>
                       {/* User Info Section */}
@@ -175,7 +175,7 @@ const TopBar = () => {
                       </div>
                       <Link 
                         href="/account" 
-                        className="block w-full bg-accent-1 text-contrast text-center py-2.5 rounded-[1px] text-sm hover:bg-accent-1/90 transition-colors"
+                        className="block w-full bg-accent-1 text-contrast text-center py-2.5 rounded-[4px] text-sm hover:bg-accent-1/90 transition-colors"
                       >
                         Login / Register
                       </Link>
@@ -218,20 +218,20 @@ const TopBar = () => {
               </button>
               {activeDropdown === 'wishlist' && (                                
                  
-                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[1px] shadow-lg border border-medium p-4">
+                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
                   {wishlistItems.length > 0 ? (
                     <>
                       {/* Show only first item */}
                       <Link 
                         href={`/products/${wishlistItems[0].id}`}
-                        className="flex gap-3 hover:bg-accent-light p-2 -m-2 rounded-[1px] transition-colors"
+                        className="flex gap-3 hover:bg-accent-light p-2 -m-2 rounded-[4px] transition-colors"
                       >
                         <div className="relative w-16 h-16 flex-shrink-0">
                           <Image
                             src={wishlistItems[0].image}
                             alt={wishlistItems[0].name}
                             fill
-                            className="object-cover rounded-[1px]"
+                            className="object-cover rounded-[4px]"
                             sizes="64px"
                           />
                         </div>
@@ -249,7 +249,7 @@ const TopBar = () => {
                       </Link>
                       <Link 
                         href="/wishlist" 
-                        className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[1px] text-sm mt-4 hover:bg-accent-1/90"
+                        className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm mt-4 hover:bg-accent-1/90"
                       >
                         View All Items ({wishlistItems.length})
                       </Link>
@@ -294,7 +294,7 @@ const TopBar = () => {
                 </span>
               </button>
               {activeDropdown === 'cart' && (
-                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[1px] shadow-lg border border-medium p-4">
+                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
                   {cartItems.length > 0 ? (
                     <>
                       <div className="flex justify-between text-sm mb-2">
@@ -311,7 +311,7 @@ const TopBar = () => {
                       </div>
                       <Link 
                         href="/cart" 
-                        className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[1px] text-sm hover:bg-accent-1/90"
+                        className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm hover:bg-accent-1/90"
                       >
                         View Cart
                       </Link>

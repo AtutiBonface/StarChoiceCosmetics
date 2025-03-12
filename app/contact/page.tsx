@@ -89,7 +89,7 @@ export default function ContactPage() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-secondary p-6 border border-medium rounded-[1px]">
+          <div className="bg-secondary p-6 border border-medium rounded-[4px]">
             <h2 className="text-2xl font-bold text-secondary mb-6">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -101,7 +101,7 @@ export default function ContactPage() {
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
+                  className="w-full px-4 py-2 border border-medium rounded-[4px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 />
               </div>
@@ -115,7 +115,7 @@ export default function ContactPage() {
                   id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
+                  className="w-full px-4 py-2 border border-medium rounded-[4px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 />
               </div>
@@ -129,7 +129,7 @@ export default function ContactPage() {
                   id="subject"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
+                  className="w-full px-4 py-2 border border-medium rounded-[4px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 />
               </div>
@@ -143,7 +143,7 @@ export default function ContactPage() {
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none ring-custom focus:ring-accent"
+                  className="w-full px-4 py-2 border border-medium rounded-[4px] focus:outline-none ring-custom focus:ring-accent"
                   required
                 ></textarea>
               </div>
@@ -151,7 +151,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-accent-1 text-white py-2 px-4 rounded-[1px] hover:bg-accent-2 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-accent-1 text-white py-2 px-4 rounded-[4px] hover:bg-accent-2 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   'Sending...'

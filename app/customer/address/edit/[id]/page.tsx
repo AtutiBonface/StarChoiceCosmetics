@@ -67,7 +67,7 @@ export default function AddressEditPage() {
   }
 
   return (
-    <div className="w-full mx-auto bg-primary shadow-sm rounded-[1px]">
+    <div className="w-full mx-auto bg-primary shadow-sm rounded-[4px]">
       <div className="bg-primary p-2">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6 pb-2 border-b border-medium">
@@ -97,7 +97,7 @@ export default function AddressEditPage() {
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
               required
             />
           </div>
@@ -110,7 +110,7 @@ export default function AddressEditPage() {
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
               required
             />
           </div>
@@ -123,7 +123,7 @@ export default function AddressEditPage() {
               type="text"
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
               required
             />
           </div>
@@ -136,7 +136,7 @@ export default function AddressEditPage() {
               type="text"
               value={formData.city}
               onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
               required
             />
           </div>
@@ -147,7 +147,7 @@ export default function AddressEditPage() {
                 type="checkbox"
                 checked={formData.isDefault}
                 onChange={(e) => setFormData({ ...formData, isDefault: e.target.checked })}
-                className="rounded-[1px] text-accent-1 focus:ring-pink-600 cursor-pointer"
+                className="rounded-[4px] text-accent-1 focus:ring-pink-600 cursor-pointer"
               />
               <span className="text-sm text-secondary">Set as default delivery address</span>
             </label>
@@ -156,14 +156,14 @@ export default function AddressEditPage() {
           <div className="flex items-center justify-end gap-4">
             <Link
               href="/customer/address"
-              className="px-2 py-2 text-secondary hover:bg-gray-50 rounded-[1px] transition-colors"
+              className="px-2 py-2 text-secondary hover:bg-gray-50 rounded-[4px] transition-colors"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={isLoading}
-              className="px-6 py-2 bg-accent-1 text-contrast rounded-[1px] hover:bg-pink-600/90 transition-colors disabled:opacity-50"
+              className="px-6 py-2 bg-accent-1 text-contrast rounded-[4px] hover:bg-pink-600/90 transition-colors disabled:opacity-50"
             >
               {isLoading 
                 ? 'Saving...' 

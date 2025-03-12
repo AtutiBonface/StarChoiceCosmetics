@@ -37,8 +37,8 @@ export default function Error({ reset }: ErrorProps) {
           <button
             onClick={() => reset()}
             className="w-full sm:w-auto flex items-center justify-center gap-2 
-              bg-pink-600 hover:bg-pink-600/90 text-white px-6 py-3 
-              rounded-[1px] transition-colors"
+              bg-accent-1 hover:bg-pink-600/90 text-white px-6 py-3 
+              rounded-[4px] transition-colors"
           >
             <RotateCcw size={20} />
             Try Again
@@ -47,8 +47,8 @@ export default function Error({ reset }: ErrorProps) {
           <Link
             href="/"
             className="w-full sm:w-auto flex items-center justify-center gap-2 
-              bg-accent-1  hover:text-pink-600/90 
-              text-secondary px-6 py-3 rounded-[1px] transition-colors"
+              bg-secondary  hover:text-pink-600/90 
+              text-secondary px-6 py-3 rounded-[4px] transition-colors"
           >
             <HomeIcon size={20} />
             Go Home

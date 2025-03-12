@@ -62,7 +62,7 @@ export default function ShippingPage() {
             return (
               <div 
                 key={index}
-                className="border border-medium rounded-[1px] p-6 bg-secondary"
+                className="border border-medium rounded-[4px] p-6 bg-secondary"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-accent-1 rounded-full">
@@ -89,7 +89,7 @@ export default function ShippingPage() {
           {deliveryInfo.map((info, index) => (
             <div 
               key={index}
-              className="border border-medium rounded-[1px] p-6 bg-secondary"
+              className="border border-medium rounded-[4px] p-6 bg-secondary"
             >
               <h3 className="font-semibold text-primary mb-2">{info.title}</h3>
               <p className="text-secondary">{info.content}</p>
@@ -98,7 +98,7 @@ export default function ShippingPage() {
         </div>
 
         {/* Important Notice */}
-        <div className="mt-12 bg-accent-1/10 border border-medium rounded-[1px] p-6">
+        <div className="mt-12 bg-accent-1/10 border border-medium rounded-[4px] p-6">
           <div className="flex items-start gap-3">
             <Info className="w-5 h-5 text-accent-1 mt-1" />
             <div>

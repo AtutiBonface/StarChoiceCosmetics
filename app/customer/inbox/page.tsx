@@ -59,8 +59,8 @@ export default function InboxPage() {
             </div>
           </div>
         </div>
-        <div className="bg-primary shadow-sm rounded-[1px] px-4 py-2 w-full"></div>
-        <div className="px-4 py-2 bg-primary shadow-sm rounded-[1px] w-full">
+        <div className="bg-primary shadow-sm rounded-[4px] px-4 py-2 w-full"></div>
+        <div className="px-4 py-2 bg-primary shadow-sm rounded-[4px] w-full">
         {/* Header */}
         <div className="mb-2">
             <h1 className="text-2xl font-bold text-secondary">Inbox</h1>
@@ -72,7 +72,7 @@ export default function InboxPage() {
             <div className="flex gap-2">
             <button
                 onClick={() => setActiveTab('all')}
-                className={`px-4 py-2 text-sm font-medium rounded-[1px] ${
+                className={`px-4 py-2 text-sm font-medium rounded-[4px] ${
                 activeTab === 'all' 
                     ? 'bg-accent-1 text-white' 
                     : 'bg-secondary text-gray-600 hover:bg-gray-200'
@@ -82,7 +82,7 @@ export default function InboxPage() {
             </button>
             <button
                 onClick={() => setActiveTab('messages')}
-                className={`px-4 py-2 text-sm font-medium rounded-[1px] flex items-center gap-2 ${
+                className={`px-4 py-2 text-sm font-medium rounded-[4px] flex items-center gap-2 ${
                 activeTab === 'messages' 
                     ? 'bg-accent-1 text-white' 
                     : 'bg-secondary text-gray-600 hover:bg-gray-200'
@@ -93,7 +93,7 @@ export default function InboxPage() {
             </button>
             <button
                 onClick={() => setActiveTab('notifications')}
-                className={`px-4 py-2 text-sm font-medium rounded-[1px] flex items-center gap-2 ${
+                className={`px-4 py-2 text-sm font-medium rounded-[4px] flex items-center gap-2 ${
                 activeTab === 'notifications' 
                     ? 'bg-accent-1 text-white' 
                     : 'bg-secondary text-gray-600 hover:bg-gray-200'
@@ -107,7 +107,7 @@ export default function InboxPage() {
             {selectedMessages.length > 0 && (
             <button
                 onClick={handleDelete}
-                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-[1px] hover:bg-red-700 flex items-center gap-2"
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-[4px] hover:bg-red-700 flex items-center gap-2"
             >
                 <Trash2 size={16} />
                 Delete Selected
@@ -125,7 +125,7 @@ export default function InboxPage() {
             filteredMessages.map((message) => (
                 <div
                 key={message.id}
-                className={`p-4 border border-medium rounded-[1px] ${
+                className={`p-4 border border-medium rounded-[4px] ${
                     message.isRead ? 'bg-primary' : 'bg-pink-50'
                 }`}
                 >

@@ -105,7 +105,7 @@ const Cart = () => {
             <p className="text-[#5C4033] mb-6">Your cart is empty</p>
             <Link 
               href="/"
-              className="inline-block bg-accent-1 text-white px-6 py-3 rounded-[1px] hover:bg-accent-1/90 transition-colors"
+              className="inline-block bg-accent-1 text-white px-6 py-3 rounded-[4px] hover:bg-accent-1/90 transition-colors"
             >
               Continue Shopping
             </Link>
@@ -115,7 +115,7 @@ const Cart = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2">
               {/* Mobile Summary */}
-              <div className="lg:hidden bg-secondary mb-4 p-4 border border-medium rounded-[1px]">
+              <div className="lg:hidden bg-secondary mb-4 p-4 border border-medium rounded-[4px]">
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="text-sm text-secondary">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</p>
@@ -123,7 +123,7 @@ const Cart = () => {
                   </div>
                   <button 
                     onClick={() => router.push("/checkout")}
-                    className="bg-accent-1 text-white py-2 px-4 rounded-[1px] text-sm hover:bg-accent-1/90 transition-colors"
+                    className="bg-accent-1 text-white py-2 px-4 rounded-[4px] text-sm hover:bg-accent-1/90 transition-colors"
                   >
                     Checkout
                   </button>
@@ -136,14 +136,14 @@ const Cart = () => {
               </div>
               
               {/* Cart Items Container */}
-              <div className="bg-primary rounded-[1px] overflow-hidden mb-">
+              <div className="bg-primary rounded-[4px] overflow-hidden mb-">
 
                 <div className="py-2">
                   <h2 className="font-bold text-lg text-secondary">Shopping Cart</h2>
                 </div>
                 <div>
                   {cartItems.map((item) => (
-                    <div key={item.id} className="p-4  border border-medium mb-2">
+                    <div key={item.id} className="p-4  border border-medium mb-2 rounded-[4px]">
                       {/* Desktop View */}
                       <div className="hidden sm:flex gap-6">
                         {/* Product Image */}
@@ -269,7 +269,7 @@ const Cart = () => {
                                 const change = newQty - item.quantity;
                                 updateQuantity(item.id, change);
                               }}
-                              className="border border-medium rounded-[1px] text-sm p-1"
+                              className="border border-medium rounded-[4px] text-sm p-1"
                             >
                               {[...Array(10)].map((_, i) => (
                                 <option key={i} value={i+1}>{i+1}</option>
@@ -307,7 +307,7 @@ const Cart = () => {
               <div className="lg:hidden mb-24">
                 <Link
                   href="/"
-                  className="bg-secondary flex justify-center items-center text-sm text-secondary hover:text-accent-1 py-3  rounded-[1px] w-full"
+                  className="bg-secondary flex justify-center items-center text-sm text-secondary hover:text-accent-1 py-3  rounded-[4px] w-full"
                 >
                   <ChevronRight size={16} className="mr-1" /> Continue Shopping
                 </Link>
@@ -315,7 +315,7 @@ const Cart = () => {
             </div>
 
             {/* Order Summary - Desktop */}
-            <div className="hidden lg:block bg-secondary p-6 rounded-[1px] shadow-sm border border-medium h-fit sticky top-4">
+            <div className="hidden lg:block bg-secondary p-6 rounded-[4px] shadow-sm border border-medium h-fit sticky top-4">
               <h2 className="text-xl font-bold text-secondary mb-6">Order Summary</h2>
               <div className="space-y-4 text-sm">
                 <div className="flex justify-between pb-2">
@@ -344,7 +344,7 @@ const Cart = () => {
               
               <button 
                 onClick={() => router.push("/checkout")} 
-                className="w-full bg-accent-1 text-white py-3 rounded-[1px] mt-6 hover:bg-accent-1/90 transition-colors font-medium"
+                className="w-full bg-accent-1 text-white py-3 rounded-[4px] mt-6 hover:bg-accent-1/90 transition-colors font-medium"
               >
                 Proceed to Checkout
               </button>
@@ -361,7 +361,7 @@ const Cart = () => {
             <div className="lg:hidden fixed bottom-16 sm:bottom-0 bg-primary left-0 right-0 bg-white border-t border-medium p-4 shadow-lg z-20">
               <button 
                 onClick={() => router.push("/checkout")} 
-                className="w-full bg-accent-1 text-white py-3 rounded-[1px] hover:bg-accent-1/90 transition-colors font-medium flex items-center justify-center gap-2"
+                className="w-full bg-accent-1 text-white py-3 rounded-[4px] hover:bg-accent-1/90 transition-colors font-medium flex items-center justify-center gap-2"
               >
                 Proceed to Checkout • KES {total.toLocaleString()}
               </button>

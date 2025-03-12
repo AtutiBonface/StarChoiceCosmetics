@@ -106,11 +106,11 @@ export default function OrderDetailsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl px-4 py-4 bg-primary shadow-sm rounded-[1px] w-full">
+      <div className="max-w-7xl px-4 py-4 bg-primary shadow-sm rounded-[4px] w-full">
         <div className="grid md:grid-cols-3 gap-6">
           <div className="md:col-span-2 space-y-6">
             {/* Order Header with Status and Track Button */}
-            <div className="bg-primary border border-medium rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[4px] p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h1 className="text-xl font-bold text-secondary">
@@ -130,7 +130,7 @@ export default function OrderDetailsPage() {
                   </div>
                   <Link 
                     href={`/customer/orders/${order.id}/track`}
-                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-accent-1 bg-secondary rounded-[1px] hover:bg-pink-50 transition-colors"
+                    className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-accent-1 bg-secondary rounded-[4px] hover:bg-pink-50 transition-colors"
                   >
                     Track Order
                   </Link>
@@ -139,7 +139,7 @@ export default function OrderDetailsPage() {
             </div>
 
             {/* Order Items */}
-            <div className="bg-primary border border-medium rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[4px] p-6">
               <h2 className="text-lg font-medium text-secondary mb-4">Order Items</h2>
               <div className="space-y-6">
                 {order.items.map((item) => (
@@ -149,7 +149,7 @@ export default function OrderDetailsPage() {
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-cover rounded-[1px]"
+                        className="object-cover rounded-[4px]"
                       />
                     </div>
                     <div className="flex-1 ml-4">
@@ -162,7 +162,7 @@ export default function OrderDetailsPage() {
                       {item.variants && (
                         <div className="mt-1 flex flex-wrap gap-2">
                           {Object.entries(item.variants).map(([key, value]) => (
-                            <span key={key} className="text-xs px-2 py-0.5 bg-gray-100 rounded-[1px] text-gray-600">
+                            <span key={key} className="text-xs px-2 py-0.5 bg-gray-100 rounded-[4px] text-gray-600">
                               {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
                             </span>
                           ))}
@@ -180,7 +180,7 @@ export default function OrderDetailsPage() {
           
           <div className="md:col-span-1 space-y-6">
             {/* Order Summary */}
-            <div className="bg-primary border border-medium rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[4px] p-6">
               <h2 className="text-lg font-medium text-secondary mb-4">Order Summary</h2>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
@@ -205,7 +205,7 @@ export default function OrderDetailsPage() {
             </div>
             
             {/* Payment Information */}
-            <div className="bg-primary border border-medium rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[4px] p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-medium text-secondary">Payment Information</h2>
                 <CreditCard className="w-5 h-5 text-gray-400" />
@@ -230,7 +230,7 @@ export default function OrderDetailsPage() {
             </div>
             
             {/* Shipping Details */}
-            <div className="bg-primary border border-medium rounded-[1px] p-6">
+            <div className="bg-primary border border-medium rounded-[4px] p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-medium text-secondary">Shipping Details</h2>
                 <MapPin className="w-5 h-5 text-gray-400" />

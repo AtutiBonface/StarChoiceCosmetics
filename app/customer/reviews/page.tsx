@@ -74,7 +74,7 @@ export default function ReviewsPage() {
           </div>
         </div>
 
-        <div className='px-4 py-4 bg-primary shadow-sm rounded-[1px] h-full'>
+        <div className='px-4 py-4 bg-primary shadow-sm rounded-[4px] h-full'>
              {/* Header */}
             <div className="mb-6">
                 <p className="text-gray-600">Share your experience with products you&apos;ve purchased</p>
@@ -82,17 +82,17 @@ export default function ReviewsPage() {
              {/* Reviews List */}
             <div className="space-y-4">
                 {pendingReviews.length === 0 ? (
-                <div className="text-center py-8 border border-medium rounded-[1px] bg-primary text-gray-500">
+                <div className="text-center py-8 border border-medium rounded-[4px] bg-primary text-gray-500">
                     <p className="text-lg mb-1">No pending reviews</p>
                     <p className="text-sm">Your future purchases will appear here for review</p>
                 </div>
                 ) : (
                 pendingReviews.map((review) => (
-                    <div key={review.id} className="border border-medium rounded-[1px] bg-primary">
+                    <div key={review.id} className="border border-medium rounded-[4px] bg-primary">
                     {/* Product Info */}
                     <div className="h-24 p-4 relative"> {/* Changed to relative positioning */}
                         <div className="flex items-center gap-4">
-                        <div className="relative w-16 h-16 rounded-[1px] overflow-hidden">
+                        <div className="relative w-16 h-16 rounded-[4px] overflow-hidden">
                             <Image
                             src={review.productImage}
                             alt={review.productName}
@@ -151,7 +151,7 @@ export default function ReviewsPage() {
                                 value={reviewText}
                                 onChange={(e) => setReviewText(e.target.value)}
                                 rows={4}
-                                className="w-full px-4 py-2 border border-medium rounded-[1px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                                className="w-full px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
                                 placeholder="Share your experience with this product..."
                             />
                             </div>
@@ -160,7 +160,7 @@ export default function ReviewsPage() {
                             {/* Cancel Button */}
                             <button
                                 onClick={() => toggleReview(review.id)}
-                                className="flex-1 bg-transparent text-red-600  py-2 px-4 rounded-[1px] hover:text-accent-1 transition-colors"
+                                className="flex-1 bg-transparent text-red-600  py-2 px-4 rounded-[4px] hover:text-accent-1 transition-colors"
                             >
                                 Cancel
                             </button>
@@ -169,7 +169,7 @@ export default function ReviewsPage() {
                             <button
                                 onClick={() => handleSubmitReview(review.id)}
                                 disabled={!rating || !reviewText.trim()}
-                                className="flex-1 bg-accent-1 text-white py-2 px-4 rounded-[1px] hover:bg-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 bg-accent-1 text-white py-2 px-4 rounded-[4px] hover:bg-pink-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Submit Review
                             </button>

@@ -89,7 +89,7 @@ export default function BrandsPage() {
         </div>
 
         {/* Brand Promise */}
-        <div className="mt-16 text-center bg-secondary border border-pink-100 rounded-[1px] p-8">
+        <div className="mt-16 text-center bg-secondary border border-pink-100 rounded-[4px] p-8">
           <h2 className="text-2xl font-bold text-secondary mb-4">
             100% Authentic Guaranteed
           </h2>

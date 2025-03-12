@@ -75,14 +75,14 @@ export  const ProductItem : React.FC<ProductProps>   = ({ product, handleAddToCa
       {product.hasVariants ? (
         <button 
           onClick={(e) => e.stopPropagation()}
-          className="w-full bg-secondary hover:bg-secondary/90 text-contrast py-2 px-4 rounded-[1px] transition-colors"
+          className="w-full bg-secondary hover:bg-secondary/90 text-contrast py-2 px-4 rounded-[4px] transition-colors"
         >
           Select Options
         </button>
       ) : (
         <button 
           onClick={(e) => handleAddToCart(e, product.id.toString())}
-          className="w-full bg-accent-1 hover:bg-accent-1/90 text-contrast py-2 px-4 rounded-[1px] transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-accent-1 hover:bg-accent-1/90 text-contrast py-2 px-4 rounded-[4px] transition-colors flex items-center justify-center gap-2"
         >
           <ShoppingCart size={18} />
           Add to Cart

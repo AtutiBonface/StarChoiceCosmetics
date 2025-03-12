@@ -63,7 +63,7 @@ export default function OffersPage() {
       <div className="max-w-7xl mx-auto px-2 py-4">
         <div className="grid md:grid-cols-2 gap-2">
           {offers.map(offer => (
-            <div key={offer.id} className="border border-medium rounded-[1px] p-4">
+            <div key={offer.id} className="border border-medium rounded-[4px] p-4">
               <div className="flex items-center gap-4">
                 <div className="relative w-24 h-24">
                   <Image src={offer.image} alt={offer.name} fill className="object-contain" />
@@ -80,7 +80,7 @@ export default function OffersPage() {
                     {offer.originalPrice && <span className="text-sm text-secondary line-through">KES {offer.originalPrice}</span>}
                   </div>
                   <div className="flex items-center gap-2 mt-2">
-                    <button className="bg-accent-1 text-contrast px-4 py-2 rounded-[1px] hover:bg-accent-1/90 transition-colors">
+                    <button className="bg-accent-1 text-contrast px-4 py-2 rounded-[4px] hover:bg-accent-1/90 transition-colors">
                       Add to Cart
                     </button>
                     <button className="text-error hover:text-error/90 transition-colors">

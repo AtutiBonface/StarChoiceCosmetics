@@ -61,7 +61,7 @@ export default function RecentlyViewedPage() {
         </div>
       </div>
 
-      <div className="px-4 py-4 bg-primary shadow-sm rounded-[1px] h-full">
+      <div className="px-4 py-4 bg-primary shadow-sm rounded-[4px] h-full">
         {/* Header */}
         <div className="mb-6">
           <p className="text-gray-600">Products you&apos;ve recently viewed</p>
@@ -70,14 +70,14 @@ export default function RecentlyViewedPage() {
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {recentProducts.length === 0 ? (
-            <div className="col-span-full text-center py-4  rounded-[1px] bg-primary text-gray-500">
+            <div className="col-span-full text-center py-4  rounded-[4px] bg-primary text-gray-500">
               <p className="text-lg mb-1">No recently viewed products</p>
               <p className="text-sm">Products you view will appear here</p>
             </div>
           ) : (
             recentProducts.map((product) => (
               <div key={product.id} className="group">
-                <div className="bg-primary rounded-[1px] p-2 relative"> {/* Added relative positioning */}
+                <div className="bg-primary rounded-[4px] p-2 relative"> {/* Added relative positioning */}
                   {/* Wishlist Button - Moved to top right */}
                   <button
                     onClick={() => handleAddToWishlist(product.id)}
@@ -115,7 +115,7 @@ export default function RecentlyViewedPage() {
                   <div className="mt-2 pt-2">
                     <button
                       onClick={() => handleAddToCart(product.id)}
-                      className="w-full flex items-center justify-center gap-2 bg-accent-1 text-white py-2 hover:bg-pink-700 transition-colors rounded-[1px]"
+                      className="w-full flex items-center justify-center gap-2 bg-accent-1 text-white py-2 hover:bg-pink-700 transition-colors rounded-[4px]"
                     >
                       <ShoppingCart size={16} />
                       <span className="text-sm">Add to Cart</span>

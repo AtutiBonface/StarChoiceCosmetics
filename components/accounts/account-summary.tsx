@@ -21,7 +21,7 @@ const AccountSummary = () => {
             </div>
           </div>
         </div>
-        <div className="bg-primary shadow-sm rounded-[1px] p-4 w-full">
+        <div className="bg-primary shadow-sm rounded-[4px] p-4 w-full">
 
       {/* User Info */}
       <div className="flex items-center gap-4 mb-2 border-b border-medium pb-2">
@@ -35,7 +35,7 @@ const AccountSummary = () => {
       </div>
 
       {/* Contact Details */}
-      <div className="space-y-4 mb-2 bg-pink-50 p-4 rounded-[1px] border border-pink-100">
+      <div className="space-y-4 mb-2 bg-pink-50 p-4 rounded-[4px] border border-pink-100">
         <h2 className="font-medium text-secondary mb-3">Personal Information</h2>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
@@ -64,7 +64,7 @@ const AccountSummary = () => {
             <Link
               key={item.name}
               href={item.href}
-              className="flex flex-col p-4 bg-white rounded-[1px] hover:bg-pink-50 transition-colors border border-[#A9BA9D] hover:border-pink-200 group"
+              className="flex flex-col p-4 bg-white rounded-[4px] hover:bg-pink-50 transition-colors border border-[#A9BA9D] hover:border-pink-200 group"
             >
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-full bg-pink-50 group-hover:bg-white flex items-center justify-center transition-colors">

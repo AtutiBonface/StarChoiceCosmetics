@@ -51,7 +51,7 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="bg-primary px-4 py-4 shadow-sm rounded-[1px]  w-full">
+    <div className="bg-primary px-4 py-4 shadow-sm rounded-[4px]  w-full">
       <div className="flex items-center justify-between mb-2">
         <div>
           <h1 className="text-2xl font-bold text-secondary">Payment Methods</h1>
@@ -92,7 +92,7 @@ export default function PaymentPage() {
       {/* Add Payment Method Button */}
       <button
         onClick={() => setShowAddForm(true)}
-        className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-accent-1 text-white rounded-[1px] hover:bg-accent-1/90 transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-accent-1 text-white rounded-[4px] hover:bg-accent-1/90 transition-colors"
       >
         <Plus className="w-4 h-4" />
         Add {activeTab === 'card' ? 'New Card' : 'M-PESA Number'}
@@ -105,7 +105,7 @@ export default function PaymentPage() {
             savedPayments.cards.map((card) => (
               <div
                 key={card.id}
-                className="bg-secondary p-4 rounded-[1px] border border-medium flex items-center justify-between"
+                className="bg-secondary p-4 rounded-[4px] border border-medium flex items-center justify-between"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-8 relative">
@@ -152,7 +152,7 @@ export default function PaymentPage() {
               </div>
             ))
           ) : (
-            <div className="text-center py-12 bg-secondary rounded-[1px] border border-medium">
+            <div className="text-center py-12 bg-secondary rounded-[4px] border border-medium">
               <CreditCard className="w-12 h-12 text-gray-400 mx-auto mb-4" />
               <h2 className="text-lg font-medium text-secondary mb-2">No cards saved</h2>
               <p className="text-gray-500 mb-6">Add a card to make checkout easier</p>
@@ -168,7 +168,7 @@ export default function PaymentPage() {
             savedPayments.mpesa.map((mpesa) => (
               <div
                 key={mpesa.id}
-                className="bg-secondary p-4 rounded-[1px] border border-medium flex items-center justify-between"
+                className="bg-secondary p-4 rounded-[4px] border border-medium flex items-center justify-between"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center relative">
@@ -206,7 +206,7 @@ export default function PaymentPage() {
               </div>
             ))
           ) : (
-            <div className="text-center py-12 bg-secondary rounded-[1px] border border-medium">
+            <div className="text-center py-12 bg-secondary rounded-[4px] border border-medium">
               <Phone className="w-12 h-12 text-gray-400 mx-auto mb-4" />
               <h2 className="text-lg font-medium text-secondary mb-2">No M-PESA numbers saved</h2>
               <p className="text-gray-500 mb-6">Add an M-PESA number for faster checkout</p>

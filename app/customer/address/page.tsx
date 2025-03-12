@@ -37,12 +37,12 @@ export default function AddressPage() {
   }
 
   return (
-    <div className="px-4 py-4 bg-primary w-full h-full shadow-sm rounded-[1px]">
+    <div className="px-4 py-4 bg-primary w-full h-full shadow-sm rounded-[4px]">
       <div className="flex items-center justify-between mb-2">
         <h1 className="text-2xl font-bold text-secondary">Address Book</h1>
         <Link 
           href="/customer/address/create"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-accent-1 text-white rounded-[1px] hover:bg-accent-2 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-accent-1 text-white rounded-[4px] hover:bg-accent-2 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add New Address
@@ -54,7 +54,7 @@ export default function AddressPage() {
           {addresses.map((address) => (
             <div 
               key={address.id}
-              className="bg-primary p-4  border border-medium overflow-hidden relative"
+              className="bg-primary p-4  border border-medium rounded-[4px] overflow-hidden relative"
             >
               {address.isDefault && (
                 <span className="absolute top-4 right-4 text-xs font-medium text-accent-1 bg-pink-50 px-2 py-1 rounded-full">
@@ -106,13 +106,13 @@ export default function AddressPage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-primary rounded-[1px] border border-medium">
+        <div className="text-center py-12 bg-primary rounded-[4px] border border-medium">
           <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
           <h2 className="text-lg font-medium text-secondary mb-2">No addresses saved</h2>
           <p className="text-gray-500 mb-6">Add a delivery address to speed up checkout</p>
           <Link
             href="/customer/address/new"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-pink-600 text-white rounded-[1px] hover:bg-pink-600/90 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-pink-600 text-white rounded-[4px] hover:bg-pink-600/90 transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add New Address

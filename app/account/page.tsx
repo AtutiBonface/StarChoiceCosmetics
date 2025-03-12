@@ -70,7 +70,7 @@ const Accounts = () => {
 
   if (isloading) return <Loading/>
   return (
-    <div className="fixed inset-0 z-50 w-full h-screen bg-primary">
+    <div className="fixed inset-0 z-50 w-full h-screen bg-secondary">
       <div className="h-full flex items-center justify-center px-4 py-6">
         <div className="w-full max-w-6xl grid md:grid-cols-2 gap-8 items-center">
           {/* Back Button - Only on Mobile */}
@@ -95,7 +95,7 @@ const Accounts = () => {
           </div>
 
           {/* Forms Container */}
-          <div className="w-full max-w-md mx-auto bg-secondary p-6 rounded-[1px] border border-medium shadow-sm">
+          <div className="w-full max-w-md mx-auto bg-primary p-6 rounded-[4px] border border-medium shadow-sm">
             {/* Logo and Title */}
             <div className="flex items-center gap-3 mb-6">
               <div className="relative w-10 h-10">
@@ -137,7 +137,7 @@ const Accounts = () => {
                               name='email'
                               value={loginformData.email}
                               onChange={handleLoginFormChange}
-                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium rounded-[4px]  focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your email"
                               required
                             />
@@ -153,7 +153,7 @@ const Accounts = () => {
                             <input
                               type="password"
                               name="password"
-                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-2 pl-10 text-secondary border border-medium  rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your password"
                               required
                               value={loginformData.password}
@@ -165,7 +165,7 @@ const Accounts = () => {
 
                         <div className="flex items-center justify-between pt-1">
                           <label className="flex items-center gap-2">
-                            <input type="checkbox" className="rounded-[1px] text-accent-1 focus:ring-pink-500" />
+                            <input type="checkbox" className="rounded-[4px] text-accent-1 focus:ring-pink-500" />
                             <span className="text-sm text-secondary">Remember me</span>
                           </label>
                           <Link href="/forgot-password" className="text-sm text-accent-1 hover:text-pink-700 font-medium">
@@ -175,7 +175,7 @@ const Accounts = () => {
 
                         <button
                           type="submit"
-                          className="w-full bg-accent-1 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
+                          className="w-full bg-accent-1 text-white py-2.5 rounded-[4px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
                         >
                           Sign in
                         </button>
@@ -203,7 +203,7 @@ const Accounts = () => {
                               type="text"
                               id="first-name"
                               name = 'first_name'
-                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="First name"
                               required
                               onChange={handleRegisterFormChange}
@@ -217,7 +217,7 @@ const Accounts = () => {
                               type="text"
                               id="last-name"
                               name='last_name'
-                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Last name"
                               required
                               onChange={handleRegisterFormChange}
@@ -235,7 +235,7 @@ const Accounts = () => {
                               id="register-email"
                               name='register_email'
                               onChange={handleRegisterFormChange}
-                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Enter your email"
                               required
                             />
@@ -252,7 +252,7 @@ const Accounts = () => {
                               type="password"
                               id="register-password"
                               name = 'register_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Create a password"
                               required
                               onChange={handleRegisterFormChange}
@@ -269,7 +269,7 @@ const Accounts = () => {
                               type="password"
                               id="register-password"
                               name = 'confirm_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[1px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Confirm a password"
                               required
                               onChange={handleRegisterFormChange}
@@ -280,7 +280,7 @@ const Accounts = () => {
 
                         <button
                           type="submit"
-                          className="w-full bg-accent-1 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
+                          className="w-full bg-accent-1 text-white py-2.5 rounded-[4px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
                         >
                           Create Account
                         </button>
@@ -315,7 +315,7 @@ const Accounts = () => {
                             key={index}
                             type="text"
                             maxLength={1}
-                            className="w-12 h-12 text-center text-xl font-bold text-secondary border border-medium rounded-[1px] focus:outline-none focus:ring-2 focus:ring-pink-600"
+                            className="w-12 h-12 text-center text-xl font-bold text-secondary border border-medium rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
                             required
                             autoFocus={index === 0}
                             onChange={(e) => {
@@ -336,7 +336,7 @@ const Accounts = () => {
 
                       <button
                         type="submit"
-                        className="w-full bg-accent-1 text-white py-2.5 rounded-[1px] hover:bg-pink-700 transition-colors font-medium shadow-sm"
+                        className="w-full bg-accent-1 text-white py-2.5 rounded-[4px] hover:bg-pink-700 transition-colors font-medium shadow-sm"
                       >
                         Verify
                       </button>

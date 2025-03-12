@@ -135,14 +135,14 @@ const SearchResults = () => {
             {/* Products */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {products.map(product => (
-                <div key={product.id} className="bg-transparent p-4 rounded-[1px] border border-gray-100">
+                <div key={product.id} className="bg-transparent p-4 rounded-[4px] border border-gray-100">
                   {/* Product Image */}
                   <div className="relative aspect-square mb-3">
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
-                      className="object-cover rounded-[1px]"
+                      className="object-cover rounded-[4px]"
                     />
                   </div>
                   
@@ -166,7 +166,7 @@ const SearchResults = () => {
 
                   {/* Add to Cart Button */}
                   <button 
-                    className="w-full flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-600/90 text-white py-2 px-4 rounded-[1px] text-sm transition-colors"
+                    className="w-full flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-600/90 text-white py-2 px-4 rounded-[4px] text-sm transition-colors"
                     onClick={() => {
                       // Add your cart functionality here
                       console.log('Adding to cart:', product.id)

@@ -31,15 +31,15 @@ const Toast = ({ message, type, isVisible, onClose }: ToastProps) => {
   }
 
   const backgrounds = {
-    success: 'bg-success-color border-success-color',
-    error: 'bg-error-color border-error-color',
+    success: 'bg-success border-medium',
+    error: 'bg-error border-error-color',
     info: 'bg-accent-2 border-accent-2'
   }
 
   return (
     <div className="fixed inset-0 w-full z-50 animate-slide-in">
       <div className={`
-        flex items-center justify-between gap-3 px-4 py-3 rounded-[1px] border
+        flex items-center justify-between gap-3 px-4 py-3 rounded-[1px] border 
         ${backgrounds[type]}
       `}>
         {icons[type]}

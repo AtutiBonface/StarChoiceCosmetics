@@ -95,7 +95,7 @@ export default function WishlistPage() {
             <p className="text-[#5C4033] mb-6">Your wishlist is empty</p>
             <Link 
               href="/"
-              className="inline-block bg-pink-600 text-white px-6 py-3 rounded-[1px] hover:bg-pink-600/90 transition-colors"
+              className="inline-block bg-pink-600 text-white px-6 py-3 rounded-[4px] hover:bg-pink-600/90 transition-colors"
             >
               Continue Shopping
             </Link>
@@ -107,7 +107,7 @@ export default function WishlistPage() {
               {wishlistItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="group bg-transparent p-4 rounded-[1px] relative border border-gray-200"
+                  className="group bg-transparent p-4 rounded-[4px] relative border border-gray-200"
                 >
                   {/* Product Image */}
                   <div className="relative aspect-square mb-4">
@@ -115,7 +115,7 @@ export default function WishlistPage() {
                       src={item.image}
                       alt={item.name}
                       fill
-                      className="object-cover rounded-[1px]"
+                      className="object-cover rounded-[4px]"
                     />
                     <button
                       onClick={() => removeFromWishlist(item.id)}
@@ -152,7 +152,7 @@ export default function WishlistPage() {
 
                   {/* Actions */}
                   <button 
-                    className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-[1px] transition-colors
+                    className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-[4px] transition-colors
                       ${item.inStock 
                         ? 'bg-pink-600 text-white hover:bg-pink-600/90' 
                         : 'bg-gray-200 text-gray-500 cursor-not-allowed'
@@ -171,7 +171,7 @@ export default function WishlistPage() {
               {wishlistItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="flex border border-medium   rounded-[1px] overflow-hidden relative py-2"
+                  className="flex border border-medium   rounded-[4px] overflow-hidden relative py-2"
                 >
                   {/* Product Image */}
                   <div className="relative w-32 h-32 my-auto ml-2  flex-shrink-0">
@@ -214,7 +214,7 @@ export default function WishlistPage() {
                     {/* Actions Row */}
                     <div className="flex items-center gap-2 mt-2">
                       <button 
-                        className={`flex-1  flex items-center justify-center gap-1 py-2 text-xs rounded-[1px] transition-colors
+                        className={`flex-1  flex items-center justify-center gap-1 py-2 text-xs rounded-[4px] transition-colors
                           ${item.inStock 
                             ? 'bg-pink-600 text-white hover:bg-pink-600/90' 
                             : 'bg-gray-200 text-gray-500 cursor-not-allowed'
@@ -226,7 +226,7 @@ export default function WishlistPage() {
                       </button>
                       <button
                         onClick={() => removeFromWishlist(item.id)}
-                        className="p-2 bg-gray-100 rounded-[1px] hover:bg-gray-200 transition-colors"
+                        className="p-2 bg-gray-100 rounded-[4px] hover:bg-gray-200 transition-colors"
                         aria-label="Remove from wishlist"
                       >
                         <Trash2 size={14} />
