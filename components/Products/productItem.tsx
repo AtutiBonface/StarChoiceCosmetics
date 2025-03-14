@@ -1,9 +1,9 @@
 import { ShoppingCart, Star } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Product } from './utils';
 import Toast from './toast-notification';
 import { useRouter } from 'next/navigation';
+import { Product } from '@/mockData';
 
 interface ProductProps {
   product: Product;
@@ -73,7 +73,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
           {/* Product Image */}
           <div className="relative h-40 sm:h-48 mb-4 overflow-hidden rounded-lg">
             <Image
-              src={product.image}
+              src={product.images[0].url}
               alt={product.name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
@@ -93,9 +93,9 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
             <div className="flex items-center gap-1">
               <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
               <span className="text-xs text-primary">{product.rating}</span>
-              {product.reviews && (
-                <span className="text-xs text-secondary">({product.reviews})</span>
-              )}
+             {/*  {product.reviews && (
+                <span className="text-xs text-secondary">({product.reviews.length})</span>
+              )} */}
             </div>
           ) : null}
         </div>

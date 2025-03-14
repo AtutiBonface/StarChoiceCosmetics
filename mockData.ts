@@ -52,6 +52,8 @@ interface CartItem {
   quantity: number
   stock: number
   deliveryDate: string
+  rating: number
+  reviewCount: number
 }
 
 interface WishlistItem {
@@ -240,7 +242,6 @@ const products: Product[] = [
     images: [
       { id: 1, url: "/products/cerave/cerave-cleanser-1.webp" },
       { id: 2, url: "/products/cerave/cerave-cleanser-2.webp" },
-      { id: 3, url: "/products/cerave/cerave-cleanser-3.webp" }
     ],
     stock: 15,
     hasVariants: false,
@@ -288,9 +289,8 @@ const products: Product[] = [
     oldPrice: 3500,
     description: "A lightweight, water-based gel moisturizer that instantly quenches dry skin and keeps it looking smooth, supple, and hydrated all day. Formulated with hyaluronic acid, a hydrator found naturally in the skin.",
     images: [
-      { id: 1, url: "/products/neutrogena/neutrogena-hydro-1.jpg" },
-      { id: 2, url: "/products/neutrogena/neutrogena-hydro-2.jpg" },
-      { id: 3, url: "/products/neutrogena/neutrogena-hydro-3.jpg" }
+      { id: 1, url: "/products/neutrogena/neutrogena-hydro-1.png" },
+      { id: 2, url: "/products/neutrogena/neutrogena-hydro-2.png" },
     ],
     stock: 8,
     hasVariants: false,
@@ -339,8 +339,8 @@ const products: Product[] = [
     description: "A mild, soap-free cleanser that gently cleanses without stripping the skin of its natural protective oils or emollients. Ideal for sensitive skin and suitable for use on face, hands, and body.",
     images: [
       { id: 1, url: "/products/cetaphil/cetaphil-cleanser-1.webp" },
-      { id: 2, url: "/products/cetaphil/cetaphil-cleanser-2.webp" },
-      { id: 3, url: "/products/cetaphil/cetaphil-cleanser-3.webp" }
+      { id: 2, url: "/products/cetaphil/cetaphil-cleanser-2.jpg" },
+      { id: 3, url: "/products/cetaphil/cetaphil-cleanser-3.jpg" }
     ],
     stock: 12,
     hasVariants: false,
@@ -388,8 +388,8 @@ const products: Product[] = [
     oldPrice: 2000,
     description: "A high-strength vitamin and mineral blemish formula that helps reduce the appearance of blemishes and congestion while balancing visible sebum activity.",
     images: [
-      { id: 1, url: "/products/the-ordinary/niacinamide-1.jpg" },
-      { id: 2, url: "/products/the-ordinary/niacinamide-2.jpg" },
+      { id: 1, url: "/products/the-ordinary/niacinamide-1.webp" },
+      { id: 2, url: "/products/the-ordinary/niacinamide-2.webp" },
       { id: 3, url: "/products/the-ordinary/niacinamide-3.jpg" }
     ],
     stock: 20,
@@ -438,8 +438,6 @@ const products: Product[] = [
     description: "A fast-absorbing, fragrance-free lotion that provides 48-hour hydration and helps repair very dry skin. Enriched with ceramides and natural moisturizing factors.",
     images: [
       { id: 1, url: "/products/eucerin/advanced-repair-1.webp" },
-      { id: 2, url: "/products/eucerin/advanced-repair-2.webp" },
-      { id: 3, url: "/products/eucerin/advanced-repair-3.webp" }
     ],
     stock: 18,
     hasVariants: true,
@@ -486,9 +484,9 @@ const products: Product[] = [
     oldPrice: 3200,
     description: "A cult-favorite exfoliant with 2% salicylic acid (BHA) to unclog pores, smooth wrinkles, and brighten skin tone. Suitable for all skin types, including sensitive skin.",
     images: [
-      { id: 1, url: "/products/paulas-choice/bha-exfoliant-1.webp" },
-      { id: 2, url: "/products/paulas-choice/bha-exfoliant-2.webp" },
-      { id: 3, url: "/products/paulas-choice/bha-exfoliant-3.webp" }
+      { id: 1, url: "/products/paulas-choice/bha-exfoliant-1.avif" },
+      { id: 2, url: "/products/paulas-choice/bha-exfoliant-2.avif" },
+      { id: 3, url: "/products/paulas-choice/bha-exfoliant-3.avif" }
     ],
     stock: 14,
     hasVariants: false,
@@ -536,8 +534,9 @@ const products: Product[] = [
     description: "A 24-hour daily moisturizer that provides long-lasting hydration and leaves the skin feeling soft and smooth. Formulated with squalane and glacial glycoprotein.",
     images: [
       { id: 1, url: "/products/kiehls/ultra-facial-1.jpg" },
-      { id: 2, url: "/products/kiehls/ultra-facial-2.jpg" },
-      { id: 3, url: "/products/kiehls/ultra-facial-3.jpg" }
+      { id: 2, url: "/products/kiehls/ultra-facial-2.webp" },
+      { id: 3, url: "/products/kiehls/ultra-facial-3.jpg" },
+      { id: 3, url: "/products/kiehls/ultra-facial-4.jpg" }
     ],
     stock: 10,
     hasVariants: false,
@@ -635,7 +634,6 @@ const products: Product[] = [
     images: [
       { id: 1, url: "/products/first-aid-beauty/repair-cream-1.webp" },
       { id: 2, url: "/products/first-aid-beauty/repair-cream-2.webp" },
-      { id: 3, url: "/products/first-aid-beauty/repair-cream-3.webp" }
     ],
     stock: 12,
     hasVariants: false,
@@ -731,9 +729,9 @@ const products: Product[] = [
     oldPrice: 400,
     description: "A nourishing body lotion enriched with glycerin and honey to deeply moisturize and soften skin. Perfect for daily use.",
     images: [
-      { id: 1, url: "/products/nice-lovely/glycerin-honey-1.webp" },
-      { id: 2, url: "/products/nice-lovely/glycerin-honey-2.webp" },
-      { id: 3, url: "/products/nice-lovely/glycerin-honey-3.webp" }
+      { id: 1, url: "/products/nice-lovely/glycerin-honey-1.jpg" },
+      { id: 2, url: "/products/nice-lovely/glycerin-honey-2.jpg" },
+      { id: 3, url: "/products/nice-lovely/glycerin-honey-3.jpg" }
     ],
     stock: 45,
     hasVariants: false,
@@ -781,9 +779,8 @@ const products: Product[] = [
     oldPrice: 1400,
     description: "An all-in-one cleanser and makeup remover that gently removes makeup, cleanses and soothes skin. Suitable for all skin types, including sensitive.",
     images: [
-      { id: 1, url: "/products/garnier/micellar-water-1.webp" },
-      { id: 2, url: "/products/garnier/micellar-water-2.webp" },
-      { id: 3, url: "/products/garnier/micellar-water-3.webp" }
+      { id: 1, url: "/products/garnier/micellar-water-1.jpg" },
+      { id: 2, url: "/products/garnier/micellar-water-2.png" },
     ],
     stock: 25,
     hasVariants: false,
@@ -832,8 +829,6 @@ const products: Product[] = [
     description: "An anti-aging day cream that helps reduce wrinkles, re-firm and re-plump skin. Contains Pro-Xylane and Hyaluronic Acid.",
     images: [
       { id: 1, url: "/products/loreal/revitalift-laser-1.webp" },
-      { id: 2, url: "/products/loreal/revitalift-laser-2.webp" },
-      { id: 3, url: "/products/loreal/revitalift-laser-3.webp" }
     ],
     stock: 15,
     hasVariants: false,
@@ -885,7 +880,9 @@ const initialCartItems: CartItem[] = [
     image: "/products/nivea/nivea-luminous-1.webp",
     quantity: 1,
     stock: 10,
-    deliveryDate: "Wed, Mar 12"
+    deliveryDate: "Wed, Mar 12",
+    rating: 4,
+    reviewCount : 200
   }
 ]
 

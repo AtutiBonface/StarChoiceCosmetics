@@ -5,49 +5,14 @@ import Link from 'next/link'
 import { ChevronRight, Heart, Minus, Plus, ShoppingCart, Star } from 'lucide-react'
 import Toast from '@/components/Products/toast-notification'
 import { RelatedProducts } from '@/components/Products/relatedProducts'
-
-interface Review {
-  id: number
-  user: string
-  rating: number
-  comment: string
-  date: string
-}
-
-const productInfo = {
-  details: `
-    • Innovative formula with Luminous630®
-    • SPF50 protection against UV damage
-    • Helps reduce dark marks
-    • Prevents new dark marks from forming
-    • Suitable for all skin types
-    • Dermatologically tested
-  `,
-  ingredients: "Aqua, Homosalate, Alcohol Denat., Butyl Methoxydibenzoylmethane, Ethylhexyl Salicylate, Octocrylene...",
-  howToUse: "Apply evenly to face and neck every morning after cleansing. Gently massage in circular motions until absorbed. Use before sun exposure.",
-}
-
-const reviews: Review[] = [
-  {
-    id: 1,
-    user: "Sarah K.",
-    rating: 5,
-    comment: "Amazing product! Saw results within weeks of use.",
-    date: "2024-03-01"
-  },
-  {
-    id: 2,
-    user: "John M.",
-    rating: 4,
-    comment: "Good texture, absorbs quickly. Pleasant scent.",
-    date: "2024-02-28"
-  }
-]
+import { products } from '@/mockData'
+import { useParams } from 'next/navigation'
 
 type TabType = 'info' | 'reviews'
 
 const ProductPreview = () => {
   const [selectedImage, setSelectedImage] = useState(0)
+  const { name } = useParams()
   const [quantity, setQuantity] = useState(1)
   const [isWishlist, setIsWishlist] = useState(false)
   const [showToast, setShowToast] = useState(false)
@@ -55,29 +20,37 @@ const ProductPreview = () => {
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
   const [activeTab, setActiveTab] = useState<TabType>('info')
 
+  // Find product from mockData
+  const product = products.find((p) => p.id.toString() === name)
+
+  // Return early if product not found
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg text-secondary">Product not found</p>
+      </div>
+    )
+  }
+
   const handleAddToCart = () => {
-    // Add to cart logic here
     setToastMessage('Product added to cart successfully!')
     setToastType('success')
     setShowToast(true)
   }
 
-  // Mock data - replace with your actual data fetching logic
-  const product = {
-    name: "Nivea Perfect & Radiant Luminous630 Anti Dark Marks Day Cream SPF50",
-    price: 1299,
-    oldPrice: 1499,
-    description: "This innovative day cream with SPF50 helps reduce the appearance of dark marks and prevents new ones from forming. Enriched with Luminous630®, it provides advanced protection against UV damage.",
-    images: [
-      { id: 1, url: "/nivea-oil.webp" },
-      { id: 2, url: "/nivea-oil-2.webp" },
-      { id: 3, url: "/nivea-oil-3.webp" },
-    ],
-    stock: 10
+  // Rating stars renderer
+  const renderRating = (rating: number) => {
+    return [...Array(5)].map((_, i) => (
+      <Star 
+        key={i} 
+        size={14} 
+        className={`${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-200'}`} 
+      />
+    ))
   }
 
   return (
-    <div className="bg-primary text-primary mb-18 md:mb-0"> {/* margin bottom for mobile sticky actions */}
+    <div className="bg-primary text-primary mb-18 md:mb-0">
       <Toast
         message={toastMessage}
         type={toastType}
@@ -97,7 +70,7 @@ const ProductPreview = () => {
             </button>
             <span className="w-12 text-center">{quantity}</span>
             <button
-              onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}
+              onClick={() => product && setQuantity(q => Math.min(product.stock, q + 1))}
               className="p-2 hover:bg-gray-100"
             >
               <Plus size={16} />
@@ -119,11 +92,20 @@ const ProductPreview = () => {
         <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
             <div className="flex items-center gap-2 text-sm text-secondary">
-              <Link href="/" className="hover:text-accent-1">Home</Link>
-              <ChevronRight size={16} />
-              <Link href={`/search?category=${encodeURIComponent("skincare")}`} className="hover:text-accent-1">Skincare</Link>
-              <ChevronRight size={16} />
-              <span className="text-accent-1">SKU-12345</span>
+              <Link href="/" className="hover:text-accent-1 flex-shrink-0">
+                Home
+              </Link>
+              <ChevronRight size={16} className="flex-shrink-0" />
+              <Link 
+                href={`/search?brand=${encodeURIComponent(product.brand)}`} 
+                className="hover:text-accent-1 flex-shrink-0"
+              >
+                {product.brand}
+              </Link>
+              <ChevronRight size={16} className="flex-shrink-0" />
+              <span className="text-accent-1 truncate max-w-[200px] sm:max-w-[300px] md:max-w-[400px]">
+                {product.name}
+              </span>
             </div>
           </div>
         </div>
@@ -136,8 +118,8 @@ const ProductPreview = () => {
               {/* Main Image */}
               <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden"> {/* Changed from aspect-square */}
                 <Image
-                  src={product.images[selectedImage].url}
-                  alt={product.name}
+                  src={product ? product.images[selectedImage]?.url || '' : ''}
+                  alt={product ? product?.name || '' : ""}
                   fill
                   className="object-contain" // Changed from object-cover to maintain aspect ratio
                   priority
@@ -147,7 +129,7 @@ const ProductPreview = () => {
               {/* Scrollable Thumbnails */}
               <div className="relative">
                 <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 snap-x">
-                  {product.images.map((image, index) => (
+                  {product &&  product.images.map((image, index) => (
                     <button
                       key={image.id}
                       onClick={() => setSelectedImage(index)}
@@ -169,18 +151,35 @@ const ProductPreview = () => {
 
             {/* Product Info */}
             <div className="space-y-6">
-              <h1 className="text-2xl font-bold text-secondary">{product.name}</h1>
+              <h1 className="text-2xl font-bold text-secondary">{product && product.name}</h1>
 
               {/* Price */}
               <div className="flex items-center gap-4">
                 <span className="text-3xl font-bold text-accent-1">
-                  KES {product.price.toLocaleString()}
+                  KES {product && product.price.toLocaleString()}
                 </span>
-                {product.oldPrice && (
+                {product && product.oldPrice && (
                   <span className="text-xl text-gray-500 line-through">
                     KES {product.oldPrice.toLocaleString()}
                   </span>
                 )}
+              </div>
+
+              <div className="space-y-2">
+                <h2 className="text-md font-medium text-primary">Description</h2>
+                <p className="text-sm text-secondary leading-relaxed">
+                  {product.description}
+                </p>
+              </div>
+
+              {/* Rating - Add this section too */}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center">
+                  {renderRating(product.rating || 0)}
+                </div>
+                <span className="text-sm text-secondary">
+                  ({product.reviews?.length || 0} Reviews)
+                </span>
               </div>
 
               {/* Quantity Selector */}
@@ -195,7 +194,7 @@ const ProductPreview = () => {
                   </button>
                   <span className="w-12 text-center">{quantity}</span>
                   <button
-                    onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}
+                    onClick={() => product && setQuantity(q => Math.min(product.stock, q + 1))}
                     className="p-2 hover:bg-gray-100"
                   >
                     <Plus size={16} />
@@ -227,7 +226,7 @@ const ProductPreview = () => {
               {/* Stock Status */}
               <p className="text-sm text-secondary">
                 <span className="font-medium">Availability:</span>{' '}
-                {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
+                {product && product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
               </p>
             </div>
           </div>
@@ -254,7 +253,7 @@ const ProductPreview = () => {
                       : 'border-transparent text-secondary hover:text-accent-1'
                   }`}
                 >
-                  Reviews ({reviews.length})
+                  Reviews ({product.reviews?.length || 0})
                 </button>
               </div>
 
@@ -262,31 +261,31 @@ const ProductPreview = () => {
               <div className="py-2 max-w-3xl mx-auto">
                 <div className="min-h-[400px] max-h-[400px] overflow-y-auto scrollbar-hide pr-4">
                   {activeTab === 'info' && (
-                    <div className="space-y-2">
+                    <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2 ">
+                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2">
                           Product Details
                         </h2>
                         <p className="text-sm text-secondary whitespace-pre-line leading-relaxed">
-                          {productInfo.details}
+                          {product.info.details}
                         </p>
                       </div>
 
                       <div>
-                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2 mb-3">
+                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2">
                           Ingredients
                         </h2>
                         <p className="text-sm text-secondary leading-relaxed">
-                          {productInfo.ingredients}
+                          {product.info.ingredients}
                         </p>
                       </div>
 
                       <div>
-                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2 mb-3">
+                        <h2 className="text-xl font-bold text-secondary sticky top-0 bg-secondary py-2">
                           How to Use
                         </h2>
                         <p className="text-sm text-secondary leading-relaxed">
-                          {productInfo.howToUse}
+                          {product.info.howToUse}
                         </p>
                       </div>
                     </div>
@@ -294,12 +293,12 @@ const ProductPreview = () => {
 
                   {activeTab === 'reviews' && (
                     <div className="space-y-6">
-                      {reviews.length === 0 ? (
+                      {!product.reviews?.length ? (
                         <div className="text-center py-8">
                           <p className="text-gray-500">No reviews yet</p>
                         </div>
                       ) : (
-                        reviews.map(review => (
+                        product.reviews.map(review => (
                           <div 
                             key={review.id} 
                             className="bg-primary p-4 rounded-[4px] border border-medium hover:border-accent-1/20 transition-colors"
@@ -317,17 +316,7 @@ const ProductPreview = () => {
                                   </span>
                                 </div>
                                 <div className="flex items-center mt-1 mb-3">
-                                  {[...Array(5)].map((_, i) => (
-                                    <Star 
-                                      key={i} 
-                                      size={14} 
-                                      className={`${
-                                        i < review.rating 
-                                          ? 'text-yellow-400 fill-current' 
-                                          : 'text-gray-200'
-                                      }`} 
-                                    />
-                                  ))}
+                                  {renderRating(review.rating)}
                                 </div>
                                 <p className="text-sm text-secondary leading-relaxed">
                                   {review.comment}

@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useRef, useState } from "react";
-import { Product } from "./utils";
 import { ProductItem } from "./productItem";
 import { Loader } from "lucide-react";
+import { Product } from "@/mockData";
 
 
 interface MobileProductGridProps {
@@ -33,6 +33,7 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
 
   useEffect(() => {
     const observer = new IntersectionObserver(
+      
       (entries) => {
         if (entries[0].isIntersecting) {
           loadMoreItems();

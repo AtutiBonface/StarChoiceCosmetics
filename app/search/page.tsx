@@ -4,6 +4,9 @@ import { ChevronRight, Filter } from 'lucide-react'
 import Link from 'next/link'
 import FilterSidebar from '@/components/Products/filtersidebar'
 import { ProductItem } from '@/components/Products/productItem'
+import { products } from '@/mockData'
+import { useSearchParams } from 'next/navigation'
+
 type PriceRange = {
   min: number
   max: number | null
@@ -18,8 +21,12 @@ interface FilterState {
   formulation: string[]
 }
 
-
 const SearchResults = () => {
+  const searchParams = useSearchParams()
+  const brand = searchParams.get('brand')
+  const category = searchParams.get('category')
+  const query = searchParams.get('q')
+
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [filters, setFilters] = useState<FilterState>({
     brands: [],
@@ -29,34 +36,6 @@ const SearchResults = () => {
     concerns: [],
     formulation: []
   })
-
-  // Mock data - replace with your actual data
-  const products = [
-    {
-      id: 12,
-      name: "CeraVe Moisturizing Cream 539g",
-      image: "/cerave-oil.webp",
-      price: 4100,
-      originalPrice: 4500,
-      rating: 4.9,
-      reviews: 782,
-      discount: 9,
-      isNew: false,
-      hasVariants: true
-    },
-    {
-      id: 13,
-      name: "Neutrogena Oil-Free Acne Wash 177ml",
-      image: "/Neutrogena-oil.jpg",
-      price: 1850,
-      originalPrice: 2000,
-      rating: 4.2,
-      reviews: 254,
-      discount: 7,
-      isNew: false,
-      hasVariants: false
-    },
-  ]
 
   const filterOptions = {
     brands: ["Nivea", "L'Oreal", "Maybelline", "MAC", "Fenty Beauty"],
@@ -85,15 +64,49 @@ const SearchResults = () => {
     
   }
 
+  const getBreadcrumbText = () => {
+    if (query) return `Search results for "${query}"`
+    if (brand && category) return `${brand} - ${category}`
+    if (brand) return `${brand} Products`
+    if (category) return `${category}`
+    return 'All Products'
+  }
+
   return (
     <div>
       {/* Breadcrumb */}
       <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center gap-2 text-sm text-secondary">
-            <Link href="/" className="hover:text-accent-1">Home</Link>
-            <ChevronRight size={16} />
-            <span className="text-accent-1">Search Results</span>
+            <Link href="/" className="hover:text-accent-1 flex-shrink-0">
+              Home
+            </Link>
+            <ChevronRight size={16} className="flex-shrink-0" />
+            {brand && (
+              <>
+                <Link 
+                  href="/brands" 
+                  className="hover:text-accent-1 flex-shrink-0"
+                >
+                  Brands
+                </Link>
+                <ChevronRight size={16} className="flex-shrink-0" />
+              </>
+            )}
+            {category && (
+              <>
+                <Link 
+                  href="/categories" 
+                  className="hover:text-accent-1 flex-shrink-0"
+                >
+                  Categories
+                </Link>
+                <ChevronRight size={16} className="flex-shrink-0" />
+              </>
+            )}
+            <span className="text-accent-1 truncate max-w-[200px] sm:max-w-[300px] md:max-w-[400px]">
+              {getBreadcrumbText()}
+            </span>
           </div>
         </div>
       </div>

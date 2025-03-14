@@ -5,19 +5,9 @@ import Link from 'next/link'
 import { ChevronRight, Heart, ShoppingCart, Trash2, Star, Loader } from 'lucide-react'
 import WishlistSkeleton from '@/components/skeletons/WishlistSkeleton'
 import Toast from '@/components/Products/toast-notification'
-
+import { initialWishlistItems , WishlistItem } from '@/mockData'
 export default function WishlistPage() {
-  interface WishlistItem {
-    id: number;
-    name: string;
-    price: number;
-    oldPrice: number;
-    image: string;
-    inStock: boolean;
-    rating: number;
-    reviewCount: number;
-  }
-
+ 
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showToast, setShowToast] = useState(false)
@@ -25,29 +15,7 @@ export default function WishlistPage() {
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
   const [isAddingToCart, setIsAddingToCart] = useState<number | null>(null)
 
-  const initialWishlistItems = [
-    {
-      id: 1,
-      name: "Nivea Perfect & Radiant Luminous630",
-      price: 1299,
-      oldPrice: 1499,
-      image: "/nivea-oil.webp",
-      inStock: true,
-      rating: 4.2,
-      reviewCount: 950
-    },
-    {
-      id: 2,
-      name: "Nivea Perfect & Radiant Luminous630",
-      price: 1299,
-      oldPrice: 1499,
-      image: "/nivea-oil.webp",
-      inStock: false,
-      rating: 4.5,
-      reviewCount: 1250
-    },
-    
-  ]
+  
   useEffect(() => {
     const fetchWishlistItems = async () => {
       try {
@@ -162,10 +130,10 @@ export default function WishlistPage() {
                     />
                     <button
                       onClick={() => removeFromWishlist(item.id)}
-                      className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-accent-1 hover:text-white transition-colors"
+                      className="absolute top-2 right-2 p-2 bg-white rounded-lg shadow-md hover:bg-accent-1 hover:text-white transition-colors"
                       aria-label="Remove from wishlist"
                     >
-                      <Trash2 size={18} />
+                      <Trash2 size={18} className='text-accent-1'/>
                     </button>
                   </div>
 

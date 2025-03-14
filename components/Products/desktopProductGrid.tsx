@@ -2,8 +2,7 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { ProductItem } from "./productItem";
-import { Product } from "./utils";
-
+import { Product } from "@/mockData";
 
 interface DesktopProductGridProps {
   title: string;

@@ -1,6 +1,6 @@
 import { DesktopProductGrid } from "./desktopProductGrid";
 import { MobileProductGrid } from "./mobileProductGrid";
-import products from "./utils";
+import { products } from "@/mockData";
 // Example 2: Using the components separately
 export  const NewArrivals = () => {
   return (

@@ -5,45 +5,8 @@ import { Minus, Plus, Trash2, ChevronRight, ShoppingBag, Star } from 'lucide-rea
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import CartSkeleton from '@/components/skeletons/CartSkeleton'
+import { initialCartItems , CartItem } from '@/mockData'
 
-// Type definitions for better type safety
-interface CartItem {
-  id: number
-  name: string
-  price: number
-  oldPrice?: number
-  image: string
-  quantity: number
-  rating: number
-  reviewCount: number
-  deliveryDate: string
-}
-
-// Mock cart data
-const initialCartItems: CartItem[] = [
-  {
-    id: 1,
-    name: "Nivea Perfect & Radiant Luminous630",
-    price: 1299,
-    oldPrice: 1499,
-    image: "/nivea-oil.webp",
-    quantity: 1,
-    rating: 4.2,
-    reviewCount: 950,
-    deliveryDate: "Wed, Mar 12"
-  },
-  {
-    id: 2,
-    name: "Nivea Radiant Luminous630",
-    price: 899,
-    oldPrice: 1099,
-    image: "/nivea-oil.webp",
-    quantity: 3,
-    rating: 4.5,
-    reviewCount: 1250,
-    deliveryDate: "Thu, Mar 13"
-  },
-]
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
@@ -185,15 +148,15 @@ const Cart = () => {
                             <div className="flex items-center border border-medium rounded overflow-hidden">
                               <button
                                 onClick={() => updateQuantity(item.id, -1)}
-                                className="p-2 hover:bg-gray-100 transition-colors"
+                                className="p-2 hover:bg-gray-100 transition-colors text-secondary"
                                 aria-label="Decrease quantity"
                               >
-                                <Minus size={16} />
+                                <Minus size={16} className='text-secondary' />
                               </button>
                               <span className="w-12 text-center font-medium">{item.quantity}</span>
                               <button
                                 onClick={() => updateQuantity(item.id, 1)}
-                                className="p-2 hover:bg-gray-100 transition-colors"
+                                className="p-2 hover:bg-gray-100 transition-colors text-secondary"
                                 aria-label="Increase quantity"
                               >
                                 <Plus size={16} />
@@ -201,7 +164,7 @@ const Cart = () => {
                             </div>
                             
                             <div className="flex items-center">
-                              <span className="mr-4 font-medium">
+                              <span className="mr-4 font-medium text-primary">
                                 Total: KES {(item.price * item.quantity).toLocaleString()}
                               </span>
                               <button

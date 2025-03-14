@@ -1,14 +1,16 @@
 'use client'
 import { Heart, House, Menu, ShoppingCart, User } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import axios from 'axios'
+import { initialCartItems, initialWishlistItems } from '@/mockData'
 
 const BottomBar = () => {
   const pathname = usePathname()
   const router = useRouter()
   const [isNavigating, setIsNavigating] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const isMounted = useRef(false)
 
   // Authentication check - similar to TopBar
   const checkAuth = useCallback(async () => {
@@ -30,44 +32,82 @@ const BottomBar = () => {
     checkAuth()
   }, [checkAuth])
 
-  // Temporary data - replace with your actual data store
-  const wishlistItems = [
-    { id: 1, name: "Nivea Perfect & Radiant", price: 1299, image: "/nivea-oil.webp" },
-    { id: 2, name: "L'Oreal Paris Revitalift", price: 2499, image: "/nivea-oil.webp" }
-  ]
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true
+      
+      // Prefetch all possible routes
+      const routesToPrefetch = [
+        '/',
+        '/wishlist',
+        '/cart', 
+        '/customer/account',
+        '/more',
+        '/account'
+      ]
 
-  const cartItems = [
-    { id: 1, name: "Nivea Perfect & Radiant", price: 1299, quantity: 1, image: "/nivea-oil.webp" }
-  ]
+      routesToPrefetch.forEach(route => {
+        router.prefetch(route)
+      })
+    }
+  }, [router])
+
+  const handleNavigation = useCallback(async (href: string, authRequired: boolean) => {
+    if (isNavigating || pathname === href) return
+    
+    setIsNavigating(true)
+    
+    try {
+      const targetRoute = authRequired && !isAuthenticated ? '/account' : href
+      
+      router.push(targetRoute)
+
+    } catch (error) {
+      console.error('Navigation failed:', error)
+
+    } finally {
+      
+      setTimeout(() => setIsNavigating(false), 200)
+    }
+  }, [isNavigating, pathname, isAuthenticated, router])
 
   const navItems = [
-    { icon: House, href: '/', label: 'Home' },
+    { 
+      icon: House, 
+      href: '/', 
+      label: 'Home',
+      authRequired: false 
+    },
     { 
       icon: Heart, 
       href: '/wishlist', 
       label: 'Wishlist',
       showBadge: true,
-      badge: isAuthenticated && wishlistItems.length > 0 ? wishlistItems.length : null
+      badge: isAuthenticated && initialWishlistItems.length > 0 ? initialWishlistItems.length : null,
+      authRequired: true
     },
     { 
       icon: ShoppingCart, 
       href: '/cart', 
       label: 'Cart',
       showBadge: true,
-      badge: isAuthenticated && cartItems.length > 0 ? 
-        cartItems.reduce((sum, item) => sum + item.quantity, 0) : null
+      badge: isAuthenticated && initialCartItems.length > 0 ? 
+      initialCartItems.reduce((sum, item) => sum + item.quantity, 0) : null,
+      authRequired: true
     },
     { 
       icon: User, 
       href: '/customer/account', 
       label: 'Account',
-      showBadge: false
+      showBadge: false,
+      authRequired: false
     },
     { 
       icon: Menu, 
       href: '/more', 
       label: 'More',
-      showBadge: false
+      showBadge: false,
+      authRequired: false
     }
   ]
 
@@ -79,23 +119,6 @@ const BottomBar = () => {
       return pathname.startsWith('/customer/')
     }
     return pathname === href || pathname.startsWith(href + '/')
-  }
-
-  const handleNavigation = async (href: string) => {
-    if (isNavigating || pathname === href) return
-    
-    try {
-      setIsNavigating(true)
-      if ((href === '/cart' || href === '/wishlist') && !isAuthenticated) {
-        router.push('/account')
-      } else {
-        router.push(href)
-      }
-    } catch (error) {
-      console.error('Navigation failed:', error)
-    } finally {
-      setIsNavigating(false)
-    }
   }
 
   const shouldShowBottomBar = navItems.some(item => isActive(item.href))
@@ -112,10 +135,10 @@ const BottomBar = () => {
           return (
             <button 
               key={item.href}
-              onClick={() => handleNavigation(item.href)}
-              disabled={isNavigating}
+              onClick={() => handleNavigation(item.href, item.authRequired)}
+              disabled={isNavigating && pathname === item.href}
               className={`cursor-pointer h-full w-[60px] relative flex items-center justify-center
-                ${isNavigating ? 'opacity-50 pointer-events-none' : ''}`}
+                ${isNavigating && pathname !== item.href ? 'animate-pulse' : ''}`}
             >
               <div className="relative">
                 <Icon 

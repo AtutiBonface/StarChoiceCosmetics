@@ -3,31 +3,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
+import { brands } from '@/mockData'
+import { Brand } from '@/mockData'
+import { useState } from 'react'
 
-interface Brand {
-  id: number
-  name: string
-  image: string
-  productCount: number
-}
 
-const brands: Brand[] = [
-  {
-    id: 1,
-    name: "Nivea",
-    image: "/nivea.png",
-    productCount: 45
-  },
-  {
-    id: 2,
-    name: "L'Oreal",
-    image: "/loreal.webp",
-    productCount: 38
-  },
-  // Add more brands...
-]
+
 
 export default function BrandsPage() {
+  const [allbrands] = useState<Brand[]>(brands)
   return (
     <div className="">
       {/* Breadcrumb */}
@@ -53,7 +37,7 @@ export default function BrandsPage() {
 
         {/* Brands Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
-          {brands.map((brand) => (
+          {allbrands.map((brand) => (
             <Link 
               key={brand.id}
               href={`/search?brand=${encodeURIComponent(brand.name)}`}
@@ -67,7 +51,7 @@ export default function BrandsPage() {
                 {/* Brand Logo */}
                 <div className="relative h-28 md:h-36 flex items-center justify-center">
                   <Image
-                    src={brand.image}
+                    src={brand.logo}
                     alt={brand.name}
                     fill
                     className="object-contain p-3 group-hover:scale-105 transition-transform duration-200"
@@ -79,7 +63,7 @@ export default function BrandsPage() {
                   <h3 className="font-medium text-secondary group-hover:text-accent-1 transition-colors truncate">
                     {brand.name}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-accent-1 mt-1">
                     {brand.productCount} Products
                   </p>
                 </div>

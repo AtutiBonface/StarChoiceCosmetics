@@ -7,6 +7,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import axios from 'axios'
+import { initialWishlistItems, initialCartItems } from '@/mockData'
 
 // Dynamically import components that are not needed immediately
 const AnnouncementBar = dynamic(() => import('./announcementbar'), { ssr: true })
@@ -79,15 +80,6 @@ const TopBar = () => {
                         pathname?.startsWith('/search') || 
                         pathname?.startsWith('/category') || 
                         (pathname?.startsWith('/customer') && !pathname?.startsWith('/customer/account'))
-
-  const wishlistItems = [
-    { id: 1, name: "Nivea Perfect & Radiant", price: 1299, image: "/nivea-oil.webp" },
-    { id: 2, name: "L'Oreal Paris Revitalift", price: 2499, image: "/nivea-oil.webp" }
-  ]
-
-  const cartItems = [
-    { id: 1, name: "Nivea Perfect & Radiant", price: 1299, quantity: 1, image: "/nivea-oil.webp" }
-  ]
 
   return (
     <div className='fixed top-0 left-0 w-full z-50 border-b border-medium bg-primary'>
@@ -229,9 +221,9 @@ const TopBar = () => {
               >
                 <div className="relative">
                   <Heart className="w-5 h-5" />
-                  {(wishlistItems.length > 0  && isAuthenticated )&& (
+                  {(initialWishlistItems.length > 0  && isAuthenticated )&& (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {wishlistItems.length}
+                      {initialWishlistItems.length}
                     </span>
                   )}
                 </div>
@@ -243,30 +235,30 @@ const TopBar = () => {
               {activeDropdown === 'wishlist' && (                                
                  
                 <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
-                  {wishlistItems.length > 0 ? (
+                  {initialWishlistItems.length > 0 ? (
                     <>
                       {/* Show only first item */}
                       <Link 
-                        href={`/products/${wishlistItems[0].id}`}
+                        href={`/products/${initialWishlistItems[0].id}`}
                         className="flex gap-3 hover:bg-accent-light p-2 -m-2 rounded-[4px] transition-colors"
                       >
                         <div className="relative w-16 h-16 flex-shrink-0">
                           <Image
-                            src={wishlistItems[0].image}
-                            alt={wishlistItems[0].name}
+                            src={initialWishlistItems[0].image}
+                            alt={initialWishlistItems[0].name}
                             fill
                             className="object-cover rounded-[4px]"
                             sizes="64px"
                           />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-sm text-primary line-clamp-1">{wishlistItems[0].name}</h3>
+                          <h3 className="text-sm text-primary line-clamp-1">{initialWishlistItems[0].name}</h3>
                           <p className="text-accent-1 font-bold text-sm">
-                            KES {wishlistItems[0].price.toLocaleString()}
+                            KES {initialWishlistItems[0].price.toLocaleString()}
                           </p>
-                          {wishlistItems.length > 1 && (
+                          {initialWishlistItems.length > 1 && (
                             <p className="text-sm text-primary mt-1">
-                              +{wishlistItems.length - 1} more items
+                              +{initialWishlistItems.length - 1} more items
                             </p>
                           )}
                         </div>
@@ -275,7 +267,7 @@ const TopBar = () => {
                         href="/wishlist" 
                         className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm mt-4 hover:bg-accent-1/90"
                       >
-                        View All Items ({wishlistItems.length})
+                        View All Items ({initialWishlistItems.length})
                       </Link>
                     </>
                   ) : (
@@ -301,9 +293,9 @@ const TopBar = () => {
               >
                 <div className="relative">
                   <ShoppingCart className="w-5 h-5" />
-                  {(cartItems.length > 0 && isAuthenticated)  && (
+                  {(initialCartItems.length > 0 && isAuthenticated)  && (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+                      {initialCartItems.reduce((sum, item) => sum + item.quantity, 0)}
                     </span>
                   )}
                 </div>
@@ -314,18 +306,18 @@ const TopBar = () => {
               </button>
               {activeDropdown === 'cart' && (
                 <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
-                  {cartItems.length > 0 ? (
+                  {initialCartItems.length > 0 ? (
                     <>
                       <div className="flex justify-between text-sm mb-2">
                         <span className="font-medium text-primary">Items:</span>
                         <span className="text-primary">
-                          {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+                          {initialCartItems.reduce((sum, item) => sum + item.quantity, 0)}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm mb-3">
                         <span className="font-medium text-primary">Subtotal:</span>
                         <span className="font-bold text-accent-1">
-                          KES {cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
+                          KES {initialCartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
                         </span>
                       </div>
                       <Link 
