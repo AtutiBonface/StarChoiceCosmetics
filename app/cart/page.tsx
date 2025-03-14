@@ -1,9 +1,10 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Minus, Plus, Trash2, ChevronRight, ShoppingBag, Star } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import CartSkeleton from '@/components/skeletons/CartSkeleton'
 
 // Type definitions for better type safety
 interface CartItem {
@@ -45,9 +46,26 @@ const initialCartItems: CartItem[] = [
 ]
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems)
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        setIsLoading(true)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        setCartItems(initialCartItems)
+      } catch (error) {
+        console.error('Failed to fetch cart items:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchCartItems()
+  }, [])
+
   const updateQuantity = (id: number, change: number) => {
     setCartItems(items =>
       items.map(item =>
@@ -65,7 +83,7 @@ const Cart = () => {
   // Move rendering function outside JSX for better organization
   const renderRating = (rating: number) => (
     <div className="flex items-center">
-      <span className="text-amber-500 mr-1 text-xs">{rating}</span>
+      <span className="text-amber-500 mr-1 text-sm">{rating}</span>
       <div className="flex">
         {[...Array(5)].map((_, i) => (
           <Star 
@@ -82,6 +100,10 @@ const Cart = () => {
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
   const shipping = subtotal >= 5000 ? 0 : 500
   const total = subtotal + shipping
+
+  if (isLoading) {
+    return <CartSkeleton />
+  }
 
   return (
     <div>
@@ -115,35 +137,13 @@ const Cart = () => {
             {/* Cart Items */}
             <div className="lg:col-span-2">
               {/* Mobile Summary */}
-              <div className="lg:hidden bg-secondary mb-4 p-4 border border-medium rounded-[4px]">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="text-sm text-secondary">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</p>
-                    <p className="font-bold text-lg text-accent-1">KES {total.toLocaleString()}</p>
-                  </div>
-                  <button 
-                    onClick={() => router.push("/checkout")}
-                    className="bg-accent-1 text-white py-2 px-4 rounded-[4px] text-sm hover:bg-accent-1/90 transition-colors"
-                  >
-                    Checkout
-                  </button>
-                </div>
-                {shipping > 0 && (
-                  <p className="text-xs text-[#5C4033] mt-2">
-                    Free shipping on orders over KES 5,000
-                  </p>
-                )}
-              </div>
+              
               
               {/* Cart Items Container */}
               <div className="bg-primary rounded-[4px] overflow-hidden mb-">
-
-                <div className="py-2">
-                  <h2 className="font-bold text-lg text-secondary">Shopping Cart</h2>
-                </div>
                 <div>
                   {cartItems.map((item) => (
-                    <div key={item.id} className="p-4  border border-medium mb-2 rounded-[4px]">
+                    <div key={item.id} className="p-4  mb-2 rounded-[4px]">
                       {/* Desktop View */}
                       <div className="hidden sm:flex gap-6">
                         {/* Product Image */}
@@ -217,7 +217,7 @@ const Cart = () => {
                       </div>
 
                       {/* Mobile View */}
-                      <div className="sm:hidden">
+                      <div className="sm:hidden  pb-2  ">
                         <div className="flex gap-4">
                           {/* Product Image */}
                           <div className="relative w-24 h-24 flex-shrink-0">
@@ -232,7 +232,7 @@ const Cart = () => {
                           {/* Product Details */}
                           <div className="flex-1">
                             <Link href={`/products/${item.id}`}>
-                              <h3 className="font-medium text-sm text-secondary hover:text-accent-1 line-clamp-2">{item.name}</h3>
+                              <h3 className="font-medium text-md text-primary hover:text-accent-1 line-clamp-2">{item.name}</h3>
                             </Link>
                             
                             <div className="flex items-center gap-2 mt-1">
@@ -240,7 +240,7 @@ const Cart = () => {
                                 KES {item.price.toLocaleString()}
                               </span>
                               {item.oldPrice && (
-                                <span className="text-xs text-gray-500 line-through">
+                                <span className="text-sm text-gray-500 line-through">
                                   KES {item.oldPrice.toLocaleString()}
                                 </span>
                               )}
@@ -248,12 +248,12 @@ const Cart = () => {
                             
                             <div className="flex items-center gap-1 mt-1">
                               {renderRating(item.rating)}
-                              <span className="text-xs text-gray-500">({item.reviewCount})</span>
+                              <span className="text-sm text-gray-500">({item.reviewCount})</span>
                             </div>
                             
                             <div className="flex flex-col gap-1 mt-2">
-                              <p className="text-green-600 text-xs">In Stock</p>
-                              <p className="text-xs text-gray-600">Delivery: {item.deliveryDate}</p>
+                              <p className="text-green-600 text-sm">In Stock</p>
+                              <p className="text-sm text-gray-600">Delivery: {item.deliveryDate}</p>
                             </div>
                           </div>
                         </div>
@@ -261,7 +261,7 @@ const Cart = () => {
                         
                         <div className="mt-3 flex items-center justify-between">
                           <div className="flex items-center gap-1">
-                            <span className="text-xs text-gray-700">Qty:</span>
+                            <span className="text-md text-gray-700">Qty:</span>
                             <select 
                               value={item.quantity}
                               onChange={(e) => {
@@ -282,10 +282,10 @@ const Cart = () => {
                               onClick={() => removeItem(item.id)}
                               className="text-red-600 text-xs hover:text-accent-1"
                             >
-                              Delete
+                              <Trash2 className='h-5 w-5'/>
                             </button>
                             <span className="text-gray-300">|</span>
-                            <button className="text-gray-700 text-xs hover:text-accent-1">
+                            <button className="text-gray-700 text-sm hover:text-accent-1">
                               Save for later
                             </button>
                           </div>
@@ -295,12 +295,25 @@ const Cart = () => {
                   ))}
                 </div>
                 
-                <div className="p-4 border-t border-medium text-right">
-                  <div className="font-bold text-lg text-secondary">
-                    Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items): 
-                    <span className="text-accent-1 ml-2">KES {subtotal.toLocaleString()}</span>
+                <div className="lg:hidden bg-secondary mb-4 p-4 border border-medium rounded-[4px]">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="text-sm text-secondary">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</p>
+                    <p className="font-bold text-lg text-accent-1">KES {total.toLocaleString()}</p>
                   </div>
+                  <button 
+                    onClick={() => router.push("/checkout")}
+                    className="bg-accent-1 text-white py-2 px-4 rounded-[4px] text-sm hover:bg-accent-1/90 transition-colors"
+                  >
+                    Checkout
+                  </button>
                 </div>
+                {shipping > 0 && (
+                  <p className="text-xs text-[#5C4033] mt-2">
+                    Free shipping on orders over KES 5,000
+                  </p>
+                )}
+              </div>
               </div>
 
               {/* Continue Shopping Link - Mobile */}

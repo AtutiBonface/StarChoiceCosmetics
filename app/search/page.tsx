@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import { ChevronRight, Filter, ShoppingCart } from 'lucide-react'
-import Image from 'next/image'
+import { ChevronRight, Filter } from 'lucide-react'
 import Link from 'next/link'
 import FilterSidebar from '@/components/Products/filtersidebar'
+import { ProductItem } from '@/components/Products/productItem'
 type PriceRange = {
   min: number
   max: number | null
@@ -33,15 +33,29 @@ const SearchResults = () => {
   // Mock data - replace with your actual data
   const products = [
     {
-      id: 1,
-      name: "Nivea Perfect & Radiant",
-      price: 1299,
-      oldPrice: 1499,
-      brand: "Nivea",
-      category: "Skincare",
-      image: "/nivea-oil.webp",
+      id: 12,
+      name: "CeraVe Moisturizing Cream 539g",
+      image: "/cerave-oil.webp",
+      price: 4100,
+      originalPrice: 4500,
+      rating: 4.9,
+      reviews: 782,
+      discount: 9,
+      isNew: false,
+      hasVariants: true
     },
-    // Add more products...
+    {
+      id: 13,
+      name: "Neutrogena Oil-Free Acne Wash 177ml",
+      image: "/Neutrogena-oil.jpg",
+      price: 1850,
+      originalPrice: 2000,
+      rating: 4.2,
+      reviews: 254,
+      discount: 7,
+      isNew: false,
+      hasVariants: false
+    },
   ]
 
   const filterOptions = {
@@ -66,6 +80,11 @@ const SearchResults = () => {
                             filters.concerns.length +
                             filters.formulation.length;
 
+  const handleAddToCart = (e: React.MouseEvent, productId: string) => {
+
+    
+  }
+
   return (
     <div>
       {/* Breadcrumb */}
@@ -83,7 +102,7 @@ const SearchResults = () => {
         {/* Filter overlay for mobile */}
         {isFilterOpen && (
           <div 
-            className="fixed inset-0 bg-black bg-opacity-40 z-30 lg:hidden"
+            className="overlay fixed inset-0  bg-opacity-10 z-50 lg:hidden"
             onClick={() => setIsFilterOpen(false)}
           ></div>
         )}
@@ -135,47 +154,7 @@ const SearchResults = () => {
             {/* Products */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {products.map(product => (
-                <div key={product.id} className="bg-transparent p-4 rounded-[4px] border border-gray-100">
-                  {/* Product Image */}
-                  <div className="relative aspect-square mb-3">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover rounded-[4px]"
-                    />
-                  </div>
-                  
-                  {/* Product Info */}
-                  <Link href={`/products/${product.id}`}>
-                    <h3 className="text-sm font-medium text-secondary line-clamp-2 hover:text-accent-1">
-                      {product.name}
-                    </h3>
-                  </Link>
-
-                  <div className="flex items-center gap-2 mt-2 mb-3">
-                    <span className="text-accent-1 font-bold">
-                      KES {product.price.toLocaleString()}
-                    </span>
-                    {product.oldPrice && (
-                      <span className="text-sm text-gray-500 line-through">
-                        KES {product.oldPrice.toLocaleString()}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Add to Cart Button */}
-                  <button 
-                    className="w-full flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-600/90 text-white py-2 px-4 rounded-[4px] text-sm transition-colors"
-                    onClick={() => {
-                      // Add your cart functionality here
-                      console.log('Adding to cart:', product.id)
-                    }}
-                  >
-                    <ShoppingCart size={16} />
-                    Add to Cart
-                  </button>
-                </div>
+                <ProductItem handleAddToCart={handleAddToCart} product={product} key={product.id}/>
               ))}
             </div>
           </div>

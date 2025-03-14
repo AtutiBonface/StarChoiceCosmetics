@@ -72,9 +72,6 @@ const ProductPreview = () => {
       { id: 1, url: "/nivea-oil.webp" },
       { id: 2, url: "/nivea-oil-2.webp" },
       { id: 3, url: "/nivea-oil-3.webp" },
-      { id: 4, url: "/nivea-oil.webp" },
-      { id: 5, url: "/nivea-oil-2.webp" },
-      { id: 6, url: "/nivea-oil-3.webp" },
     ],
     stock: 10
   }
@@ -91,7 +88,7 @@ const ProductPreview = () => {
       {/* Sticky Mobile Actions */}
       <div className="fixed h-18 bottom-0 left-0 right-0 bg-primary border-t border-medium p-2 md:hidden z-50">
         <div className="flex items-center gap-4">
-          <div className="flex items-center border border-gray-200 rounded-[4px]">
+          <div className="flex items-center border border-medium rounded-[4px]">
             <button
               onClick={() => setQuantity(q => Math.max(1, q - 1))}
               className="p-2 hover:bg-gray-100"
@@ -108,7 +105,7 @@ const ProductPreview = () => {
           </div>
           <button 
             onClick={handleAddToCart} 
-            className="flex-1 bg-pink-600 text-white py-3 px-6 rounded-[4px] hover:bg-pink-600/90 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 bg-accent-1 text-white py-3 px-6 rounded-[4px] hover:bg-accent-1/90 transition-colors flex items-center justify-center gap-2"
           >
             <ShoppingCart size={20} />
             Add to Cart
@@ -122,11 +119,11 @@ const ProductPreview = () => {
         <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
             <div className="flex items-center gap-2 text-sm text-secondary">
-              <Link href="/" className="hover:text-pink-600">Home</Link>
+              <Link href="/" className="hover:text-accent-1">Home</Link>
               <ChevronRight size={16} />
-              <Link href={`/search?category=${encodeURIComponent("skincare")}`} className="hover:text-pink-600">Skincare</Link>
+              <Link href={`/search?category=${encodeURIComponent("skincare")}`} className="hover:text-accent-1">Skincare</Link>
               <ChevronRight size={16} />
-              <span className="text-pink-600">SKU-12345</span>
+              <span className="text-accent-1">SKU-12345</span>
             </div>
           </div>
         </div>
@@ -155,7 +152,7 @@ const ProductPreview = () => {
                       key={image.id}
                       onClick={() => setSelectedImage(index)}
                       className={`relative w-20 h-20 flex-shrink-0 snap-start rounded-[4px] overflow-hidden ${
-                        selectedImage === index ? 'border-2 border-pink-600' : ''
+                        selectedImage === index ? 'border-2 border-accent-1' : ''
                       }`}
                     >
                       <Image
@@ -176,7 +173,7 @@ const ProductPreview = () => {
 
               {/* Price */}
               <div className="flex items-center gap-4">
-                <span className="text-3xl font-bold text-pink-600">
+                <span className="text-3xl font-bold text-accent-1">
                   KES {product.price.toLocaleString()}
                 </span>
                 {product.oldPrice && (
@@ -189,7 +186,7 @@ const ProductPreview = () => {
               {/* Quantity Selector */}
               <div className="flex items-center gap-4">
                 <span className="text-sm font-medium text-secondary">Quantity:</span>
-                <div className="flex items-center border border-gray-200 rounded-[4px]">
+                <div className="flex items-center border border-medium rounded-[4px]">
                   <button
                     onClick={() => setQuantity(q => Math.max(1, q - 1))}
                     className="p-2 hover:bg-gray-100"
@@ -208,7 +205,7 @@ const ProductPreview = () => {
 
               {/* Actions */}
               <div className="flex gap-4">
-                <button onClick={handleAddToCart} className="flex-1 bg-pink-600 text-white py-3 px-6 rounded-[4px] hover:bg-pink-600/90 transition-colors flex items-center justify-center gap-2">
+                <button onClick={handleAddToCart} className="flex-1 bg-accent-1 text-white py-3 px-6 rounded-[4px] hover:bg-accent-1/90 transition-colors flex items-center justify-center gap-2">
                   <ShoppingCart size={20} />
                   Add to Cart
                 </button>
@@ -216,8 +213,8 @@ const ProductPreview = () => {
                   onClick={() => setIsWishlist(!isWishlist)}
                   className={`p-3 rounded-[4px] border ${
                     isWishlist 
-                      ? 'bg-pink-600 text-white border-pink-600' 
-                      : 'border-gray-200 hover:border-pink-600'
+                      ? 'bg-accent-1 text-white border-accent-1' 
+                      : 'border-medium hover:border-accent-1'
                   }`}
                 >
                   <Heart 
@@ -243,8 +240,8 @@ const ProductPreview = () => {
                   onClick={() => setActiveTab('info')}
                   className={`py-3 px-6 text-sm font-medium border-b-2 -mb-[2px] transition-colors ${
                     activeTab === 'info'
-                      ? 'border-pink-600 text-pink-600'
-                      : 'border-transparent text-secondary hover:text-pink-600'
+                      ? 'border-accent-1 text-accent-1'
+                      : 'border-transparent text-secondary hover:text-accent-1'
                   }`}
                 >
                   Product Info
@@ -253,8 +250,8 @@ const ProductPreview = () => {
                   onClick={() => setActiveTab('reviews')}
                   className={`py-3 px-6 text-sm font-medium border-b-2 -mb-[2px] transition-colors ${
                     activeTab === 'reviews'
-                      ? 'border-pink-600 text-pink-600'
-                      : 'border-transparent text-secondary hover:text-pink-600'
+                      ? 'border-accent-1 text-accent-1'
+                      : 'border-transparent text-secondary hover:text-accent-1'
                   }`}
                 >
                   Reviews ({reviews.length})
@@ -305,7 +302,7 @@ const ProductPreview = () => {
                         reviews.map(review => (
                           <div 
                             key={review.id} 
-                            className="bg-primary p-4 rounded-[4px] border border-medium hover:border-pink-600/20 transition-colors"
+                            className="bg-primary p-4 rounded-[4px] border border-medium hover:border-accent-1/20 transition-colors"
                           >
                             <div className="flex items-start justify-between gap-4">
                               <div className="flex-1">

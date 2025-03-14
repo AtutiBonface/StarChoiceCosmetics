@@ -1,49 +1,84 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
-import AnnouncementBar from './announcementbar'
-import CategoryNav from './categoryNav'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import axios from 'axios'
 
+// Dynamically import components that are not needed immediately
+const AnnouncementBar = dynamic(() => import('./announcementbar'), { ssr: true })
+const CategoryNav = dynamic(() => import('./categoryNav'), { ssr: true })
+
 const TopBar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false) // Start with false
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const pathname = usePathname()
 
+  // Memoize the authentication check
+  const checkAuth = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const resp = await axios("/api/auth/status", {
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      })
+      setIsAuthenticated(resp.data?.isAuthenticated)
+    } catch (error) {
+      console.error('Auth check failed:', error)
+      setIsAuthenticated(false)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
-    const fetchToken = async()=>{
-      const resp = await axios("/api/auth/status")
-      setIsAuthenticated(resp.data?.isAuthenticated)      
-    }
-    fetchToken()
-  }, []);
+    checkAuth()
+  }, [checkAuth])
 
-  const handleLogout = async()=>{
-    try{
-      const resp = await axios.get('/api/logout')
-      window.location.href = "/"
-      
+  // Memoize the logout handler
+  const handleLogout = useCallback(async () => {
+    try {
+      await axios.get('/api/logout')
+      setIsAuthenticated(false)
       closeDropdown()
-      console.log(resp)
-    }catch{
-      console.error("Cant logout")
+      router.push('/')
+    } catch (error) {
+      console.error("Logout failed:", error)
     }
-  }
+  }, [router])
 
+  // Memoize dropdown handler
+  const handleDropdown = useCallback((dropdown: string) => {
+    setActiveDropdown(prev => prev === dropdown ? null : dropdown)
+  }, [])
+
+  const closeDropdown = useCallback(() => {
+    setActiveDropdown(null)
+  }, [])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (activeDropdown && !(event.target as Element).closest('.dropdown-container')) {
+        closeDropdown()
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [activeDropdown, closeDropdown])
+
+  // Memoize navigation checks
   const shouldShowBack = pathname?.startsWith('/products') || 
                         pathname?.startsWith('/search') || 
                         pathname?.startsWith('/category') || 
                         (pathname?.startsWith('/customer') && !pathname?.startsWith('/customer/account'))
-
-  const handleMouseEnter = (dropdown: string) => {
-    setActiveDropdown(dropdown)
-  }
 
   const wishlistItems = [
     { id: 1, name: "Nivea Perfect & Radiant", price: 1299, image: "/nivea-oil.webp" },
@@ -54,15 +89,9 @@ const TopBar = () => {
     { id: 1, name: "Nivea Perfect & Radiant", price: 1299, quantity: 1, image: "/nivea-oil.webp" }
   ]
 
-  const closeDropdown = () => {
-    setActiveDropdown(null)
-  }
-
-
-
   return (
     <div className='fixed top-0 left-0 w-full z-50 border-b border-medium bg-primary'>
-      <AnnouncementBar/>
+      <AnnouncementBar />
       <div className="max-w-7xl mx-auto border-b border-medium">
         <div className="h-16 w-full text-secondary px-4 flex justify-between items-center z-50">
           {/* Logo Section - Hidden on mobile */}
@@ -105,11 +134,11 @@ const TopBar = () => {
           {/* Actions Section - Hidden on mobile */}
           <div className="hidden md:flex items-center gap-4">
             {/* Account Dropdown */}
-            <div className="relative">
+            <div className="dropdown-container relative">
               {/* Account Button */}
               <button 
                 className="flex items-center gap-1 hover:text-accent-1"
-                onClick={() => activeDropdown === 'account' ? closeDropdown() : handleMouseEnter('account')}
+                onClick={() => handleDropdown('account')}
               >
                 <div className="relative">
                   <User className="w-5 h-5" />
@@ -186,18 +215,13 @@ const TopBar = () => {
             </div>
 
             {/* Wishlist Dropdown */}
-            <div className="relative">
+            <div className="dropdown-container relative">
               {/* Wishlist Button */}
               <button 
                 className="flex items-center gap-1 hover:text-accent-1"
                 onClick={() => {
                   if(isAuthenticated){
-                    if(activeDropdown === 'wishlist' ){
-                      closeDropdown()
-                    }
-                    else{
-                      handleMouseEnter('wishlist')
-                     } 
+                    handleDropdown('wishlist')
                   }else{
                     router.push('/account')
                   }
@@ -263,18 +287,13 @@ const TopBar = () => {
             </div>
 
             {/* Cart Dropdown */}
-            <div className="relative">
+            <div className="dropdown-container relative">
               {/* Cart Button */}
               <button
                 className="flex items-center gap-1 hover:text-accent-1"
                 onClick={() => {
                   if(isAuthenticated){
-                    if(activeDropdown === 'cart' ){
-                      closeDropdown()
-                    }
-                    else{
-                      handleMouseEnter('cart')
-                     } 
+                    handleDropdown('cart')
                   }else{
                     router.push('/account')
                   }
@@ -325,9 +344,11 @@ const TopBar = () => {
           </div>
         </div>
       </div>
-      <div className="hidden md:block mt-auto">
-        <CategoryNav/>
-      </div>
+      {!isLoading && (
+        <div className="hidden md:block mt-auto">
+          <CategoryNav />
+        </div>
+      )}
     </div>
   )
 }

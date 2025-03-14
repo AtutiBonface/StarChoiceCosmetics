@@ -1,11 +1,12 @@
 'use client'
 import React, { useState } from 'react'
-import { Mail, Lock, ArrowLeft} from 'lucide-react'
+import { Mail, Lock, ArrowLeft, Loader} from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
-import Loading from '../loading'
+import Toast from '@/components/Products/toast-notification'
+
 type TabType = 'login' | 'register'
 type FormStage = 'credentials' | 'verification' | 'success'
 
@@ -15,6 +16,9 @@ const Accounts = () => {
   const [loginformData, setLoginFormData] = useState({email: "", password:""})
   const [isloading , setIsLoading] = useState(false)
   const [registerformData, setRegisterFormData] = useState({first_name: "",last_name: "", email: "", register_password:"", confirm_password:""})
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+  const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
 
   const router = useRouter()
 
@@ -22,17 +26,25 @@ const Accounts = () => {
     e.preventDefault()
     try{
       setIsLoading(true)
-      const resp = await  axios.post('/api/login', JSON.stringify(loginformData))
-      console.log(resp)
-      window.location.href = "/cart"
+      const resp = await  axios.post('/api/login', JSON.stringify(loginformData))      
+      setToastMessage('Login successful! Redirecting...')
+      setToastType('success')
+      setShowToast(true)
+      
+      // Wait for toast animation
+      setTimeout(() => {
+        window.location.href = "/cart"
+      }, 1500)
 
-    }catch(error){
+    }catch(error: any){
+      setToastType('error')
+      setToastMessage(error.response?.data?.message || 'Login failed. Please try again.')
+      setShowToast(true)
       console.error(error)
     }finally{
       setIsLoading(false)
     }
 
-    /* setFormStage('verification') */
   }
 
   const handleRegister = (e: React.FormEvent) => {
@@ -68,9 +80,14 @@ const Accounts = () => {
 
   }
 
-  if (isloading) return <Loading/>
   return (
     <div className="fixed inset-0 z-50 w-full h-screen bg-secondary">
+      <Toast
+        message={toastMessage}
+        type={toastType}
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       <div className="h-full flex items-center justify-center px-4 py-6">
         <div className="w-full max-w-6xl grid md:grid-cols-2 gap-8 items-center">
           {/* Back Button - Only on Mobile */}
@@ -126,7 +143,7 @@ const Accounts = () => {
                               name='email'
                               value={loginformData.email}
                               onChange={handleLoginFormChange}
-                              className="block w-full px-3 py-2 pl-10 text-sm text-secondary border border-medium rounded-[4px]  focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium rounded-[4px]  focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your email"
                               required
                             />
@@ -142,7 +159,7 @@ const Accounts = () => {
                             <input
                               type="password"
                               name="password"
-                              className="block w-full px-3 py-2 pl-10 text-sm text-secondary border border-medium  rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium  rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
                               placeholder="Enter your password"
                               required
                               value={loginformData.password}
@@ -155,7 +172,7 @@ const Accounts = () => {
                         <div className="flex items-center justify-between pt-1">
                           <label className="flex items-center gap-2">
                             <input type="checkbox" className="rounded-[4px] text-accent-1 focus:ring-pink-500" />
-                            <span className="text-sm text-secondary">Remember me</span>
+                            <span className="text-md text-secondary">Remember me</span>
                           </label>
                           <Link href="/forgot-password" className="text-sm text-accent-1 hover:text-pink-700 font-medium">
                             Forgot password?
@@ -164,13 +181,22 @@ const Accounts = () => {
 
                         <button
                           type="submit"
-                          className="w-full bg-accent-1 text-white py-2.5 rounded-[4px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4"
+                          disabled={isloading}
+                          className={`w-full bg-accent-1 text-white py-2.5 rounded-[4px] hover:bg-pink-700 transition-colors font-medium shadow-sm mt-4 
+                            ${isloading ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
-                          Sign in
+                          {isloading ? (
+                            <span className="flex items-center justify-center gap-2">
+                              <Loader className="h-5 w-5 animate-spin text-white" />
+                              Signing in...
+                            </span>
+                          ) : (
+                            'Sign in'
+                          )}
                         </button>
                       </form>
 
-                      <p className="mt-5 text-center text-sm text-secondary">
+                      <p className="mt-5 text-center text-md text-secondary">
                         Not registered?{' '}
                         <button
                           onClick={() => setActiveTab('register')}
@@ -191,7 +217,7 @@ const Accounts = () => {
                             <input
                               type="text"
                               name = 'first_name'
-                              className="w-full px-4 py-2 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="First name"
                               required
                               onChange={handleRegisterFormChange}
@@ -204,7 +230,7 @@ const Accounts = () => {
                             <input
                               type="text"
                               name='last_name'
-                              className="w-full px-4 py-2 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Last name"
                               required
                               onChange={handleRegisterFormChange}
@@ -221,7 +247,7 @@ const Accounts = () => {
                               type="email"
                               name='register_email'
                               onChange={handleRegisterFormChange}
-                              className="w-full px-4 py-2 pl-10 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Enter your email"
                               required
                             />
@@ -237,7 +263,7 @@ const Accounts = () => {
                             <input
                               type="password"
                               name = 'register_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Create a password"
                               required
                               onChange={handleRegisterFormChange}
@@ -254,7 +280,7 @@ const Accounts = () => {
                               type="password"
                               id="register-password"
                               name = 'confirm_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium text-sm text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
                               placeholder="Confirm a password"
                               required
                               onChange={handleRegisterFormChange}
@@ -271,7 +297,7 @@ const Accounts = () => {
                         </button>
                       </form>
 
-                      <p className="mt-5 text-center text-sm text-secondary">
+                      <p className="mt-5 text-center text-md text-secondary">
                         Already have an account?{' '}
                         <button
                           onClick={() => setActiveTab('login')}

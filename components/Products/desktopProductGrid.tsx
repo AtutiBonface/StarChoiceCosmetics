@@ -50,7 +50,7 @@ export const DesktopProductGrid : React.FC<DesktopProductGridProps> = ({
         <div className="flex justify-center mt-6">
           <button 
             onClick={showMoreItems}
-            className="flex items-center gap-2 bg-pink-600 hover:bg-pink-600/90 text-white py-2 px-6 rounded transition-colors"
+            className="flex items-center gap-2 bg-accent-1 hover:bg-accent-1/90 text-white py-2 px-6 rounded transition-colors"
           >
             Show More <ChevronDown size={16} />
           </button>

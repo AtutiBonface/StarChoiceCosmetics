@@ -1,58 +1,91 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronRight, Heart, ShoppingCart, Trash2, Star } from 'lucide-react'
-
-// Mock wishlist data - replace with your actual data
-const initialWishlistItems = [
-  {
-    id: 1,
-    name: "Nivea Perfect & Radiant Luminous630",
-    price: 1299,
-    oldPrice: 1499,
-    image: "/nivea-oil.webp",
-    inStock: true,
-    rating: 4.2,
-    reviewCount: 950
-  },
-  {
-    id: 2,
-    name: "Nivea Perfect & Radiant Luminous630",
-    price: 1299,
-    oldPrice: 1499,
-    image: "/nivea-oil.webp",
-    inStock: false,
-    rating: 4.5,
-    reviewCount: 1250
-  },
-  {
-    id: 3,
-    name: "Nivea Perfect & Radiant Luminous630",
-    price: 1299,
-    oldPrice: 1499,
-    image: "/nivea-oil.webp",
-    inStock: true,
-    rating: 3.8,
-    reviewCount: 420
-  },
-  {
-    id: 4,
-    name: "Nivea Perfect & Radiant Luminous630",
-    price: 1299,
-    oldPrice: 1499,
-    image: "/nivea-oil.webp",
-    inStock: false,
-    rating: 4.0,
-    reviewCount: 780
-  },
-]
+import { ChevronRight, Heart, ShoppingCart, Trash2, Star, Loader } from 'lucide-react'
+import WishlistSkeleton from '@/components/skeletons/WishlistSkeleton'
+import Toast from '@/components/Products/toast-notification'
 
 export default function WishlistPage() {
-  const [wishlistItems, setWishlistItems] = useState(initialWishlistItems)
+  interface WishlistItem {
+    id: number;
+    name: string;
+    price: number;
+    oldPrice: number;
+    image: string;
+    inStock: boolean;
+    rating: number;
+    reviewCount: number;
+  }
+
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+  const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
+  const [isAddingToCart, setIsAddingToCart] = useState<number | null>(null)
+
+  const initialWishlistItems = [
+    {
+      id: 1,
+      name: "Nivea Perfect & Radiant Luminous630",
+      price: 1299,
+      oldPrice: 1499,
+      image: "/nivea-oil.webp",
+      inStock: true,
+      rating: 4.2,
+      reviewCount: 950
+    },
+    {
+      id: 2,
+      name: "Nivea Perfect & Radiant Luminous630",
+      price: 1299,
+      oldPrice: 1499,
+      image: "/nivea-oil.webp",
+      inStock: false,
+      rating: 4.5,
+      reviewCount: 1250
+    },
+    
+  ]
+  useEffect(() => {
+    const fetchWishlistItems = async () => {
+      try {
+        setIsLoading(true)
+        
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        setWishlistItems(initialWishlistItems)
+      } catch (error) {
+        console.error('Failed to fetch wishlist:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchWishlistItems()
+  }, [])
 
   const removeFromWishlist = (id :number) => {
     setWishlistItems(items => items.filter(item => item.id !== id))
+  }
+
+  const handleAddToCart = async (itemId: number) => {
+    if (isAddingToCart) return
+    
+    setIsAddingToCart(itemId)
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
+      
+      setToastMessage('Product added to cart successfully!')
+      setToastType('success')
+      setShowToast(true)
+    } catch (error) {
+      setToastMessage('Failed to add product to cart')
+      setToastType('error')
+      setShowToast(true)
+    } finally {
+      setIsAddingToCart(null)
+    }
   }
 
   // Function to render star rating
@@ -73,8 +106,18 @@ export default function WishlistPage() {
     )
   }
 
+  if (isLoading) {
+    return <WishlistSkeleton />
+  }
+
   return (
     <div className="bg-primary text-primary">
+      <Toast
+        message={toastMessage}
+        type={toastType}
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       {/* Breadcrumb */}
       <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
@@ -90,12 +133,12 @@ export default function WishlistPage() {
         {wishlistItems.length === 0 ? (
           <div className="text-center py-12">
             <div className="mb-4">
-              <Heart className="w-12 h-12 text-pink-600 mx-auto" />
+              <Heart className="w-12 h-12 text-accent-1 mx-auto" />
             </div>
             <p className="text-[#5C4033] mb-6">Your wishlist is empty</p>
             <Link 
               href="/"
-              className="inline-block bg-pink-600 text-white px-6 py-3 rounded-[4px] hover:bg-pink-600/90 transition-colors"
+              className="inline-block bg-accent-1 text-white px-6 py-3 rounded-[4px] hover:bg-accent-1/90 transition-colors"
             >
               Continue Shopping
             </Link>
@@ -103,11 +146,11 @@ export default function WishlistPage() {
         ) : (
           <>
             {/* Desktop View - Grid Layout */}
-            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:mx-12">
+            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:mx-12">
               {wishlistItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="group bg-transparent p-4 rounded-[4px] relative border border-gray-200"
+                  className="group bg-transparent p-4 rounded-[4px] relative"
                 >
                   {/* Product Image */}
                   <div className="relative aspect-square mb-4">
@@ -119,7 +162,7 @@ export default function WishlistPage() {
                     />
                     <button
                       onClick={() => removeFromWishlist(item.id)}
-                      className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-pink-600 hover:text-white transition-colors"
+                      className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-accent-1 hover:text-white transition-colors"
                       aria-label="Remove from wishlist"
                     >
                       <Trash2 size={18} />
@@ -128,13 +171,13 @@ export default function WishlistPage() {
 
                   {/* Product Info */}
                   <Link href={`/products/${item.id}`}>
-                    <h3 className="font-medium text-[#333333] line-clamp-2 mb-2 hover:text-pink-600">
+                    <h3 className="font-medium text-secondary line-clamp-2 mb-2 hover:text-accent-1">
                       {item.name}
                     </h3>
                   </Link>
 
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-lg font-bold text-pink-600">
+                    <span className="text-lg font-bold text-accent-1">
                       KES {item.price.toLocaleString()}
                     </span>
                     {item.oldPrice && (
@@ -152,15 +195,25 @@ export default function WishlistPage() {
 
                   {/* Actions */}
                   <button 
+                    onClick={() => handleAddToCart(item.id)}
+                    disabled={!item.inStock || isAddingToCart === item.id}
                     className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-[4px] transition-colors
                       ${item.inStock 
-                        ? 'bg-pink-600 text-white hover:bg-pink-600/90' 
+                        ? 'bg-accent-1 text-white hover:bg-accent-1/90' 
                         : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                      }`}
-                    disabled={!item.inStock}
+                      } ${isAddingToCart === item.id ? 'opacity-70' : ''}`}
                   >
-                    <ShoppingCart size={18} />
-                    {item.inStock ? 'Add to Cart' : 'Out of Stock'}
+                    {isAddingToCart === item.id ? (
+                      <>
+                        <Loader className="h-5 w-5 animate-spin text-white" />
+                        Adding...
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart size={18} />
+                        {item.inStock ? 'Add to Cart' : 'Out of Stock'}
+                      </>
+                    )}
                   </button>
                 </div>
               ))}
@@ -171,7 +224,7 @@ export default function WishlistPage() {
               {wishlistItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="flex border border-medium   rounded-[4px] overflow-hidden relative py-2"
+                  className="flex    rounded-[4px] overflow-hidden relative py-2"
                 >
                   {/* Product Image */}
                   <div className="relative w-32 h-32 my-auto ml-2  flex-shrink-0">
@@ -187,7 +240,7 @@ export default function WishlistPage() {
                   <div className="flex-1 p-3 flex flex-col justify-between">
                     <div>
                       <Link href={`/products/${item.id}`}>
-                        <h3 className="font-medium text-[#333333] line-clamp-2 text-sm hover:text-pink-600">
+                        <h3 className="font-medium text-secondary line-clamp-2 text-md hover:text-accent-1">
                           {item.name}
                         </h3>
                       </Link>
@@ -200,7 +253,7 @@ export default function WishlistPage() {
 
                       {/* Price */}
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-base font-bold text-pink-600">
+                        <span className="text-base font-bold text-accent-1">
                           KES {item.price.toLocaleString()}
                         </span>
                         {item.oldPrice && (
@@ -211,25 +264,34 @@ export default function WishlistPage() {
                       </div>
                     </div>
 
-                    {/* Actions Row */}
                     <div className="flex items-center gap-2 mt-2">
                       <button 
-                        className={`flex-1  flex items-center justify-center gap-1 py-2 text-xs rounded-[4px] transition-colors
+                        onClick={() => handleAddToCart(item.id)}
+                        disabled={!item.inStock || isAddingToCart === item.id}
+                        className={`flex-1 flex items-center justify-center gap-1 py-2 text-sm rounded-[4px] transition-colors
                           ${item.inStock 
-                            ? 'bg-pink-600 text-white hover:bg-pink-600/90' 
+                            ? 'bg-accent-1 text-white hover:bg-accent-1/90' 
                             : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                          }`}
-                        disabled={!item.inStock}
+                          } ${isAddingToCart === item.id ? 'opacity-70' : ''}`}
                       >
-                        <ShoppingCart size={14} />
-                        {item.inStock ? 'Add to Cart' : 'Out of Stock'}
+                        {isAddingToCart === item.id ? (
+                          <>
+                            <Loader className="h-5 w-5 animate-spin text-white" />
+                            Adding...
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart className='w-5 h-5 mr-2'/>
+                            {item.inStock ? 'Add to Cart' : 'Out of Stock'}
+                          </>
+                        )}
                       </button>
                       <button
                         onClick={() => removeFromWishlist(item.id)}
-                        className="p-2 bg-gray-100 rounded-[4px] hover:bg-gray-200 transition-colors"
+                        className="p-2  rounded-[4px] hover:bg-gray-200 transition-colors"
                         aria-label="Remove from wishlist"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 className='w-6 h-6 text-red-600'/>
                       </button>
                     </div>
                   </div>

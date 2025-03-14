@@ -26,7 +26,7 @@ const Toast = ({ message, type, isVisible, onClose }: ToastProps) => {
 
   const icons = {
     success: <CheckCircle2 className="w-5 h-5 text-success-color" />,
-    error: <XCircle className="w-5 h-5 text-error-color" />,
+    error: <XCircle className="w-5 h-5 text-white" />,
     info: <AlertCircle className="w-5 h-5 text-accent-2" />
   }
 
@@ -39,7 +39,7 @@ const Toast = ({ message, type, isVisible, onClose }: ToastProps) => {
   return (
     <div className="fixed inset-0 w-full z-50 animate-slide-in">
       <div className={`
-        flex items-center justify-between gap-3 px-4 py-3 rounded-[1px] border 
+        flex items-center justify-between gap-3 px-4 py-3 rounded-[1px] border border-medium
         ${backgrounds[type]}
       `}>
         {icons[type]}
