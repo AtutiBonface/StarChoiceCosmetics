@@ -115,8 +115,12 @@ const Accounts = () => {
           <div className="w-full max-w-md mx-auto bg-primary p-6 rounded-[4px] border border-medium shadow-sm">
             {/* Logo and Title */}
             <div className="mb-4 px-1 text-center">
-              <p className="text-xs font-medium text-accent-1 mb-1 ">StarChoice Cosmetics</p>
-              <h2 className="text-2xl font-semibold text-secondary">
+              <div className="flex center w-full justify-center mb-1">
+                <div className="relative  h-8 w-30">
+                  <Image alt='logo' src={"/icons/starchoice-logo.png"} fill></Image>
+                </div>
+              </div>
+              <h2 className="text-2xl font-semibold text-primary">
                 {formStage === 'credentials' && (
                   activeTab === 'login' ? 'Sign in to continue' : 'Create your account'
                 )}
@@ -134,7 +138,7 @@ const Accounts = () => {
                     <>
                       <form className="space-y-4" onSubmit={handleLogin}>
                         <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-secondary mb-1">
+                          <label htmlFor="email" className="block text-md font-medium text-secondary mb-1">
                             Email address
                           </label>
                           <div className="relative">
@@ -143,7 +147,7 @@ const Accounts = () => {
                               name='email'
                               value={loginformData.email}
                               onChange={handleLoginFormChange}
-                              className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium rounded-[4px]  focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium rounded-[4px]  focus:outline-none text-input"
                               placeholder="Enter your email"
                               required
                             />
@@ -152,14 +156,14 @@ const Accounts = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="password" className="block text-sm font-medium text-secondary mb-1">
+                          <label htmlFor="password" className="block text-md font-medium text-secondary mb-1">
                             Password
                           </label>
                           <div className="relative">
                             <input
                               type="password"
                               name="password"
-                              className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium  rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
+                              className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium  rounded-[4px] focus:outline-none text-input"
                               placeholder="Enter your password"
                               required
                               value={loginformData.password}
@@ -211,26 +215,26 @@ const Accounts = () => {
                       <form className="space-y-4" onSubmit={handleRegister}>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label htmlFor="first-name" className="block text-sm font-medium text-secondary mb-1">
+                            <label htmlFor="first-name" className="block text-md font-medium text-secondary mb-1">
                               First Name
                             </label>
                             <input
                               type="text"
                               name = 'first_name'
-                              className="w-full px-4 py-2 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 border border-medium text-md text-secondary focus:outline-none text-input rounded-[4px]"
                               placeholder="First name"
                               required
                               onChange={handleRegisterFormChange}
                             />
                           </div>
                           <div>
-                            <label htmlFor="last-name" className="block text-sm font-medium text-secondary mb-1">
+                            <label htmlFor="last-name" className="block text-md font-medium text-secondary mb-1">
                               Last Name
                             </label>
                             <input
                               type="text"
                               name='last_name'
-                              className="w-full px-4 py-2 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 border border-medium text-md text-secondary focus:outline-none text-input rounded-[4px]"
                               placeholder="Last name"
                               required
                               onChange={handleRegisterFormChange}
@@ -239,7 +243,7 @@ const Accounts = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="register-email" className="block text-sm font-medium text-secondary mb-1">
+                          <label htmlFor="register-email" className="block text-md font-medium text-secondary mb-1">
                             Email Address
                           </label>
                           <div className="relative">
@@ -247,7 +251,7 @@ const Accounts = () => {
                               type="email"
                               name='register_email'
                               onChange={handleRegisterFormChange}
-                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none text-input rounded-[4px]"
                               placeholder="Enter your email"
                               required
                             />
@@ -256,14 +260,14 @@ const Accounts = () => {
                         </div>
 
                         <div>
-                          <label htmlFor="register-password" className="block text-sm font-medium text-secondary mb-1">
+                          <label htmlFor="register-password" className="block text-md font-medium text-secondary mb-1">
                             Password
                           </label>
                           <div className="relative">
                             <input
                               type="password"
                               name = 'register_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none text-input rounded-[4px]"
                               placeholder="Create a password"
                               required
                               onChange={handleRegisterFormChange}
@@ -272,7 +276,7 @@ const Accounts = () => {
                           </div>
                         </div>
                         <div>
-                          <label htmlFor="register-password" className="block text-sm font-medium text-secondary mb-1">
+                          <label htmlFor="register-password" className="block text-md font-medium text-secondary mb-1">
                             Confirm Password
                           </label>
                           <div className="relative">
@@ -280,7 +284,7 @@ const Accounts = () => {
                               type="password"
                               id="register-password"
                               name = 'confirm_password'
-                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none focus:ring-2 focus:ring-pink-600 rounded-[4px]"
+                              className="w-full px-4 py-2 pl-10 border border-medium text-md text-secondary focus:outline-none text-input rounded-[4px]"
                               placeholder="Confirm a password"
                               required
                               onChange={handleRegisterFormChange}
@@ -326,7 +330,7 @@ const Accounts = () => {
                             key={index}
                             type="text"
                             maxLength={1}
-                            className="w-12 h-12 text-center text-xl font-bold text-secondary border border-medium rounded-[4px] focus:outline-none focus:ring-2 focus:ring-pink-600"
+                            className="w-12 h-12 text-center text-xl font-bold text-secondary border border-medium rounded-[4px] focus:outline-none text-input"
                             required
                             autoFocus={index === 0}
                             onChange={(e) => {

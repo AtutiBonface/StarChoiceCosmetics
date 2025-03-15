@@ -100,15 +100,14 @@ export default function MorePage() {
         {/* App Info */}
         <div className="pt-8 border-t border-medium px-4">
           <div className="flex items-center gap-2 mb-4">
-            <div className="relative w-8 h-8">
+            <div className="relative w-40 h-8">
               <Image
-                src="/icons/starchoice-logo.svg"
+                src="/icons/starchoice-logo.png"
                 alt="Star Choice Cosmetics"
                 fill
                 className="object-contain"
               />
             </div>
-            <span className="text-sm font-medium text-primary">StarChoice Cosmetics</span>
           </div>
           <p className="text-xs text-secondary">Version Beta 0.1</p>
         </div>

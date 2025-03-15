@@ -1,11 +1,18 @@
 :root {
   /* Primary Colors */
-  --primary-color: #FDF7F3;          /* Soft Pearl - Main Background */
-  --secondary-color: #F5E6E0;        /* Rose Quartz - Secondary Background */
+  --secondary-gray : #f0f0f0;
+  --secondary-pink: #F5E6E0;
+  --primary-pinkish: #FDF7F3;
+  --primary-white: white;
+  --primary-color: var(--primary-white);          /* Soft Pearl - Main Background */
+  --secondary-color: var(--secondary-gray);        /* Rose Quartz - Secondary Background */
+
+  --accent-color-purple :#7540c0;
+  --accent-color-pink:  #D64B77;
   
   /* Accent Colors */
-  --accent-color-1: #D64B77;         /* Rose Pink - Primary CTAs */
-  --accent-color-2: #6D4B73;         /* Deep Mauve - Secondary CTAs */
+  --accent-color-1: var(--accent-color-purple);         /* Rose Pink - Primary CTAs */
+  --accent-color-2: #82578a;         /* Deep Mauve - Secondary CTAs */
   --accent-color-3: #F8C4B4;         /* Coral Blush - Highlights */
   
   /* Text Colors */
@@ -116,7 +123,13 @@ body {
 .bg-image{
   background-color: var(--secondary-color);
 }
-
+.text-input{
+  border-color: var(--border-light);
+}
+.text-input:focus{
+  border-color: var(--accent-color-1);
+  border-width: 2px;
+}
 @keyframes marquee {
   0% {
     transform: translateX(100%);

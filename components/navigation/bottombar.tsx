@@ -2,34 +2,15 @@
 import { Heart, House, Menu, ShoppingCart, User } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useEffect, useCallback, useRef } from 'react'
-import axios from 'axios'
 import { initialCartItems, initialWishlistItems } from '@/mockData'
 
 const BottomBar = () => {
   const pathname = usePathname()
   const router = useRouter()
   const [isNavigating, setIsNavigating] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const isMounted = useRef(false)
 
-  const checkAuth = useCallback(async () => {
-    try {
-      const resp = await axios("/api/auth/status", {
-        headers: {
-          'Cache-Control': 'no-cache'
-        }
-      })
-      setIsAuthenticated(resp.data?.isAuthenticated)
-    } catch (error) {
-      console.error('Auth check failed:', error)
-      setIsAuthenticated(false)
-    } finally {
-    }
-  }, [])
-
-  useEffect(() => {
-    checkAuth()
-  }, [checkAuth])
+  
 
   useEffect(() => {
     if (!isMounted.current) {
@@ -51,24 +32,17 @@ const BottomBar = () => {
     }
   }, [router])
 
-  const handleNavigation = useCallback(async (href: string, authRequired: boolean) => {
+  const handleNavigation = useCallback(async (href: string) => {
     if (isNavigating || pathname === href) return
     
-    setIsNavigating(true)
-    
-    try {
-      const targetRoute = authRequired && !isAuthenticated ? '/account' : href
-      
-      router.push(targetRoute)
-
-    } catch (error) {
-      console.error('Navigation failed:', error)
-
-    } finally {
+    setIsNavigating(true)   
+   
+      const targetRoute =  href      
+      router.push(targetRoute)    
       
       setTimeout(() => setIsNavigating(false), 200)
-    }
-  }, [isNavigating, pathname, isAuthenticated, router])
+    
+  }, [isNavigating, pathname, , router])
 
   const navItems = [
     { 
@@ -82,7 +56,7 @@ const BottomBar = () => {
       href: '/wishlist', 
       label: 'Wishlist',
       showBadge: true,
-      badge: isAuthenticated && initialWishlistItems.length > 0 ? initialWishlistItems.length : null,
+      badge:  initialWishlistItems.length > 0 ? initialWishlistItems.length : null,
       authRequired: true
     },
     { 
@@ -90,7 +64,7 @@ const BottomBar = () => {
       href: '/cart', 
       label: 'Cart',
       showBadge: true,
-      badge: isAuthenticated && initialCartItems.length > 0 ? 
+      badge: initialCartItems.length > 0 ? 
       initialCartItems.reduce((sum, item) => sum + item.quantity, 0) : null,
       authRequired: true
     },
@@ -134,7 +108,7 @@ const BottomBar = () => {
           return (
             <button 
               key={item.href}
-              onClick={() => handleNavigation(item.href, item.authRequired)}
+              onClick={() => handleNavigation(item.href)}
               disabled={isNavigating && pathname === item.href}
               className={`cursor-pointer h-full w-[60px] relative flex items-center justify-center
                 ${isNavigating && pathname !== item.href ? 'animate-pulse' : ''}`}

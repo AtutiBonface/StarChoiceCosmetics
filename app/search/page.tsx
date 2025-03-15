@@ -3,9 +3,11 @@ import React, { useState } from 'react'
 import { ChevronRight, Filter } from 'lucide-react'
 import Link from 'next/link'
 import FilterSidebar from '@/components/Products/filtersidebar'
-import { ProductItem } from '@/components/Products/productItem'
 import { products } from '@/mockData'
 import { useSearchParams } from 'next/navigation'
+import { DesktopProductGrid } from '@/components/Products/desktopProductGrid'
+import { MobileProductGrid } from '@/components/Products/mobileProductGrid'
+
 
 type PriceRange = {
   min: number
@@ -59,10 +61,7 @@ const SearchResults = () => {
                             filters.concerns.length +
                             filters.formulation.length;
 
-  const handleAddToCart = (e: React.MouseEvent, productId: string) => {
-
-    
-  }
+  
 
   const getBreadcrumbText = () => {
     if (query) return `Search results for "${query}"`
@@ -111,18 +110,18 @@ const SearchResults = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-2">
+      <div className="max-w-7xl mx-auto  py-2">
         {/* Filter overlay for mobile */}
         {isFilterOpen && (
           <div 
-            className="overlay fixed inset-0  bg-opacity-10 z-50 lg:hidden"
+            className="overlay fixed inset-0  bg-opacity-10 z-50  lg:hidden"
             onClick={() => setIsFilterOpen(false)}
           ></div>
         )}
 
         <div className="flex flex-col lg:flex-row gap-2">
           {/* Filter Button - Mobile Only */}
-          <div className="flex items-center justify-between lg:hidden">
+          <div className="flex items-center justify-between lg:hidden px-2">
             <button
               onClick={() => setIsFilterOpen(true)}
               className="flex items-center gap-2 px-4 py-2 border border-medium rounded shadow-sm hover:bg-gray-50 transition-colors"
@@ -164,12 +163,17 @@ const SearchResults = () => {
               </select>
             </div>
 
-            {/* Products */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {products.map(product => (
-                <ProductItem handleAddToCart={handleAddToCart} product={product} key={product.id}/>
-              ))}
-            </div>
+            <>
+              <DesktopProductGrid 
+                title="" 
+                products={products} 
+              />
+              <MobileProductGrid 
+                title=""
+                products={products} 
+              />
+            </>
+            
           </div>
         </div>
       </div>

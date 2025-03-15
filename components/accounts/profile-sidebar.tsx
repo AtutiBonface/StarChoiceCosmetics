@@ -116,7 +116,7 @@ const ProfileSidebar = () => {
                 className={`
                   flex items-center justify-between w-full p-3 rounded-[4px] transition-colors
                   ${isActive 
-                    ? 'bg-secondary text-pink-600' 
+                    ? 'bg-secondary text-accent-1' 
                     : 'text-secondary hover:bg-gray-50'
                   }
                   ${isStatic ? 'cursor-default' : 'cursor-pointer'}
@@ -142,7 +142,7 @@ const ProfileSidebar = () => {
                       )}
                       <ChevronRight className={`
                         w-4 h-4 md:hidden
-                        ${isActive ? 'text-pink-600' : 'text-gray-400'}
+                        ${isActive ? 'text-accent-1' : 'text-gray-400'}
                       `} />
                     </div>
                   </Link>

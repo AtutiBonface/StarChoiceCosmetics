@@ -1,41 +1,69 @@
 'use client'
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProductItem } from "./productItem";
 import { Product } from "@/mockData";
 
 interface DesktopProductGridProps {
   title: string;
   products: Product[];
-  initialRows?: number;
+  minimumRows?: number;
   itemsPerRow?: number;
 }
-// Desktop component with "Show More" button
-export const DesktopProductGrid : React.FC<DesktopProductGridProps> = ({ 
+
+export const DesktopProductGrid: React.FC<DesktopProductGridProps> = ({ 
   title, 
   products, 
-  initialRows = 2,
+  minimumRows = 2,
   itemsPerRow = 5
 }) => {
-  const [visibleItems, setVisibleItems] = useState(initialRows * itemsPerRow);
+  const [visibleItems, setVisibleItems] = useState(minimumRows * itemsPerRow);
+  const [currentColumns, setCurrentColumns] = useState(5);
   const hasMoreItems = visibleItems < products.length;
 
-  const handleAddToCart = (e:React.MouseEvent, productId: string) => {
+  useEffect(() => {
+    const updateVisibleItems = () => {
+      let cols = 5; // Default XL screens (5 columns)
+      
+      if (window.innerWidth < 1280) { 
+        cols = 4; // LG screens
+      }
+      if (window.innerWidth < 1024) { 
+        cols = 3; // MD screens
+      }      
+      setCurrentColumns(cols);      
+      // For smaller screens, we show more rows to maintain a similar area of content
+      const adjustedRows = Math.ceil(minimumRows * (itemsPerRow / cols));      
+      setVisibleItems(adjustedRows * cols);
+    };
+      // Calculate rows based on screen width
+
+    updateVisibleItems();
+    
+    window.addEventListener('resize', updateVisibleItems);
+    
+    return () => window.removeEventListener('resize', updateVisibleItems);
+  }, [minimumRows, itemsPerRow]);
+
+  const handleAddToCart = (e: React.MouseEvent, productId: string) => {
     e.stopPropagation();
     console.log('Adding to cart:', productId);
   };
 
   const showMoreItems = () => {
-    setVisibleItems(prev => Math.min(prev + initialRows * itemsPerRow, products.length));
+    // Add more items based on current column count
+    setVisibleItems(prev => Math.min(prev + currentColumns * 2, products.length));
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-2 py-2 hidden md:block">
-      <div className="product-title relative flex justify-center items-center mb-2 mx-3">
-        <span className="text-3xl font-bold text-secondary bg-primary px-3 z-10">{title}</span>
-      </div>
+    <section className="max-w-6xl mx-auto px-2 py-2 hidden md:block">
+      {title && (
+        <div className="product-title relative flex justify-center items-center mb-2 mx-3">
+          <span className="text-3xl font-bold text-secondary bg-primary px-3 z-10">{title}</span>
+        </div>
 
-      <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
+      )}
+      <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4  ">
         {products.slice(0, visibleItems).map((product) => (
           <ProductItem 
             key={product.id} 

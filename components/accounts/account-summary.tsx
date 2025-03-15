@@ -15,9 +15,9 @@ const AccountSummary = () => {
         <div className="w-full bg-secondary">
           <div className="max-w-7xl mx-auto px-4 py-2">
             <div className="flex items-center gap-2 text-sm text-secondary">
-              <Link href="/" className="hover:text-pink-600">Home</Link>
+              <Link href="/" className="hover:text-accent-1">Home</Link>
               <ChevronRight size={16} />
-              <span className="text-pink-600">My Account</span>
+              <span className="text-accent-1">My Account</span>
             </div>
           </div>
         </div>
@@ -25,7 +25,7 @@ const AccountSummary = () => {
 
       {/* User Info */}
       <div className="flex items-center gap-4 mb-2 border-b border-medium pb-2">
-        <div className="w-16 h-16 rounded-full bg-pink-600 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-accent-1 flex items-center justify-center">
           <User className="w-6 h-6 text-white" />
         </div>
         <div>
@@ -35,17 +35,17 @@ const AccountSummary = () => {
       </div>
 
       {/* Contact Details */}
-      <div className="space-y-4 mb-2 bg-pink-50 p-4 rounded-[4px] border border-pink-100">
+      <div className="space-y-4 mb-2 bg-secondary p-4 rounded-[4px] border border-medium">
         <h2 className="font-medium text-secondary mb-3">Personal Information</h2>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-            <Mail className="w-4 h-4 text-pink-600" />
+            <Mail className="w-4 h-4 text-accent-1" />
           </div>
           <span className="text-sm text-secondary">{userData.email}</span>
         </div>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-            <Phone className="w-4 h-4 text-pink-600" />
+            <Phone className="w-4 h-4 text-accent-1" />
           </div>
           <span className="text-sm text-secondary">{userData.phone}</span>
         </div>
@@ -64,11 +64,11 @@ const AccountSummary = () => {
             <Link
               key={item.name}
               href={item.href}
-              className="flex flex-col p-4 bg-white rounded-[4px] hover:bg-pink-50 transition-colors border border-[#A9BA9D] hover:border-pink-200 group"
+              className="flex flex-col p-4 bg-white rounded-[4px] hover:bg-secondary transition-colors border border-medium  group"
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-pink-50 group-hover:bg-white flex items-center justify-center transition-colors">
-                  <Icon className="w-5 h-5 text-pink-600" />
+                <div className="w-10 h-10 rounded-full bg-secondary group-hover:bg-white flex items-center justify-center transition-colors">
+                  <Icon className="w-5 h-5 text-accent-1" />
                 </div>
                 <span className="text-sm font-medium text-secondary">{item.name}</span>
               </div>

@@ -56,15 +56,15 @@ export default function TrackingPage({ params }: { params: { id: string } }) {
       <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center gap-2 text-sm text-primary">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
+            <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <Link href="/customer/orders" className="hover:text-pink-600">My Orders</Link>
+            <Link href="/customer/orders" className="hover:text-accent-1">My Orders</Link>
             <ChevronRight size={16} />
-            <Link href={`/customer/orders/${params.id}`} className="hover:text-pink-600">
+            <Link href={`/customer/orders/${params.id}`} className="hover:text-accent-1">
               Order #{params.id}
             </Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Track Order</span>
+            <span className="text-accent-1">Track Order</span>
           </div>
         </div>
       </div>
@@ -88,12 +88,12 @@ export default function TrackingPage({ params }: { params: { id: string } }) {
                   <div className={`
                     relative w-6 h-6 flex items-center justify-center flex-shrink-0
                     ${step.isCompleted 
-                      ? 'border-pink-600 bg-pink-50' 
+                      ? 'border-accent-1 bg-secondary' 
                       : 'border-medium bg-primary'
                     }
                   `}>
                     {step.isCompleted ? (
-                      <CheckSquare className="w-6 h-6 text-pink-600" />
+                      <CheckSquare className="w-6 h-6 text-accent-1" />
                     ) : (
                       <Clock className="w-6 h-6 text-gray-400" />
                     )}

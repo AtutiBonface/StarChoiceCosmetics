@@ -56,9 +56,11 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
 
   return (
     <section className="max-w-7xl mx-auto px-2 py-2 md:hidden">
-      <div className="product-title relative flex justify-center items-center mb-2">
-        <span className="text-2xl font-bold text-primary bg-primary px-3 z-10">{title}</span>
+      {title && (
+        <div className="product-title relative flex justify-center items-center mb-2">
+          <span className="text-2xl font-bold text-primary bg-primary px-3 z-10">{title}</span>
       </div>
+      )}
 
       <div className="grid grid-cols-2 gap-2">
         {products.slice(0, visibleItems).map((product) => (

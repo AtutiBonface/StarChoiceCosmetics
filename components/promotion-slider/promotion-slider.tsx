@@ -35,7 +35,7 @@ const PromotionSlider = () => {
 
   return (
     <section className="w-full">
-      <div className="relative w-full aspect-[16/8] sm:aspect-[16/5] md:aspect-[16/6]  lg:aspect-[16/6] overflow-hidden">
+      <div className="relative w-full aspect-[16/10] sm:aspect-[16/7] md:aspect-[16/6]  lg:aspect-[16/5] overflow-hidden">
         {promotions.map((promotion, index) => (
           <div
             key={promotion.id}

@@ -8,7 +8,6 @@ export  const TopSelling = () => {
       <DesktopProductGrid 
         title="Top Selling Products" 
         products={products} 
-        initialRows={2} // Only show 1 row initially
       />
       <MobileProductGrid 
         title="Top Selling Products" 

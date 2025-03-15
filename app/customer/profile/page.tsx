@@ -65,7 +65,7 @@ export default function ProfilePage() {
                 className={`
                     flex items-center gap-2 px-6 py-3 font-medium text-sm
                     ${activeTab === 'profile'
-                    ? 'text-accent-1 border-b-2 border-pink-600'
+                    ? 'text-accent-1 border-b-2 border-accent-1'
                     : 'text-secondary hover:text-accent-1'
                     }
                 `}
@@ -78,7 +78,7 @@ export default function ProfilePage() {
                 className={`
                     flex items-center gap-2 px-6 py-3 font-medium text-sm
                     ${activeTab === 'security'
-                    ? 'text-accent-1 border-b-2 border-pink-600'
+                    ? 'text-accent-1 border-b-2 border-accent-1'
                     : 'text-secondary hover:text-accent-1'
                     }
                 `}
@@ -99,7 +99,7 @@ export default function ProfilePage() {
                     type="text"
                     value={profileData.name}
                     onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
                     />
                 </div>
 
@@ -111,7 +111,7 @@ export default function ProfilePage() {
                     type="email"
                     value={profileData.email}
                     onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
                     />
                 </div>
 
@@ -123,7 +123,7 @@ export default function ProfilePage() {
                     type="tel"
                     value={profileData.phone}
                     onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                    className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
                     />
                 </div>
 
@@ -149,7 +149,7 @@ export default function ProfilePage() {
                         type={showPassword ? 'text' : 'password'}
                         value={passwordData.currentPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
                         />
                         <button
                         type="button"
@@ -170,7 +170,7 @@ export default function ProfilePage() {
                         type={showNewPassword ? 'text' : 'password'}
                         value={passwordData.newPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
                         />
                         <button
                         type="button"
@@ -190,7 +190,7 @@ export default function ProfilePage() {
                         type="password"
                         value={passwordData.confirmPassword}
                         onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+                        className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
                     />
                     </div>
 

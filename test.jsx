@@ -1,14 +1,13 @@
 'use client'
 
 import React, { useEffect, useState, useCallback } from 'react'
-import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown } from 'lucide-react'
+import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown, X } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import axios from 'axios'
 import { initialWishlistItems, initialCartItems } from '@/mockData'
-import { X } from 'lucide-react'
 
 // Dynamically import components that are not needed immediately
 const AnnouncementBar = dynamic(() => import('./announcementbar'), { ssr: true })
@@ -21,7 +20,6 @@ const TopBar = () => {
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const [showMobileSearch, setShowMobileSearch] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-
 
   const router = useRouter()
   const pathname = usePathname()
@@ -82,25 +80,25 @@ const TopBar = () => {
   }, [activeDropdown, closeDropdown])
 
   // Handle search submission
-    const handleSearch = (e: React.FormEvent) => {
-      e.preventDefault()
-      if (searchQuery.trim()) {
-        router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
-        setShowMobileSearch(false)
-      }
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setShowMobileSearch(false)
     }
-  
-    // Toggle mobile search
-    const toggleMobileSearch = () => {
-      setShowMobileSearch(prev => !prev)
-      if (!showMobileSearch) {
-        // Focus the search input when opening
-        setTimeout(() => {
-          const searchInput = document.getElementById('mobile-search-input')
-          searchInput?.focus()
-        }, 100)
-      }
+  }
+
+  // Toggle mobile search
+  const toggleMobileSearch = () => {
+    setShowMobileSearch(prev => !prev)
+    if (!showMobileSearch) {
+      // Focus the search input when opening
+      setTimeout(() => {
+        const searchInput = document.getElementById('mobile-search-input')
+        searchInput?.focus()
+      }, 100)
     }
+  }
 
   // Memoize navigation checks
   const shouldShowBack = pathname?.startsWith('/products') || 
@@ -112,7 +110,8 @@ const TopBar = () => {
     <div className='fixed top-0 left-0 w-full z-50 border-b border-medium bg-primary'>
       <AnnouncementBar />
       <div className="max-w-7xl mx-auto border-b border-medium">
-        <div className="h-16 w-full text-secondary px-4 flex justify-between items-center z-50">          
+        <div className="h-16 w-full text-secondary px-4 flex justify-between items-center z-50">
+          {/* Mobile Back Button - Only show when needed and search is not active */}
           {shouldShowBack && !showMobileSearch && (
             <button 
               onClick={() => router.back()}
@@ -160,9 +159,8 @@ const TopBar = () => {
               </div>
             </form>
           </div>
-          
 
-         {/* Mobile Search Input - Show when search is active */}
+          {/* Mobile Search Input - Show when search is active */}
           {showMobileSearch && (
             <form onSubmit={handleSearch} className="flex-1 flex items-center">
               <button 
@@ -177,7 +175,7 @@ const TopBar = () => {
                   id="mobile-search-input"
                   type="text"
                   placeholder="Search products..."
-                  className="w-full px-4 py-2 border border-medium focus:outline-none text-input rounded-[4px]"
+                  className="w-full px-4 py-2 border border-medium focus:outline-none focus:ring-2 focus:ring-accent-1/50 rounded-[4px]"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   autoFocus
@@ -201,7 +199,7 @@ const TopBar = () => {
             >
               <Search className="w-5 h-5 text-accent-1" />
             </button>
-          )}       
+          )}
 
           {/* Actions Section - Hidden on mobile */}
           <div className="hidden md:flex items-center gap-4">
@@ -359,63 +357,4 @@ const TopBar = () => {
             <div className="dropdown-container relative">
               {/* Cart Button */}
               <button
-                className="flex items-center gap-1 hover:text-accent-1"
-                onClick={() => {                 
-                    handleDropdown('cart')                  
-                }}
-              >
-                <div className="relative">
-                  <ShoppingCart className="w-5 h-5" />
-                  {(initialCartItems.length > 0)  && (
-                    <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {initialCartItems.reduce((sum, item) => sum + item.quantity, 0)}
-                    </span>
-                  )}
-                </div>
-                <span className="hidden sm:flex items-center gap-1">
-                  Cart
-                  <ChevronDown className="w-4 h-4" />
-                </span>
-              </button>
-              {activeDropdown === 'cart' && (
-                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
-                  {initialCartItems.length > 0 ? (
-                    <>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="font-medium text-primary">Items:</span>
-                        <span className="text-primary">
-                          {initialCartItems.reduce((sum, item) => sum + item.quantity, 0)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm mb-3">
-                        <span className="font-medium text-primary">Subtotal:</span>
-                        <span className="font-bold text-accent-1">
-                          KES {initialCartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
-                        </span>
-                      </div>
-                      <Link 
-                        href="/cart" 
-                        className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm hover:bg-accent-1/90"
-                      >
-                        View Cart
-                      </Link>
-                    </>
-                  ) : (
-                    <p className="text-sm text-primary text-center">Your cart is empty</p>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-      {!isLoading && (
-        <div className="hidden md:block mt-auto">
-          <CategoryNav />
-        </div>
-      )}
-    </div>
-  )
-}
-
-export default TopBar
+                className

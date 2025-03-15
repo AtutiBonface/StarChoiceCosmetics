@@ -39,16 +39,15 @@ export default function Footer() {
           {/* Brand Section - 4 columns */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="relative w-10 h-10">
+              <div className="relative w-40 h-10">
                 <Image
-                  src="/icons/starchoice-logo.svg"
+                  src="/icons/starchoice-logo.png"
                   alt="Star Choice Cosmetics"
                   fill
                   className="object-contain brightness-0 invert"
                   priority
                 />
               </div>
-              <span className="text-xl font-bold text-contrast">StarChoice</span>
             </Link>
             
             {/* Rest of the brand section */}
@@ -126,7 +125,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar - unchanged */}
-        <div className="pt-8 border-t border-secondary text-center text-contrast text-sm">
+        <div className="pt-8 border-t border-medium text-center text-contrast text-sm">
           <p>&copy; {new Date().getFullYear()} Star Choice Cosmetics. All rights reserved.</p>
         </div>
       </div>

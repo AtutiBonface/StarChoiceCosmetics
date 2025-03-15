@@ -88,7 +88,7 @@ export default function AddressEditPage() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 px-4">
           <div>
             <label className="block text-sm font-medium text-secondary mb-2">
               Full Name
@@ -97,7 +97,7 @@ export default function AddressEditPage() {
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
               required
             />
           </div>
@@ -110,7 +110,7 @@ export default function AddressEditPage() {
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
               required
             />
           </div>
@@ -123,7 +123,7 @@ export default function AddressEditPage() {
               type="text"
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
               required
             />
           </div>
@@ -136,7 +136,7 @@ export default function AddressEditPage() {
               type="text"
               value={formData.city}
               onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none focus:ring-1 focus:ring-pink-600"
+              className="w-full md:w-96 px-4 py-2 border border-medium rounded-[4px] focus:outline-none text-input"
               required
             />
           </div>

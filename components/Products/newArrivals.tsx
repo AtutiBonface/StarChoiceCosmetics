@@ -8,7 +8,6 @@ export  const NewArrivals = () => {
       <DesktopProductGrid 
         title="New Arrivals" 
         products={products} 
-        initialRows={1} // Only show 1 row initially
       />
       <MobileProductGrid 
         title="New Arrivals" 

@@ -57,9 +57,9 @@ const TopBrands = () => {
   }
 
   return (
-    <section className="bg-secondary py-6 w-full">
+    <section className="bg-secondary py-4 w-full">
       <div className="max-w-6xl mx-auto px-2">
-        <div className="product-title relative flex justify-center items-center mb-6">
+        <div className="product-title relative flex justify-center items-center mb-4">
           <h2 className="text-3xl font-bold text-primary bg-secondary px-3 z-10">
             Our Top Brands
           </h2>

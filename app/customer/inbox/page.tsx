@@ -126,7 +126,7 @@ export default function InboxPage() {
                 <div
                 key={message.id}
                 className={`p-4 border border-medium rounded-[4px] ${
-                    message.isRead ? 'bg-primary' : 'bg-pink-50'
+                    message.isRead ? 'bg-primary' : 'bg-secondary'
                 }`}
                 >
                 <div className="flex items-start gap-4">

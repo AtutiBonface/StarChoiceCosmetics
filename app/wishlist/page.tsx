@@ -192,16 +192,16 @@ export default function WishlistPage() {
               {wishlistItems.map((item) => (
                 <div 
                   key={item.id}
-                  className="flex    rounded-[4px] overflow-hidden relative py-2"
+                  className="flex  rounded-[4px] overflow-hidden relative"
                 >
                   {/* Product Image */}
                   <div className="relative  rounded-l-[5px] w-32  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image">
-                    <div className="relative w-28 h-28 flex items-center justify-center">
+                    <div className="relative w-30 h-30 flex items-center justify-center">
                       <Image
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-contain transition-transform duration-200 group-hover:scale-105"
+                        className="object-contain transition-transform duration-200 rounded-[4px] group-hover:scale-105"
                       />
                     </div>
                   </div>
@@ -209,7 +209,7 @@ export default function WishlistPage() {
                   <div className="flex-1 p-3 flex flex-col justify-between">
                     <div>
                       <Link href={`/products/${item.id}`}>
-                        <h3 className="font-medium text-secondary line-clamp-2 text-md hover:text-accent-1">
+                        <h3 className="font-medium text-primary line-clamp-2 text-md hover:text-accent-1">
                           {item.name}
                         </h3>
                       </Link>
@@ -217,7 +217,7 @@ export default function WishlistPage() {
                       {/* Rating */}
                       <div className="flex items-center gap-1 my-1">
                         {renderRating(item.rating)}
-                        <span className="text-xs text-gray-500">({item.reviewCount})</span>
+                        <span className="text-sm text-gray-500">({item.reviewCount})</span>
                       </div>
 
                       {/* Price */}
@@ -237,7 +237,7 @@ export default function WishlistPage() {
                       <button 
                         onClick={() => handleAddToCart(item.id)}
                         disabled={!item.inStock || isAddingToCart === item.id}
-                        className={`flex-1 flex items-center justify-center gap-1 py-2 text-sm rounded-[4px] transition-colors
+                        className={`flex-1 flex items-center justify-center gap-1 py-2 text-md rounded-[4px] transition-colors
                           ${item.inStock 
                             ? 'bg-accent-1 text-white hover:bg-accent-1/90' 
                             : 'bg-gray-200 text-gray-500 cursor-not-allowed'
