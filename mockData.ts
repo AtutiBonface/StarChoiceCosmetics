@@ -66,8 +66,53 @@ interface WishlistItem {
   inStock: boolean
   rating: number
   reviewCount: number
+
+  
 }
 
+type promotionProps = {
+  id: number;
+  image: string;
+  alt: string;
+  brand: string;
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  position: string;
+
+}
+const promotions = [
+    {
+      id: 1,
+      image: "/icons/banner-1.webp",
+      alt: "Nivea",
+      brand: "Nivea",
+      title: "Get glowing skin from top to toe",
+      subtitle: "With these smooth skin tips",
+      buttonText: "Buy Now",
+      position: "left" // content position: left or right
+    },
+    {
+      id: 2,
+      image: "/icons/banner-2.png",
+      alt: "Garnier",
+      brand: "Garnier",
+      title: "Revitalize your skin",
+      subtitle: "Natural ingredients for radiant results",
+      buttonText: "Shop Now",
+      position: "left"
+    },
+    {
+      id: 3,
+      image: "/icons/banner-3.webp",
+      alt: "L'Oreal Paris",
+      brand: "L'Oreal Paris",
+      title: "Perfect your routine",
+      subtitle: "Discover expert beauty secrets",
+      buttonText: "Purchase Now",
+      position: "right"
+    }
+  ];
 const brands: Brand[] = [
   {
     id: 1,
@@ -947,7 +992,8 @@ export {
   products,
   initialCartItems,
   initialWishlistItems,
-  offers
+  offers,
+  promotions
 }
 
 export type {
@@ -956,5 +1002,6 @@ export type {
   CartItem,
   WishlistItem,
   Review,
-  ProductInfo
+  ProductInfo,
+  promotionProps
 }

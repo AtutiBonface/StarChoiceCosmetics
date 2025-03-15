@@ -1,50 +1,36 @@
 'use client'
-import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { promotions } from '@/mockData';
+
 const PromotionSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  
 
-  const promotions = [
-    {
-      id: 1,
-      image: "/banner-2.webp",
-      alt: "Promotion 1"
-    },
-    {
-      id: 2,
-      image: "/banner-3.jpg",
-      alt: "Promotion 2"
-    },
-    {
-      id: 3,
-      image: "/banner-1.jpg",
-      alt: "Promotion 3"
-    }
-  ]
-
-  // Auto slide functionality
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => 
         prev === promotions.length - 1 ? 0 : prev + 1
-      )
-    }, 5000) // Change slide every 5 seconds
-
-    return () => clearInterval(timer)
-  }, [])
+      );
+    }, 5000); // Change slide every 5 seconds
+    
+    return () => clearInterval(timer);
+  }, [promotions.length]);
 
   return (
     <section className="w-full">
-      <div className="relative w-full aspect-[16/10] sm:aspect-[16/7] md:aspect-[16/6]  lg:aspect-[16/5] overflow-hidden">
+      <div className="relative w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-112 overflow-hidden">
         {promotions.map((promotion, index) => (
           <div
             key={promotion.id}
             className={`absolute inset-0 transition-all duration-500 ease-in-out ${
               index === currentSlide 
-                ? 'opacity-100 translate-x-0' 
+                ? 'opacity-100 translate-x-0'
                 : 'opacity-0 translate-x-full'
             }`}
           >
+            {/* Image layer */}
             <Image
               src={promotion.image}
               alt={promotion.alt}
@@ -53,36 +39,75 @@ const PromotionSlider = () => {
               sizes="100vw"
               priority={index === 0}
             />
+            
+            {/* Desktop and tablet content overlay */}
+            <div className="absolute inset-0 hidden md:flex items-center">
+              <div className={`w-full md:w-1/2 lg:w-1/3 p-6 lg:p-8 ${
+                promotion.position === 'right' 
+                  ? 'ml-auto mr-4 md:mr-8 lg:mr-16' 
+                  : 'ml-4 md:ml-8 lg:ml-16'
+              }`}>
+                <div className="bg-white/90 p-4 md:p-6 lg:p-8 rounded-md shadow-lg">
+                  <div className="text-accent-1 font-bold text-lg mb-2">{promotion.brand}</div>
+                  <h2 className="text-primary text-lg md:text-xl lg:text-2xl font-bold leading-tight">{promotion.title}</h2>
+                  <p className="text-primary text-sm md:text-base lg:text-lg font-medium mt-2">{promotion.subtitle}</p>
+                  <button 
+                    className="bg-accent-1 text-white text-sm md:text-base font-medium py-2 px-6 rounded-[4px] mt-4 transition-all"
+                    aria-label={promotion.buttonText}
+                  >
+                    {promotion.buttonText}
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            {/* Mobile content - compact version */}
+            <div className="absolute inset-x-0 bottom-0 md:hidden">
+              <div className="bg-white/70 px-2 py-1 shadow-lg">
+                <div className="text-accent-1 font-bold text-sm">{promotion.brand}</div>
+                <div className="flex justify-between items-center">
+                  <span className="text-primary text-xs font-medium truncate pr-2 max-w-[60%]">
+                    {promotion.title}
+                  </span>
+                  <button 
+                    className="bg-accent-1 text-white text-xs font-medium py-1.5 px-3 rounded-[4px] transition-all"
+                    aria-label={promotion.buttonText}
+                  >
+                    {promotion.buttonText}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
-
+        
         {/* Navigation dots */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+        <div className="absolute bottom-20 md:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
           {promotions.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                currentSlide === index 
-                  ? 'bg-accent-1 scale-110' 
-                  : 'bg-white/50 hover:bg-white/70'
+              className={`w-2 h-2 md:w-3 md:h-3 rounded-[4px] transition-all ${
+                currentSlide === index
+                  ? 'bg-accent-1 scale-110'
+                  : 'bg-white/70 hover:bg-white'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
-
+        
         {/* Navigation arrows */}
         <div className="max-w-7xl mx-auto w-full h-full relative">
           <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-accent-1 hover:bg-accent-2 text-contrast p-2 rounded-[4px] hidden md:block z-10"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-accent-1 text-white p-1 md:p-2 rounded-[4px] w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10"
             onClick={() => setCurrentSlide(prev => (prev === 0 ? promotions.length - 1 : prev - 1))}
             aria-label="Previous slide"
           >
             ←
           </button>
           <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-accent-1 hover:bg-accent-2 text-contrast p-2 rounded-[4px] hidden md:block z-10"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-accent-1 text-white p-1 md:p-2 rounded-[4px] w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10"
             onClick={() => setCurrentSlide(prev => (prev === promotions.length - 1 ? 0 : prev + 1))}
             aria-label="Next slide"
           >
@@ -91,7 +116,7 @@ const PromotionSlider = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default PromotionSlider
+export default PromotionSlider;

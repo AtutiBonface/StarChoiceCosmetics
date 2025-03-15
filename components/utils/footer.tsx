@@ -32,7 +32,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-gray-900 text-primary pt-12 pb-6">
+    <footer className="footer text-primary pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4">
         {/* Updated grid with better column sizing */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
@@ -44,24 +44,24 @@ export default function Footer() {
                   src="/icons/starchoice-logo.png"
                   alt="Star Choice Cosmetics"
                   fill
-                  className="object-contain brightness-0 invert"
+                  className="object-contain"
                   priority
                 />
               </div>
             </Link>
             
             {/* Rest of the brand section */}
-            <p className="text-contrast mb-6 max-w-md">
+            <p className="footer-link text-secondary mb-6 max-w-md">
               Your one-stop destination for authentic beauty and skincare products.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-contrast hover:text-accent-1 transition-colors">
+              <a href="#" className="footer-link text-secondary hover:text-accent-1 transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-contrast hover:text-accent-1 transition-colors">
+              <a href="#" className="footer-link text-secondary hover:text-accent-1 transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-contrast hover:text-accent-1 transition-colors">
+              <a href="#" className="footer-link text-secondary hover:text-accent-1 transition-colors">
                 <Twitter size={20} />
               </a>
             </div>
@@ -69,13 +69,13 @@ export default function Footer() {
 
           {/* Quick Links - 2 columns each */}
           <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-4 text-contrast">Shop</h3>
+            <h3 className="text-lg font-semibold mb-4 f text-primary">Shop</h3>
             <ul className="space-y-2">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-contrast hover:text-accent-1 transition-colors"
+                    className="footer-link text-secondary hover:text-accent-1 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -85,13 +85,13 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-4 text-contrast">Support</h3>
+            <h3 className="text-lg font-semibold mb-4  text-primary">Support</h3>
             <ul className="space-y-2">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-contrast hover:text-accent-1 transition-colors"
+                    className="footer-link text-secondary hover:text-accent-1 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -102,8 +102,8 @@ export default function Footer() {
 
           {/* Newsletter - 4 columns */}
           <div className="lg:col-span-4">
-            <h3 className="text-lg font-semibold mb-4 text-contrast">Stay Updated</h3>
-            <p className="text-contrast mb-4 max-w-md">
+            <h3 className="text-lg font-semibold mb-4  text-primary">Stay Updated</h3>
+            <p className="footer-link text-secondary mb-4 max-w-md">
               Subscribe to our newsletter for updates and exclusive offers.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-2">
@@ -111,7 +111,7 @@ export default function Footer() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 min-w-0 bg-secondary text-secondary px-4 py-2 rounded-l-[4px] focus:outline-none focus:ring-1 focus:ring-accent-1"
+                  className="flex-1 min-w-0 bg-secondary text-secondary px-4 py-2 rounded-l-[4px] focus:outline-none border border-medium text-input"
                 />
                 <button
                   type="submit"
@@ -125,7 +125,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar - unchanged */}
-        <div className="pt-8 border-t border-medium text-center text-contrast text-sm">
+        <div className="pt-8 border-t border-medium text-center footer-link text-secondary text-sm">
           <p>&copy; {new Date().getFullYear()} Star Choice Cosmetics. All rights reserved.</p>
         </div>
       </div>

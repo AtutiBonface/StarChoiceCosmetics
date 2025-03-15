@@ -113,7 +113,10 @@ body {
 }
 
 .footer{
-  background-color: var(--text-color-2);
+  background-color: var(--secondary-color);
+}
+.footer-link:hover{
+  color: var(--accent-color-1);
 }
 .overlay{
   opacity: .6;
