@@ -113,6 +113,9 @@ body {
   background-color: black;
 
 }
+.bg-image{
+  background-color: var(--secondary-color);
+}
 
 @keyframes marquee {
   0% {

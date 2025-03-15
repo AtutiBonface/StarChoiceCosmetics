@@ -1,28 +1,73 @@
 'use client'
 
 import axios from 'axios';
-import { Package, MessageSquare, Star, Heart, Clock, ChevronRight,  User, LogOut, Lock, CreditCard, MapPin } from 'lucide-react'
+import { Package, MessageSquare, Star, Heart, Clock, ChevronRight,  User, LogOut, Lock, CreditCard, MapPin, LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-// Add user data type
+import { initialWishlistItems } from '@/mockData';
+
+
 interface UserData {
   name: string;
   email: string;
 }
 
-// Mock user data - replace with your auth context/data
+
 const userData: UserData = {
   name: "Admin",
   email: "admin@atuti.com"
 }
 
-// Update navigation array to remove isStatic and add isMobileStatic
-const navigation = [
-  { name: 'My Account', href: '/customer/account', icon: User, isMobileStatic: true },
-  { name: 'My Orders', href: '/customer/orders', icon: Package },
-  { name: 'My Inbox', href: '/customer/inbox', icon: MessageSquare },
-  { name: 'Pending Reviews', href: '/customer/reviews', icon: Star },
-  { name: 'My Wishlist', href: '/wishlist', icon: Heart },
+// Update the navigation array type and items
+interface NavItem {
+  name: string
+  href: string
+  icon: LucideIcon
+  isMobileStatic?: boolean
+  showBadge?: boolean
+  badge?: number | null
+  badgeColor?: string
+}
+
+const navigation: NavItem[] = [
+  { 
+    name: 'My Account',
+    href: '/customer/account', 
+    icon: User, 
+    isMobileStatic: true
+  },
+  { 
+    name: 'My Orders', 
+    href: '/customer/orders', 
+    icon: Package,
+    showBadge: true,
+    badge: 2,
+    badgeColor: 'bg-accent-1'
+  },
+  { 
+    name: 'My Inbox', 
+    href: '/customer/inbox', 
+    icon: MessageSquare,
+    showBadge: true,
+    badge: 2,
+    badgeColor: 'bg-blue-500'
+  },
+  { 
+    name: 'Pending Reviews', 
+    href: '/customer/reviews', 
+    icon: Star,
+    showBadge: true,
+    badge: 2, 
+    badgeColor: 'bg-yellow-500'
+  },
+  { 
+    name: 'My Wishlist', 
+    href: '/wishlist', 
+    icon: Heart,
+    showBadge: true,
+    badge: initialWishlistItems.length > 0 ? initialWishlistItems.length : null,
+    badgeColor: 'bg-red-500'
+  },
   { name: 'Recently Viewed', href: '/customer/recently-viewed', icon: Clock },
   { name: 'Payment Settings', href: '/customer/payment', icon: CreditCard },
   { name: 'Address Book', href: '/customer/address', icon: MapPin },
@@ -63,6 +108,7 @@ const ProfileSidebar = () => {
             const Icon = item.icon
             const isStatic = isMobile && item.isMobileStatic
             const isActive = pathname.startsWith(item.href) || isStatic
+           
 
             return (
               <div
@@ -79,18 +125,42 @@ const ProfileSidebar = () => {
                 {!isStatic ? (
                   <Link href={item.href} className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-3">
+                      <div className="flex items-center relative">
+                        <Icon className="w-5 h-5" />
+                        <span className="text-sm  ml-3 font-medium">{item.name}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {item.showBadge && item.badge !== null && (
+                        <span className={`
+                          ${item.badgeColor || 'bg-accent-1'} 
+                          text-white text-xs px-2 py-0.5 rounded-full
+                          min-w-[20px] text-center
+                        `}>
+                          {item.badge}
+                        </span>
+                      )}
+                      <ChevronRight className={`
+                        w-4 h-4 md:hidden
+                        ${isActive ? 'text-pink-600' : 'text-gray-400'}
+                      `} />
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-3">
                       <Icon className="w-5 h-5" />
                       <span className="text-sm font-medium">{item.name}</span>
                     </div>
-                    <ChevronRight className={`
-                      w-4 h-4 md:hidden
-                      ${isActive ? 'text-pink-600' : 'text-gray-400'}
-                    `} />
-                  </Link>
-                ) : (
-                  <div className="flex items-center gap-3">
-                    <Icon className="w-5 h-5" />
-                    <span className="text-sm font-medium">{item.name}</span>
+                    {item.showBadge && item.badge !== null && (
+                      <span className={`
+                        ${item.badgeColor || 'bg-accent-1'} 
+                        text-white text-xs px-2 py-0.5 rounded-full
+                        min-w-[20px] text-center
+                      `}>
+                        {item.badge}
+                      </span>
+                    )}
                   </div>
                 )}
               </div>

@@ -870,6 +870,37 @@ const products: Product[] = [
   }
 ]
 
+const offers = [
+  {
+    id: 26,
+    name: 'Nice & Lovely Glycerin & Honey Body Lotion 400ml',
+    slug:  2003,
+    image: '/products/nice-lovely/glycerin-honey-1.jpg',
+    price: 1499,
+    originalPrice: 1999,
+    discount: 25,
+    rating: 4.5,
+    reviews: 128,
+    isNew: true,
+    hasVariants: false,
+  },
+  {
+    id: 28,
+    name: "L'Oreal Paris Revitalift Laser X3 Day Cream 50ml",
+    slug:  1,
+    image: '/products/loreal/revitalift-laser-1.webp',
+    price: 1499,
+    originalPrice: 1999,
+    discount: 25,
+    rating: 4.5,
+    reviews: 128,
+    isNew: true,
+    hasVariants: false,
+  },
+  // Add more offer items...
+]
+
+
 const initialCartItems: CartItem[] = [
   {
     id: 1,
@@ -915,7 +946,8 @@ export {
   brands,
   products,
   initialCartItems,
-  initialWishlistItems
+  initialWishlistItems,
+  offers
 }
 
 export type {

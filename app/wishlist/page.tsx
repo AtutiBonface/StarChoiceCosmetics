@@ -42,12 +42,12 @@ export default function WishlistPage() {
     
     setIsAddingToCart(itemId)
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000))
       
       setToastMessage('Product added to cart successfully!')
       setToastType('success')
       setShowToast(true)
-    } catch (error) {
+    } catch{
       setToastMessage('Failed to add product to cart')
       setToastType('error')
       setShowToast(true)
@@ -195,16 +195,17 @@ export default function WishlistPage() {
                   className="flex    rounded-[4px] overflow-hidden relative py-2"
                 >
                   {/* Product Image */}
-                  <div className="relative w-32 h-32 my-auto ml-2  flex-shrink-0">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="relative  rounded-l-[5px] w-32  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image">
+                    <div className="relative w-28 h-28 flex items-center justify-center">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-contain transition-transform duration-200 group-hover:scale-105"
+                      />
+                    </div>
                   </div>
 
-                  {/* Product Details */}
                   <div className="flex-1 p-3 flex flex-col justify-between">
                     <div>
                       <Link href={`/products/${item.id}`}>

@@ -12,7 +12,6 @@ const BottomBar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const isMounted = useRef(false)
 
-  // Authentication check - similar to TopBar
   const checkAuth = useCallback(async () => {
     try {
       const resp = await axios("/api/auth/status", {

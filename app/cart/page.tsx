@@ -99,25 +99,31 @@ const Cart = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2">
-              {/* Mobile Summary */}
               
               
               {/* Cart Items Container */}
               <div className="bg-primary rounded-[4px] overflow-hidden mb-">
                 <div>
                   {cartItems.map((item) => (
-                    <div key={item.id} className="p-4  mb-2 rounded-[4px]">
+                    <div key={item.id} className="p-2 md:p-4  mb-2 rounded-[4px]">
                       {/* Desktop View */}
-                      <div className="hidden sm:flex gap-6">
-                        {/* Product Image */}
-                        <div className="relative w-32 h-32 flex-shrink-0">
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fill
-                            className="object-contain rounded"
-                          />
+
+                      <div className="hidden sm:flex gap-6 items-stretch">
+
+                        <div 
+                        className="relative  rounded-l-[5px] w-40  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image"
+                        >
+                           {/* Product Image */}
+                          <div className="relative w-30 h-30 flex-shrink-0">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              className="object-contain transition-transform duration-200 group-hover:scale-105"
+                            />
+                          </div>
                         </div>
+                       
 
                         {/* Product Details */}
                         <div className="flex-1 flex flex-col">
@@ -143,7 +149,6 @@ const Cart = () => {
                             <p className="text-xs text-gray-600 mt-1">Delivery: {item.deliveryDate}</p>
                           </div>
 
-                          {/* Quantity and Remove Controls */}
                           <div className="flex flex-wrap items-center justify-between gap-4 mt-4">
                             <div className="flex items-center border border-medium rounded overflow-hidden">
                               <button
@@ -181,48 +186,50 @@ const Cart = () => {
 
                       {/* Mobile View */}
                       <div className="sm:hidden  pb-2  ">
-                        <div className="flex gap-4">
-                          {/* Product Image */}
-                          <div className="relative w-24 h-24 flex-shrink-0">
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              fill
-                              className="object-contain rounded"
-                            />
+                        <div className="flex items-stretch gap-4">
+                        <div 
+                            className="relative  rounded-l-[5px] w-32  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image"
+                          >
+                            <div className="relative w-30 h-30 flex-shrink-0">
+                              <Image
+                                src={item.image}
+                                alt={item.name}
+                                fill
+                                className="object-contain rounded"
+                              />
+                            </div>
                           </div>
+                          
 
                           {/* Product Details */}
-                          <div className="flex-1">
-                            <Link href={`/products/${item.id}`}>
-                              <h3 className="font-medium text-md text-primary hover:text-accent-1 line-clamp-2">{item.name}</h3>
-                            </Link>
-                            
-                            <div className="flex items-center gap-2 mt-1">
-                              <span className="text-base font-bold text-accent-1">
-                                KES {item.price.toLocaleString()}
-                              </span>
-                              {item.oldPrice && (
-                                <span className="text-sm text-gray-500 line-through">
-                                  KES {item.oldPrice.toLocaleString()}
+                          <div className="flex flex-col">
+                            <div className="flex-1">
+                              <Link href={`/products/${item.id}`}>
+                                <h3 className="font-medium text-md text-primary hover:text-accent-1 line-clamp-2">{item.name}</h3>
+                              </Link>
+                              
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-base font-bold text-accent-1">
+                                  KES {item.price.toLocaleString()}
                                 </span>
-                              )}
+                                {item.oldPrice && (
+                                  <span className="text-sm text-gray-500 line-through">
+                                    KES {item.oldPrice.toLocaleString()}
+                                  </span>
+                                )}
+                              </div>
+                              
+                              <div className="flex items-center gap-1 mt-1">
+                                {renderRating(item.rating)}
+                                <span className="text-sm text-gray-500">({item.reviewCount})</span>
+                              </div>
+                              
+                              <div className="flex flex-col gap-1 mt-2">
+                                <p className="text-green-600 text-sm">In Stock</p>
+                                <p className="text-sm text-gray-600">Delivery: {item.deliveryDate}</p>
+                              </div>
                             </div>
-                            
-                            <div className="flex items-center gap-1 mt-1">
-                              {renderRating(item.rating)}
-                              <span className="text-sm text-gray-500">({item.reviewCount})</span>
-                            </div>
-                            
-                            <div className="flex flex-col gap-1 mt-2">
-                              <p className="text-green-600 text-sm">In Stock</p>
-                              <p className="text-sm text-gray-600">Delivery: {item.deliveryDate}</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        
-                        <div className="mt-3 flex items-center justify-between">
+                            <div className="mt-3 flex items-center justify-between">
                           <div className="flex items-center gap-1">
                             <span className="text-md text-gray-700">Qty:</span>
                             <select 
@@ -232,7 +239,7 @@ const Cart = () => {
                                 const change = newQty - item.quantity;
                                 updateQuantity(item.id, change);
                               }}
-                              className="border border-medium rounded-[4px] text-sm p-1"
+                              className="border border-medium rounded-[2px] w-[40px]  focus:outline-none text-sm p-1"
                             >
                               {[...Array(10)].map((_, i) => (
                                 <option key={i} value={i+1}>{i+1}</option>
@@ -252,7 +259,12 @@ const Cart = () => {
                               Save for later
                             </button>
                           </div>
+                            </div>
+                          </div>
                         </div>
+                        
+                        
+                       
                       </div>
                     </div>
                   ))}

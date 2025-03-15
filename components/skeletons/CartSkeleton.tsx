@@ -17,9 +17,13 @@ const CartSkeleton = () => {
             <div className="hidden sm:block space-y-4">
               {[1, 2, 3].map((item) => (
                 <div key={item} className="bg-primary p-4 rounded-[4px]">
-                  <div className="flex gap-6">
+                  <div className="flex gap-6 items-stretch">
+                    <div 
+                      className="relative  rounded-l-[5px] w-40  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-light"
+                      >                      
+                      <div className="w-32 h-32  rounded-[4px]"></div>
+                    </div>
                     {/* Product Image */}
-                    <div className="w-32 h-32 bg-light rounded-[4px]"></div>
 
                     {/* Product Details */}
                     <div className="flex-1">
@@ -43,24 +47,29 @@ const CartSkeleton = () => {
             <div className="sm:hidden space-y-4">
               {[1, 2, 3].map((item) => (
                 <div key={item} className="bg-primary p-4 rounded-[4px]">
-                  <div className="flex gap-4">
-                    {/* Product Image */}
-                    <div className="w-24 h-24 bg-light rounded-[4px]"></div>
-
+                  <div className="flex gap-4 items-stretch">
+                  <div 
+                      className="relative  rounded-l-[5px] w-32  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-light"
+                      >                      
+                      <div className="w-30 h-30  rounded-[4px]"></div>
+                    </div>
                     {/* Product Details */}
-                    <div className="flex-1">
-                      <div className="h-4 w-full bg-light rounded mb-2"></div>
-                      <div className="h-4 w-24 bg-light rounded mb-2"></div>
-                      <div className="h-3 w-32 bg-light rounded mb-2"></div>
-                      <div className="h-3 w-20 bg-light rounded"></div>
+                    <div className="flex flex-col">
+                      <div className="flex-1">
+                        <div className="h-4 w-full bg-light rounded mb-2"></div>
+                        <div className="h-4 w-24 bg-light rounded mb-2"></div>
+                        <div className="h-3 w-32 bg-light rounded mb-2"></div>
+                        <div className="h-3 w-20 bg-light rounded"></div>
+                      </div>
+                          {/* Mobile Controls */}
+                      <div className="mt-3 flex items-center justify-between">
+                        <div className="h-8 w-20 bg-light rounded"></div>
+                        <div className="h-8 w-32 bg-light rounded"></div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Mobile Controls */}
-                  <div className="mt-3 flex items-center justify-between">
-                    <div className="h-8 w-20 bg-light rounded"></div>
-                    <div className="h-8 w-32 bg-light rounded"></div>
-                  </div>
+                  
                 </div>
               ))}
 
