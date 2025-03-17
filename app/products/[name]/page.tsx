@@ -371,7 +371,9 @@ const ProductPreview = () => {
 
 
       </div>
-
+      <h2 className="product-title   relative text-3xl font-bold text-center mb-6  flex items-center  justify-center">
+        <span className='bg-primary px-2 z-20'>Related Products</span>
+      </h2>
       <RelatedProducts/>
     </div>
   )

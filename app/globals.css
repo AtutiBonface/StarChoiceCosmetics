@@ -189,6 +189,7 @@ button{
 .product-title{
     position: relative;
 
+   
 }
 .product-title::before{
     content: "";
@@ -201,6 +202,7 @@ button{
     background: var(--border-medium);
     top: 50%;
     transform: translateY(-50%);
+    z-index: 10;
 
 }
 /* Hide scrollbar for Chrome, Safari and Opera */

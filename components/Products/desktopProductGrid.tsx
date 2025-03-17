@@ -5,16 +5,13 @@ import { ProductItem } from "./productItem";
 import { Product } from "@/mockData";
 
 interface DesktopProductGridProps {
-  title: string;
   products: Product[];
   minimumRows?: number;
 }
 
 const DesktopProductGrid: React.FC<DesktopProductGridProps> = ({ 
-  title, 
   products, 
   minimumRows = 2,
-  
 }) => {
   const itemsPerRow = 5;
   const [visibleItems, setVisibleItems] = useState(minimumRows * itemsPerRow);
@@ -57,13 +54,7 @@ const DesktopProductGrid: React.FC<DesktopProductGridProps> = ({
 
   return (
     <section className="max-w-6xl mx-auto px-2 py-2 hidden md:block">
-      {title && (
-        <div className="product-title relative flex justify-center items-center mb-2 mx-3">
-          <span className="text-3xl font-bold text-secondary bg-primary px-3 z-10">{title}</span>
-        </div>
-
-      )}
-      <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4  ">
+      <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
         {products.slice(0, visibleItems).map((product) => (
           <ProductItem 
             key={product.id} 

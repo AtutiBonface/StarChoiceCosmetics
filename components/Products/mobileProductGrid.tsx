@@ -6,10 +6,10 @@ import { Product } from "@/mockData";
 
 
 interface MobileProductGridProps {
-  title: string;
   products: Product[];
 }
-const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, products }) => {
+
+const MobileProductGrid : React.FC<MobileProductGridProps> = ({ products }) => {
   const [visibleItems, setVisibleItems] = useState(4);
   const [loading, setLoading] = useState(false);
   const observerTarget = useRef<HTMLDivElement>(null);
@@ -56,12 +56,6 @@ const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, products 
 
   return (
     <section className="max-w-7xl mx-auto px-2 py-2 md:hidden">
-      {title && (
-        <div className="product-title relative flex justify-center items-center mb-2">
-          <span className="text-2xl font-bold text-primary bg-primary px-3 z-10">{title}</span>
-      </div>
-      )}
-
       <div className="grid grid-cols-2 gap-2">
         {products.slice(0, visibleItems).map((product) => (
           <ProductItem 
