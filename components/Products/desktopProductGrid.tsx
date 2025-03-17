@@ -8,15 +8,15 @@ interface DesktopProductGridProps {
   title: string;
   products: Product[];
   minimumRows?: number;
-  itemsPerRow?: number;
 }
 
-export const DesktopProductGrid: React.FC<DesktopProductGridProps> = ({ 
+const DesktopProductGrid: React.FC<DesktopProductGridProps> = ({ 
   title, 
   products, 
   minimumRows = 2,
-  itemsPerRow = 5
+  
 }) => {
+  const itemsPerRow = 5;
   const [visibleItems, setVisibleItems] = useState(minimumRows * itemsPerRow);
   const [currentColumns, setCurrentColumns] = useState(5);
   const hasMoreItems = visibleItems < products.length;
@@ -86,3 +86,5 @@ export const DesktopProductGrid: React.FC<DesktopProductGridProps> = ({
     </section>
   );
 };
+
+export default DesktopProductGrid;

@@ -1,7 +1,9 @@
 'use client'
 
+import Loading from '@/app/loading'
 import { ChevronRight, Clock, CheckSquare } from 'lucide-react'
 import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
 
 // Define tracking status steps
 const trackingSteps = [
@@ -49,7 +51,23 @@ const trackingSteps = [
   }
 ]
 
-export default function TrackingPage({ params }: { params: { id: string } }) {
+type TrackOrderPageProps = {
+  params: Promise<{ id: string }>
+}
+
+const TrackOrderPage = ({ params }: TrackOrderPageProps) => {
+  const [orderId, setOrderId] = useState<string | null>(null);
+
+  useEffect(() => {
+    params.then(resolvedParams => {
+      setOrderId(resolvedParams.id);
+    });
+  }, [params]);
+
+  if (!orderId) {
+    return <Loading/>
+  }
+
   return (
     <div className="w-full">
       {/* Header with Breadcrumb */}
@@ -60,8 +78,8 @@ export default function TrackingPage({ params }: { params: { id: string } }) {
             <ChevronRight size={16} />
             <Link href="/customer/orders" className="hover:text-accent-1">My Orders</Link>
             <ChevronRight size={16} />
-            <Link href={`/customer/orders/${params.id}`} className="hover:text-accent-1">
-              Order #{params.id}
+            <Link href={`/customer/orders/${orderId}`} className="hover:text-accent-1">
+              Order #{orderId}
             </Link>
             <ChevronRight size={16} />
             <span className="text-accent-1">Track Order</span>
@@ -72,7 +90,7 @@ export default function TrackingPage({ params }: { params: { id: string } }) {
       <div className="px-4 py-4 bg-primary shadow-sm rounded-[4px] w-full">
         <div className="bg-primary border border-medium rounded-[4px] p-4">
           <h1 className="text-xl font-bold text-primary mb-4">
-            Track Order #{params.id}
+            Track Order #{orderId}
           </h1>
 
           {/* Vertical Timeline */}
@@ -131,3 +149,5 @@ export default function TrackingPage({ params }: { params: { id: string } }) {
     </div>
   )
 }
+
+export default TrackOrderPage

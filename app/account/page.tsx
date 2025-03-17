@@ -10,6 +10,7 @@ import Toast from '@/components/Products/toast-notification'
 type TabType = 'login' | 'register'
 type FormStage = 'credentials' | 'verification' | 'success'
 
+
 const Accounts = () => {
   const [activeTab, setActiveTab] = useState<TabType>('login')
   const [formStage, setFormStage] = useState<FormStage>('credentials')
@@ -24,57 +25,68 @@ const Accounts = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    try{
+    try {
       setIsLoading(true)
-      const resp = await  axios.post('/api/login', JSON.stringify(loginformData))      
-      setToastMessage('Login successful! Redirecting...')
+      await axios.post('/api/auth/login', JSON.stringify(loginformData))   
+      setToastMessage('Verification Code has been sent to your email.')
       setToastType('success')
       setShowToast(true)
-      
-      // Wait for toast animation
-      setTimeout(() => {
-        window.location.href = "/cart"
-      }, 1500)
-
-    }catch(error: any){
+      setFormStage('verification')  
+     
+    } catch(error) {
       setToastType('error')
-      setToastMessage(error.response?.data?.message || 'Login failed. Please try again.')
+      setToastMessage('Login failed. Please try again.')
       setShowToast(true)
       console.error(error)
-    }finally{
+    } finally {
       setIsLoading(false)
     }
-
   }
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault()
 
-
-    alert("This has not been set up yet")
-
-
-    /* setFormStage('verification') */
+     setFormStage('verification') 
   }
 
-  /* const handleVerification = (e: React.FormEvent) => {
+  const handleVerification = async (e: React.FormEvent) => {
     e.preventDefault()
-    setFormStage('success')
-    // Redirect to dashboard after 2 seconds
-    setTimeout(() => {
-      router.push('/customer/profile')
-    }, 2000)
+
+    await axios.post('/api/auth/verification', JSON.stringify({verificationId : '0000', email : "admin@gmail.com"})).then((resp)=>{
+      setToastMessage('Login successful! Redirecting...')
+      setToastType('success')
+      setShowToast(true)
+      console.log(resp.data?.message)
+
+
+
+      
+      setTimeout(() => {
+        window.location.href = "/cart"
+      }, 1500)
+    }).catch((resp)=>{
+      setToastType('error')
+      console.log(resp)
+      setToastMessage('Verification failed. Please try again.')
+      setShowToast(true)
+      // resete the verifaction inputs
+    })
+    
+
   }
- */
-  /* const resetForm = () => {
+
+  const resetForm = () => {
     setFormStage('credentials')
-  } */
+  } 
 
 
-  const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
-    setLoginFormData({...loginformData, [e.target?.name]: e.target.value})
-
+  const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Debounce form updates
+    requestAnimationFrame(() => {
+      setLoginFormData(prev => ({...prev, [e.target.name]: e.target.value}))
+    })
   }
+
   const handleRegisterFormChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
     setRegisterFormData({...registerformData, [e.target?.name]: e.target.value})
 
@@ -145,7 +157,6 @@ const Accounts = () => {
                             <input
                               type="email"
                               name='email'
-                              value={loginformData.email}
                               onChange={handleLoginFormChange}
                               className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium rounded-[4px]  focus:outline-none text-input"
                               placeholder="Enter your email"
@@ -166,7 +177,6 @@ const Accounts = () => {
                               className="block w-full px-3 py-3 pl-10 text-md text-secondary border border-medium  rounded-[4px] focus:outline-none text-input"
                               placeholder="Enter your password"
                               required
-                              value={loginformData.password}
                               onChange={handleLoginFormChange}
                             />
                             <Lock className="w-4 h-4 text-accent-1 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -318,11 +328,11 @@ const Accounts = () => {
               {/* Verification Stage - Made more compact */}
               {formStage === 'verification' && (
 
-               /*  <div className="transition-opacity duration-300 opacity-100">
+                <div className="transition-opacity duration-300 opacity-100">
                   <form onSubmit={handleVerification}>
                     <div className="mb-4">
                       <p className="text-center text-gray-600 mb-4">
-                        We&apos;ve sent a verification code to <span className="font-semibold">{email || 'your email'}</span>
+                        We&apos;ve sent a verification code to <span className="font-semibold">{(loginformData.email || registerformData.email) || 'your email'}</span>
                       </p>
                       <div className="flex justify-center gap-2 mb-5">
                         {[...Array(4)].map((_, index) => (
@@ -373,31 +383,9 @@ const Accounts = () => {
                       </div>
                     </div>
                   </form>
-                </div> */
-                <div></div>
+                </div> 
               )}
 
-              {/* Success Stage - Made more compact */}
-              {formStage === 'success' && (
-                <div className="text-center py-4">
-                  {/* <div className="flex justify-center mb-3">
-                    <CheckCircle className="w-12 h-12 text-green-500" />
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-2">
-                    {activeTab === 'login' ? 'Login Successful!' : 'Account Created!'}
-                  </h3>
-                  <p className="text-gray-600 mb-4 text-sm">
-                    {activeTab === 'login' 
-                      ? 'You are being redirected to your profile...' 
-                      : 'Your account has been created successfully. Redirecting...'}
-                  </p>
-                  <div className="w-full max-w-xs mx-auto">
-                    <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
-                      <div className="h-full bg-green-500 rounded-full animate-[progress_2s_ease-in-out]"></div>
-                    </div>
-                  </div> */}
-                </div>
-              )}
             </div>
           </div>
         </div>

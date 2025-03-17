@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -18,13 +18,13 @@ export default function AddressEditPage() {
   const params = useParams()
   const isEditing = params?.id 
 
-  const initialFormData: AddressFormData = {
+  const initialFormData = useMemo(() => ({
     name: '',
     phone: '',
     address: '',
     city: '',
     isDefault: false
-  }
+  }), [])
 
   const [formData, setFormData] = useState<AddressFormData>(initialFormData)
   const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +37,6 @@ export default function AddressEditPage() {
     }
 
     // Fetch address data if editing
-    // Replace with your actual data fetching logic
     setFormData({
       name: 'John Doe',
       phone: '+254712345678',
@@ -45,7 +44,7 @@ export default function AddressEditPage() {
       city: 'Nairobi',
       isDefault: false
     })
-  }, [isEditing])
+  }, [isEditing, initialFormData])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

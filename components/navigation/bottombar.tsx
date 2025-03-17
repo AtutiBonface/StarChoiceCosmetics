@@ -1,36 +1,13 @@
 'use client'
 import { Heart, House, Menu, ShoppingCart, User } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { initialCartItems, initialWishlistItems } from '@/mockData'
 
 const BottomBar = () => {
   const pathname = usePathname()
   const router = useRouter()
-  const [isNavigating, setIsNavigating] = useState(false)
-  const isMounted = useRef(false)
-
-  
-
-  useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true
-      
-      // Prefetch all possible routes
-      const routesToPrefetch = [
-        '/',
-        '/wishlist',
-        '/cart', 
-        '/customer/account',
-        '/more',
-        '/account'
-      ]
-
-      routesToPrefetch.forEach(route => {
-        router.prefetch(route)
-      })
-    }
-  }, [router])
+  const [isNavigating, setIsNavigating] = useState(false) 
 
   const handleNavigation = useCallback(async (href: string) => {
     if (isNavigating || pathname === href) return
@@ -44,7 +21,19 @@ const BottomBar = () => {
     
   }, [isNavigating, pathname, , router])
 
-  const navItems = [
+  // Memoize counts
+  const cartCount = useMemo(() => 
+    initialCartItems.reduce((sum, item) => sum + item.quantity, 0),
+    []
+  )
+
+  const wishlistCount = useMemo(() => 
+    initialWishlistItems.length,
+    []
+  )
+
+  // Memoize nav items to prevent recreating on each render
+  const navItems = useMemo(() => [
     { 
       icon: House, 
       href: '/', 
@@ -56,7 +45,7 @@ const BottomBar = () => {
       href: '/wishlist', 
       label: 'Wishlist',
       showBadge: true,
-      badge:  initialWishlistItems.length > 0 ? initialWishlistItems.length : null,
+      badge: wishlistCount || null,
       authRequired: true
     },
     { 
@@ -64,8 +53,7 @@ const BottomBar = () => {
       href: '/cart', 
       label: 'Cart',
       showBadge: true,
-      badge: initialCartItems.length > 0 ? 
-      initialCartItems.reduce((sum, item) => sum + item.quantity, 0) : null,
+      badge: cartCount || null,
       authRequired: true
     },
     { 
@@ -82,7 +70,7 @@ const BottomBar = () => {
       showBadge: false,
       authRequired: false
     }
-  ]
+  ], [cartCount, wishlistCount])
 
   const isActive = (href: string) => {
     if (href === '/') {

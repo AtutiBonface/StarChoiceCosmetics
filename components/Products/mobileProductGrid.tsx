@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { ProductItem } from "./productItem";
 import { Loader } from "lucide-react";
 import { Product } from "@/mockData";
@@ -8,19 +8,19 @@ import { Product } from "@/mockData";
 interface MobileProductGridProps {
   title: string;
   products: Product[];
-  loadMoreThreshold?: number;
 }
-export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, products, loadMoreThreshold = 100 }) => {
-  const [visibleItems, setVisibleItems] = useState(6);
+const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, products }) => {
+  const [visibleItems, setVisibleItems] = useState(4);
   const [loading, setLoading] = useState(false);
   const observerTarget = useRef<HTMLDivElement>(null);
+  const loadMoreThreshold = 100;
 
   const handleAddToCart = (e:React.MouseEvent , productId: string) => {
     e.stopPropagation();
     console.log('Adding to cart:', productId);
   };
 
-  const loadMoreItems = () => {
+  const loadMoreItems = useCallback(() => {
     if (loading || visibleItems >= products.length) return;
     
     setLoading(true);
@@ -29,11 +29,10 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
       setVisibleItems(prev => Math.min(prev + 4, products.length));
       setLoading(false);
     }, 500);
-  };
+  }, [loading, visibleItems, products.length]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      
       (entries) => {
         if (entries[0].isIntersecting) {
           loadMoreItems();
@@ -45,6 +44,7 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
     const currentTarget = observerTarget.current;
     if (currentTarget) {
       observer.observe(currentTarget);
+      loadMoreItems(); // Initial load
     }
 
     return () => {
@@ -52,7 +52,7 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
         observer.unobserve(currentTarget);
       }
     };
-  }, [observerTarget, loading, visibleItems, products.length]);
+  }, [loadMoreItems, loadMoreThreshold]); // Added loadMoreItems to dependencies
 
   return (
     <section className="max-w-7xl mx-auto px-2 py-2 md:hidden">
@@ -84,3 +84,5 @@ export const MobileProductGrid : React.FC<MobileProductGridProps> = ({ title, pr
     </section>
   );
 };
+
+export default MobileProductGrid;

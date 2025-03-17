@@ -1,14 +1,10 @@
 'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronRight } from 'lucide-react'
 import { brands } from '@/mockData'
 import { Brand } from '@/mockData'
 import { useState } from 'react'
-
-
-
 
 export default function BrandsPage() {
   const [allbrands] = useState<Brand[]>(brands)

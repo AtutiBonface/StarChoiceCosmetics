@@ -1,33 +1,67 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight, Heart, Minus, Plus, ShoppingCart, Star } from 'lucide-react'
 import Toast from '@/components/Products/toast-notification'
 import { RelatedProducts } from '@/components/Products/relatedProducts'
-import { products } from '@/mockData'
+import { Product, products } from '@/mockData'
 import { useParams } from 'next/navigation'
+import { ProductSkeleton } from '@/components/skeletons'
 
 type TabType = 'info' | 'reviews'
 
 const ProductPreview = () => {
   const [selectedImage, setSelectedImage] = useState(0)
-  const { name } = useParams()
+  const params = useParams()
+  const name = params?.name
   const [quantity, setQuantity] = useState(1)
   const [isWishlist, setIsWishlist] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
   const [activeTab, setActiveTab] = useState<TabType>('info')
+  const [isLoading, setIsLoading] = useState(true)
+  const [product, setProduct] = useState<Product | null>(null)
 
-  // Find product from mockData
-  const product = products.find((p) => p.id.toString() === name)
+
+  console.log("the product is name is", name)
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setIsLoading(true)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        const decodedName = decodeURIComponent(name as string)
+        const productFetched = name ? products.find(p => 
+          p.id.toString().toLowerCase() === decodedName.toLowerCase()
+        ) : null
+        setProduct(productFetched || null)
+      } catch (error) {
+        console.error('Failed to fetch product:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchProduct()
+  }, [name])
+
+  if (isLoading) return <ProductSkeleton />
 
   // Return early if product not found
-  if (!product) {
+  if (product === null) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-lg text-secondary">Product not found</p>
+      <div className="min-h-screen flex flex-col items-center justify-center -mt-28">
+        <div className="relative h-48 w-48 md:h-64 md:w-64 mx-auto mb-8">
+                  <Image 
+                    src="/icons/error.svg" 
+                    alt="Error occurred" 
+                    fill 
+                    priority
+                    className="object-contain"
+                  />
+          </div>
+        <p className="text-2xl text-secondary text-bold ">Product not found!</p>
       </div>
     )
   }

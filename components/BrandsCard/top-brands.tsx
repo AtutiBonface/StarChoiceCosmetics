@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ArrowRight } from 'lucide-react'
@@ -15,7 +15,9 @@ interface Brand {
 
 const TopBrands = () => {
   const [selectedBrand, setSelectedBrand] = useState<Brand | null>(null)
+
   const router = useRouter()
+  
 
   const brands: Brand[] = [
     { 
@@ -131,7 +133,9 @@ const TopBrands = () => {
                   src={brand.logo}
                   alt={brand.name}
                   fill
-                  className="object-contain p-3"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading={brand.id === 1 ? "eager" : "lazy"}
+                  className="object-contain p-3 group-hover:scale-105 transition-transform duration-200"
                 />
               </div>
               <h3 className="text-center font-medium text-primary mt-3 truncate">

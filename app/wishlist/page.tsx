@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight, Heart, ShoppingCart, Trash2, Star, Loader } from 'lucide-react'
@@ -74,6 +74,21 @@ export default function WishlistPage() {
     )
   }
 
+  // Memoize wishlist data processing
+  const processedWishlistItems = useMemo(() => {
+    return wishlistItems.map(item => ({
+      ...item,
+      formattedPrice: item.price.toLocaleString(),
+      formattedOldPrice: item.oldPrice?.toLocaleString()
+    }))
+  }, [wishlistItems])
+
+  // Product image dimensions
+  const imageSize = {
+    height: 300,
+    width: 300,
+  }
+
   if (isLoading) {
     return <WishlistSkeleton />
   }
@@ -115,18 +130,27 @@ export default function WishlistPage() {
           <>
             {/* Desktop View - Grid Layout */}
             <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:mx-12">
-              {wishlistItems.map((item) => (
+              {processedWishlistItems.map((item) => (
                 <div 
                   key={item.id}
                   className="group bg-transparent p-4 rounded-[4px] relative"
                 >
-                  {/* Product Image */}
-                  <div className="relative aspect-square mb-4">
+                  {/* Product Image with fixed dimensions */}
+                  <div 
+                    className="relative mb-4"
+                    style={{ 
+                      height: imageSize.height,
+                      width: '100%',
+                    }}
+                  >
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
+                      sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                       className="object-cover rounded-[4px]"
+                      priority={true}
+                      loading="eager"
                     />
                     <button
                       onClick={() => removeFromWishlist(item.id)}
@@ -146,11 +170,11 @@ export default function WishlistPage() {
 
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-lg font-bold text-accent-1">
-                      KES {item.price.toLocaleString()}
+                      KES {item.formattedPrice}
                     </span>
-                    {item.oldPrice && (
+                    {item.formattedOldPrice && (
                       <span className="text-sm text-gray-500 line-through">
-                        KES {item.oldPrice.toLocaleString()}
+                        KES {item.formattedOldPrice}
                       </span>
                     )}
                   </div>
@@ -187,9 +211,9 @@ export default function WishlistPage() {
               ))}
             </div>
 
-            {/* Mobile View  */}
+            {/* Mobile View with optimized images */}
             <div className="sm:hidden space-y-4">
-              {wishlistItems.map((item) => (
+              {processedWishlistItems.map((item) => (
                 <div 
                   key={item.id}
                   className="flex  rounded-[4px] overflow-hidden relative"
@@ -201,7 +225,10 @@ export default function WishlistPage() {
                         src={item.image}
                         alt={item.name}
                         fill
+                        sizes="128px"
                         className="object-contain transition-transform duration-200 rounded-[4px] group-hover:scale-105"
+                        priority={true}
+                        loading="eager"
                       />
                     </div>
                   </div>
@@ -223,11 +250,11 @@ export default function WishlistPage() {
                       {/* Price */}
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-base font-bold text-accent-1">
-                          KES {item.price.toLocaleString()}
+                          KES {item.formattedPrice}
                         </span>
-                        {item.oldPrice && (
+                        {item.formattedOldPrice && (
                           <span className="text-xs text-gray-500 line-through">
-                            KES {item.oldPrice.toLocaleString()}
+                            KES {item.formattedOldPrice}
                           </span>
                         )}
                       </div>

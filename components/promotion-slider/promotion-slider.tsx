@@ -2,21 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { promotions } from '@/mockData';
+import { useRouter } from 'next/navigation';
 
 const PromotionSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const router = useRouter()
   
-  
-
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => 
-        prev === promotions.length - 1 ? 0 : prev + 1
-      );
-    }, 5000); // Change slide every 5 seconds
-    
-    return () => clearInterval(timer);
-  }, [promotions.length]);
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % promotions.length)
+    }, 5000)
+
+    return () => clearInterval(timer)
+  }, []) // Remove promotions.length from dependencies
 
   return (
     <section className="w-full">
@@ -37,30 +35,37 @@ const PromotionSlider = () => {
               className="object-cover"
               fill
               sizes="100vw"
-              priority={index === 0}
+              priority={index === currentSlide}
+              {...(index !== currentSlide && { loading: index === 0 ? "eager" : "lazy" })}
             />
             
-            {/* Desktop and tablet content overlay */}
-            <div className="absolute inset-0 hidden md:flex items-center">
-              <div className={`w-full md:w-1/2 lg:w-1/3 p-6 lg:p-8 ${
-                promotion.position === 'right' 
-                  ? 'ml-auto mr-4 md:mr-8 lg:mr-16' 
-                  : 'ml-4 md:ml-8 lg:ml-16'
-              }`}>
-                <div className="bg-white/90 p-4 md:p-6 lg:p-8 rounded-md shadow-lg">
-                  <div className="text-accent-1 font-bold text-lg mb-2">{promotion.brand}</div>
-                  <h2 className="text-primary text-lg md:text-xl lg:text-2xl font-bold leading-tight">{promotion.title}</h2>
-                  <p className="text-primary text-sm md:text-base lg:text-lg font-medium mt-2">{promotion.subtitle}</p>
-                  <button 
-                    className="bg-accent-1 text-white text-sm md:text-base font-medium py-2 px-6 rounded-[4px] mt-4 transition-all"
-                    aria-label={promotion.buttonText}
-                  >
-                    {promotion.buttonText}
-                  </button>
-                </div>
-              </div>
-            </div>
             
+            <div className="max-w-7xl mx-auto w-full h-full relative">
+                {/* Desktop and tablet content overlay */}
+              <div className="absolute inset-0 hidden md:flex items-center">
+                <div className={`w-full md:w-1/2 lg:w-1/3 p-6 lg:p-8 ${
+                  promotion.position === 'right' 
+                    ? 'ml-auto mr-4 md:mr-8 lg:mr-16' 
+                    : 'ml-4 md:ml-8 lg:ml-16'
+                }`}>
+                  <div className="bg-white/90 p-4 md:p-6 lg:p-8 rounded-md shadow-lg">
+                    <div className="text-accent-1 font-bold text-lg mb-2">{promotion.brand}</div>
+                    <h2 className="text-primary text-md md:text-lg lg:text-lg font-bold  leading-tight">{promotion.title}.</h2>
+                    <p className="text-secondary text-sm md:text-sm lg:text-sm font-bold mt-2">{promotion.subtitle}.</p>
+                    <button 
+                      onClick={()=> router.push(`/search?brand=${encodeURIComponent(promotion.brand)}`)}
+                      className="bg-accent-1 text-white cursor-pointer text-sm md:text-base font-medium py-2 px-6 rounded-[4px] mt-4 transition-all"
+                      aria-label={promotion.buttonText}
+                    >
+                      {promotion.buttonText}
+                    </button>
+                  </div>
+                </div>
+              </div>           
+               
+            </div>
+
+          
             {/* Mobile content - compact version */}
             <div className="absolute inset-x-0 bottom-0 md:hidden">
               <div className="bg-white/70 px-2 py-1 shadow-lg">
@@ -70,7 +75,8 @@ const PromotionSlider = () => {
                     {promotion.title}
                   </span>
                   <button 
-                    className="bg-accent-1 text-white text-xs font-medium py-1.5 px-3 rounded-[4px] transition-all"
+                    onClick={()=> router.push(`/search?brand=${encodeURIComponent(promotion.brand)}`)}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-accent-1 text-white cursor-pointer text-sm font-medium py-1.5 px-3 rounded-[4px] transition-all"
                     aria-label={promotion.buttonText}
                   >
                     {promotion.buttonText}
@@ -100,14 +106,14 @@ const PromotionSlider = () => {
         {/* Navigation arrows */}
         <div className="max-w-7xl mx-auto w-full h-full relative">
           <button
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-accent-1 text-white p-1 md:p-2 rounded-[4px] w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-accent-1 text-white cursor-pointer p-1 md:p-2 rounded-[4px] w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10"
             onClick={() => setCurrentSlide(prev => (prev === 0 ? promotions.length - 1 : prev - 1))}
             aria-label="Previous slide"
           >
             ←
           </button>
           <button
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-accent-1 text-white p-1 md:p-2 rounded-[4px] w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-accent-1 text-white cursor-pointer p-1 md:p-2 rounded-[4px] w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10"
             onClick={() => setCurrentSlide(prev => (prev === promotions.length - 1 ? 0 : prev + 1))}
             aria-label="Next slide"
           >

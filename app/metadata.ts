@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: "/icons/starchoice-logo.svg",
-    shortcut: "/icons/starchoice-logo.svg",
-    apple: "/icons/starchoice-logo.svg",
+    icon: "/icons/starchoice-logo.png",
+    shortcut: "/icons/starchoice-logo.png",
+    apple: "/icons/starchoice-logo.png",
   },
   viewport: {
     width: "device-width",

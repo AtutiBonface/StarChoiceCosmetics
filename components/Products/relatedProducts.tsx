@@ -1,5 +1,5 @@
-import { DesktopProductGrid } from "./desktopProductGrid";
-import { MobileProductGrid } from "./mobileProductGrid";
+import  DesktopProductGrid from "./desktopProductGrid";
+import  MobileProductGrid  from "./mobileProductGrid";
 // Example 2: Using the components separately
 import { products } from "@/mockData";
 export  const RelatedProducts = () => {

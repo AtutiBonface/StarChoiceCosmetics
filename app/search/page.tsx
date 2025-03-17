@@ -5,8 +5,8 @@ import Link from 'next/link'
 import FilterSidebar from '@/components/Products/filtersidebar'
 import { products } from '@/mockData'
 import { useSearchParams } from 'next/navigation'
-import { DesktopProductGrid } from '@/components/Products/desktopProductGrid'
-import { MobileProductGrid } from '@/components/Products/mobileProductGrid'
+import  DesktopProductGrid  from '@/components/Products/desktopProductGrid'
+import  MobileProductGrid  from '@/components/Products/mobileProductGrid'
 
 
 type PriceRange = {
@@ -39,6 +39,8 @@ const SearchResults = () => {
     formulation: []
   })
 
+
+
   const filterOptions = {
     brands: ["Nivea", "L'Oreal", "Maybelline", "MAC", "Fenty Beauty"],
     categories: ["Skincare", "Makeup", "Hair Care", "Fragrance"],
@@ -70,6 +72,20 @@ const SearchResults = () => {
     if (category) return `${category}`
     return 'All Products'
   }
+
+  const filteredProducts = products.filter(product => {
+    const matchesBrand = filters.brands.length === 0 || filters.brands.includes(product.brand)
+    //const matchesCategory = filters.categories.length === 0 || filters.categories.includes(product.category)
+    const matchesPriceRange = !filters.priceRange || 
+      (product.price >= filters.priceRange.min && 
+      (filters.priceRange.max === null || product.price <= filters.priceRange.max))
+    //const matchesSkinType = filters.skinType.length === 0 || filters.skinType.includes(product.skinType)
+    //const matchesConcerns = filters.concerns.length === 0 || filters.concerns.some(concern => product.concerns.includes(concern))
+    //const matchesFormulation = filters.formulation.length === 0 || filters.formulation.includes(product.formulation)
+
+    return matchesBrand  && matchesPriceRange 
+  })
+
 
   return (
     <div>
@@ -166,11 +182,11 @@ const SearchResults = () => {
             <>
               <DesktopProductGrid 
                 title="" 
-                products={products} 
+                products={filteredProducts} 
               />
               <MobileProductGrid 
                 title=""
-                products={products} 
+                products={filteredProducts} 
               />
             </>
             

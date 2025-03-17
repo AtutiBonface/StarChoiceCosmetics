@@ -45,20 +45,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Set secure cookie with expiration
-    const cookieOptions = [
-      `token=${email}`,
-      'Path=/',
-      'HttpOnly',
-      'Secure',
-      'SameSite=Strict',
-      `Max-Age=${60 * 60 * 24}` // 24 hours
-    ].join('; ');
+    // handle sending verification code to users  email 
 
+    
     return new Response(
-      JSON.stringify({ success: true }), 
+      JSON.stringify({ success: true , message: "Verification code sent to your email!"}), 
       {
         status: 200,
-        headers: { "Set-Cookie": cookieOptions }
       }
     );
   } catch{

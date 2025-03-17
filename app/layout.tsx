@@ -2,10 +2,19 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BottomBar from "@/components/navigation/bottombar";
-import TopBar from "@/components/navigation/topbar";
 import Whatsapp from "@/components/navigation/whatsapp";
-import Footer from "@/components/utils/footer";
 import { usePathname } from 'next/navigation'
+import dynamic from 'next/dynamic'
+
+const TopBar = dynamic(() => import('@/components/navigation/topbar'), {
+  ssr: true,
+  loading: () => <div className="h-16 bg-primary animate-pulse" />
+})
+
+const Footer = dynamic(() => import('@/components/utils/footer'), {
+  ssr: true,
+  loading: () => <div className="h-40 bg-secondary animate-pulse" />
+})
 
 const shouldShowBottomNav = (pathname: string) => {
   const bottomNavPaths = ['/', '/cart', '/wishlist', '/customer', '/menu']

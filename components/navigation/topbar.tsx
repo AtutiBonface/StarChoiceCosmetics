@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
@@ -10,9 +10,15 @@ import axios from 'axios'
 import { initialWishlistItems, initialCartItems } from '@/mockData'
 import { X } from 'lucide-react'
 
-// Dynamically import components that are not needed immediately
-const AnnouncementBar = dynamic(() => import('./announcementbar'), { ssr: true })
-const CategoryNav = dynamic(() => import('./categoryNav'), { ssr: true })
+const AnnouncementBar = dynamic(() => import('./announcementbar'), { 
+  ssr: true,
+  loading: () => <div className="md:h-10" /> // Prevent layout shift
+})
+
+const CategoryNav = dynamic(() => import('./categoryNav'), { 
+  ssr: true,
+  loading: () => <div className="md:h-12" /> // Prevent layout shift
+})
 
 const TopBar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
@@ -22,6 +28,7 @@ const TopBar = () => {
   const [showMobileSearch, setShowMobileSearch] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const router = useRouter()
   const pathname = usePathname()
@@ -48,6 +55,10 @@ const TopBar = () => {
     checkAuth()
   }, [checkAuth])
 
+  const closeDropdown = useCallback(() => {
+    setActiveDropdown(null)
+  }, [])
+
   // Memoize the logout handler
   const handleLogout = useCallback(async () => {
     try {
@@ -58,28 +69,24 @@ const TopBar = () => {
     } catch (error) {
       console.error("Logout failed:", error)
     }
-  }, [router])
+  }, [router, closeDropdown])
 
   // Memoize dropdown handler
   const handleDropdown = useCallback((dropdown: string) => {
     setActiveDropdown(prev => prev === dropdown ? null : dropdown)
   }, [])
 
-  const closeDropdown = useCallback(() => {
-    setActiveDropdown(null)
-  }, [])
-
   // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (activeDropdown && !(event.target as Element).closest('.dropdown-container')) {
-        closeDropdown()
-      }
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      closeDropdown()
     }
+  }, [closeDropdown])
 
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [activeDropdown, closeDropdown])
+  }, [handleClickOutside])
 
   // Handle search submission
     const handleSearch = (e: React.FormEvent) => {
@@ -104,9 +111,31 @@ const TopBar = () => {
 
   // Memoize navigation checks
   const shouldShowBack = pathname?.startsWith('/products') || 
+                        pathname?.startsWith('/offers') ||  
+                        pathname?.startsWith('/brands') ||  
                         pathname?.startsWith('/search') || 
                         pathname?.startsWith('/category') || 
                         (pathname?.startsWith('/customer') && !pathname?.startsWith('/customer/account'))
+
+  // Memoize cart and wishlist counts
+  const cartCount = useMemo(() => 
+    initialCartItems.reduce((sum, item) => sum + item.quantity, 0),
+    []
+  )
+
+  const wishlistCount = useMemo(() => 
+    initialWishlistItems.length,
+    []
+  )
+
+  // Optimize logo image
+  const logoProps = {
+    src: "/icons/starchoice-logo.png",
+    alt: 'StarChoice Cosmetics',
+    width: 160,
+    height: 40,
+    priority: true,
+  }
 
   return (
     <div className='fixed top-0 left-0 w-full z-50 border-b border-medium bg-primary'>
@@ -128,11 +157,9 @@ const TopBar = () => {
             <Link href="/" className="flex items-center gap-2 text-xl font-bold">
               <div className="relative h-8 w-32 md:h-10 md:w-40">
                 <Image 
-                  src="/icons/starchoice-logo.png"  
-                  alt='StarChoice Cosmetics' 
-                  fill
+                  {...logoProps}
+                  alt="StarChoice Cosmetics Logo"
                   className="object-contain"
-                  priority
                 />
               </div>
             </Link>
@@ -298,9 +325,9 @@ const TopBar = () => {
               >
                 <div className="relative">
                   <Heart className="w-5 h-5" />
-                  {(initialWishlistItems.length > 0)&& (
+                  {(wishlistCount > 0)&& (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {initialWishlistItems.length}
+                      {wishlistCount}
                     </span>
                   )}
                 </div>
@@ -322,7 +349,7 @@ const TopBar = () => {
                         <div className="relative w-16 h-16 flex-shrink-0">
                           <Image
                             src={initialWishlistItems[0].image}
-                            alt={initialWishlistItems[0].name}
+                            alt={initialWishlistItems[0].name || "Wishlist item"}
                             fill
                             className="object-cover rounded-[4px]"
                             sizes="64px"
@@ -366,9 +393,9 @@ const TopBar = () => {
               >
                 <div className="relative">
                   <ShoppingCart className="w-5 h-5" />
-                  {(initialCartItems.length > 0)  && (
+                  {(cartCount > 0)  && (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {initialCartItems.reduce((sum, item) => sum + item.quantity, 0)}
+                      {cartCount}
                     </span>
                   )}
                 </div>
@@ -384,7 +411,7 @@ const TopBar = () => {
                       <div className="flex justify-between text-sm mb-2">
                         <span className="font-medium text-primary">Items:</span>
                         <span className="text-primary">
-                          {initialCartItems.reduce((sum, item) => sum + item.quantity, 0)}
+                          {cartCount}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm mb-3">
