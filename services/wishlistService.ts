@@ -1,20 +1,33 @@
-/* // Purpose: Service for wishlist functionality
+/* const { 
+  cart, 
+  wishlist, 
+  addToCart, 
+  removeFromCart,
+  addToWishlist,
+  removeFromWishlist,
+  isInCart,
+  isInWishlist,
+  cartTotal,
+  cartQuantity
+} = useCart();
 
-const WISHLIST_KEY = 'wishlist';
+// Add to cart
+addToCart(product);
 
-export const addToWishlist = (item) => {
-  const wishlistString = localStorage.getItem(WISHLIST_KEY);
-  const wishlist = wishlistString ? JSON.parse(wishlistString) : [];
-  wishlist.push(item);
-  localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
-};
+// Remove from cart
+removeFromCart(productId);
 
-export const getWishlistItems = () => {
-  const wishlist = localStorage.getItem(WISHLIST_KEY);
-  return wishlist ? JSON.parse(wishlist) : [];
-};
+// Check if in cart
+const productInCart = isInCart(productId);
 
-export const clearWishlist = () => {
-  localStorage.removeItem(WISHLIST_KEY);
-};
- */
+// Update quantity
+updateCartQuantity(productId, newQuantity);
+
+// Add to wishlist
+addToWishlist(product);
+
+// Access cart total
+console.log(cartTotal);
+
+// Access cart quantity for badge
+console.log(cartQuantity); */

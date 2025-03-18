@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Toast from './toast-notification';
 import { useRouter } from 'next/navigation';
 import { Product } from '@/mockData';
+import { useCart } from '@/services/cartWishlistContext';
 
 interface ProductProps {
   product: Product;
@@ -14,6 +15,8 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+
+  const { addToCart } = useCart();
 
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -32,6 +35,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
     setIsAdding(true);
     try {
       handleAddToCart(e, product.id.toString());
+      addToCart(product);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
     } catch (error) {
@@ -51,7 +55,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
       />
 
       <div className="bg-transparent p-2 relative group">
-        <div onClick={handleProductClick} className="block relative">
+        <div onClick={handleProductClick} className="block relative cursor-pointer">
           {/* Discount Badge */}
           {product.discount && (
             <div className="absolute top-2 left-2 z-10">
@@ -93,9 +97,9 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
             <div className="flex items-center gap-1">
               <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
               <span className="text-xs text-primary">{product.rating}</span>
-             {/*  {product.reviews && (
+              {product.reviews && (
                 <span className="text-xs text-secondary">({product.reviews.length})</span>
-              )} */}
+              )} 
             </div>
           ) : null}
         </div>

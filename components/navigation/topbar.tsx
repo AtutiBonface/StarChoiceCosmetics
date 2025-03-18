@@ -1,14 +1,14 @@
 'use client'
 
-import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
+import React, { useEffect, useState, useCallback,  useRef } from 'react'
 import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import axios from 'axios'
-import { initialWishlistItems, initialCartItems } from '@/mockData'
 import { X } from 'lucide-react'
+import { useCart } from '@/services/cartWishlistContext'
 
 const AnnouncementBar = dynamic(() => import('./announcementbar'), { 
   ssr: true,
@@ -32,6 +32,9 @@ const TopBar = () => {
 
   const router = useRouter()
   const pathname = usePathname()
+
+  const { cart, wishlist, cartTotal,cartQuantity} = useCart();
+  
 
   // Memoize the authentication check
   const checkAuth = useCallback(async () => {
@@ -117,16 +120,8 @@ const TopBar = () => {
                         pathname?.startsWith('/category') || 
                         (pathname?.startsWith('/customer') && !pathname?.startsWith('/customer/account'))
 
-  // Memoize cart and wishlist counts
-  const cartCount = useMemo(() => 
-    initialCartItems.reduce((sum, item) => sum + item.quantity, 0),
-    []
-  )
 
-  const wishlistCount = useMemo(() => 
-    initialWishlistItems.length,
-    []
-  )
+  
 
   // Optimize logo image
   const logoProps = {
@@ -233,7 +228,7 @@ const TopBar = () => {
           {/* Actions Section - Hidden on mobile */}
           <div className="hidden md:flex items-center gap-4">
             {/* Account Dropdown */}
-            <div className="dropdown-container relative">
+            <div  ref={dropdownRef} className="dropdown-container relative">
               {/* Account Button */}
               <button 
                 className="flex items-center gap-1 hover:text-accent-1"
@@ -314,7 +309,7 @@ const TopBar = () => {
             </div>
 
             {/* Wishlist Dropdown */}
-            <div className="dropdown-container relative">
+            <div ref={dropdownRef} className="dropdown-container relative">
               {/* Wishlist Button */}
               <button 
                 className="flex items-center gap-1 hover:text-accent-1"
@@ -325,9 +320,9 @@ const TopBar = () => {
               >
                 <div className="relative">
                   <Heart className="w-5 h-5" />
-                  {(wishlistCount > 0)&& (
+                  {(wishlist.length > 0)&& (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {wishlistCount}
+                      {wishlist.length}
                     </span>
                   )}
                 </div>
@@ -339,30 +334,30 @@ const TopBar = () => {
               {activeDropdown === 'wishlist' && (                                
                  
                 <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
-                  {initialWishlistItems.length > 0 ? (
+                  {wishlist.length > 0 ? (
                     <>
                       {/* Show only first item */}
                       <Link 
-                        href={`/products/${initialWishlistItems[0].id}`}
+                        href={`/products/${wishlist[0].id}`}
                         className="flex gap-3 hover:bg-accent-light p-2 -m-2 rounded-[4px] transition-colors"
                       >
                         <div className="relative w-16 h-16 flex-shrink-0">
                           <Image
-                            src={initialWishlistItems[0].image}
-                            alt={initialWishlistItems[0].name || "Wishlist item"}
+                            src={wishlist[0].image}
+                            alt={wishlist[0].name || "Wishlist item"}
                             fill
                             className="object-cover rounded-[4px]"
                             sizes="64px"
                           />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-sm text-primary line-clamp-1">{initialWishlistItems[0].name}</h3>
+                          <h3 className="text-sm text-primary line-clamp-1">{wishlist[0].name}</h3>
                           <p className="text-accent-1 font-bold text-sm">
-                            KES {initialWishlistItems[0].price.toLocaleString()}
+                            KES {wishlist[0].price.toLocaleString()}
                           </p>
-                          {initialWishlistItems.length > 1 && (
+                          {wishlist.length > 1 && (
                             <p className="text-sm text-primary mt-1">
-                              +{initialWishlistItems.length - 1} more items
+                              +{wishlist.length - 1} more items
                             </p>
                           )}
                         </div>
@@ -371,7 +366,7 @@ const TopBar = () => {
                         href="/wishlist" 
                         className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm mt-4 hover:bg-accent-1/90"
                       >
-                        View All Items ({initialWishlistItems.length})
+                        View All Items ({wishlist.length})
                       </Link>
                     </>
                   ) : (
@@ -383,7 +378,7 @@ const TopBar = () => {
             </div>
 
             {/* Cart Dropdown */}
-            <div className="dropdown-container relative">
+            <div ref={dropdownRef} className="dropdown-container relative">
               {/* Cart Button */}
               <button
                 className="flex items-center gap-1 hover:text-accent-1"
@@ -393,9 +388,9 @@ const TopBar = () => {
               >
                 <div className="relative">
                   <ShoppingCart className="w-5 h-5" />
-                  {(cartCount > 0)  && (
+                  {(cart.length > 0)  && (
                     <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {cartCount}
+                      {cart.length}
                     </span>
                   )}
                 </div>
@@ -406,18 +401,18 @@ const TopBar = () => {
               </button>
               {activeDropdown === 'cart' && (
                 <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
-                  {initialCartItems.length > 0 ? (
+                  {cart.length > 0 ? (
                     <>
                       <div className="flex justify-between text-sm mb-2">
                         <span className="font-medium text-primary">Items:</span>
                         <span className="text-primary">
-                          {cartCount}
+                          {cartQuantity}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm mb-3">
                         <span className="font-medium text-primary">Subtotal:</span>
                         <span className="font-bold text-accent-1">
-                          KES {initialCartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}
+                          KES {cartTotal.toLocaleString()}
                         </span>
                       </div>
                       <Link 

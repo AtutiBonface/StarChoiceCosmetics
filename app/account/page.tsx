@@ -20,6 +20,24 @@ const Accounts = () => {
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
+  const [verificationCode, setVerificationCode] = useState(['', '', '', ''])
+  const [countdown, setCountdown] = useState(0);
+  const [canResend, setCanResend] = useState(true);
+
+  const startCountdown = (seconds: number) => {
+    setCanResend(false);
+    setCountdown(seconds);
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setCanResend(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
 
   const router = useRouter()
 
@@ -51,15 +69,16 @@ const Accounts = () => {
 
   const handleVerification = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    await axios.post('/api/auth/verification', JSON.stringify({verificationId : '0000', email : "admin@gmail.com"})).then((resp)=>{
+    const code = verificationCode.join('')
+    
+    await axios.post('/api/auth/verification', JSON.stringify({
+      verificationId: code, 
+      email: loginformData.email || "admin@gmail.com"
+    })).then((resp)=>{
       setToastMessage('Login successful! Redirecting...')
       setToastType('success')
       setShowToast(true)
       console.log(resp.data?.message)
-
-
-
       
       setTimeout(() => {
         window.location.href = "/cart"
@@ -69,10 +88,38 @@ const Accounts = () => {
       console.log(resp)
       setToastMessage('Verification failed. Please try again.')
       setShowToast(true)
-      // resete the verifaction inputs
+      if (resp.response?.data?.waitTime) {
+        startCountdown(resp.response.data.waitTime);
+      }
     })
     
 
+  }
+
+  const handleVerificationInput = (index: number, value: string) => {
+    const newCode = [...verificationCode]
+    newCode[index] = value
+    setVerificationCode(newCode)
+  }
+
+  const handlePaste = (e: React.ClipboardEvent, index: number) => {
+    e.preventDefault()
+    const paste = e.clipboardData.getData('text')
+    if (paste.length >= 4) {
+      // If pasted text is 4 or more characters, distribute across inputs
+      const chars = paste.slice(0, 4).split('')
+      setVerificationCode(chars)
+    } else {
+      // If pasted text is less than 4 characters, start from current input
+      const newCode = [...verificationCode]
+      const chars = paste.split('')
+      chars.forEach((char, i) => {
+        if (index + i < 4) {
+          newCode[index + i] = char
+        }
+      })
+      setVerificationCode(newCode)
+    }
   }
 
   const resetForm = () => {
@@ -335,26 +382,28 @@ const Accounts = () => {
                         We&apos;ve sent a verification code to <span className="font-semibold">{(loginformData.email || registerformData.email) || 'your email'}</span>
                       </p>
                       <div className="flex justify-center gap-2 mb-5">
-                        {[...Array(4)].map((_, index) => (
+                        {[0, 1, 2, 3].map((index) => (
                           <input
                             key={index}
                             type="text"
                             maxLength={1}
+                            value={verificationCode[index]}
                             className="w-12 h-12 text-center text-xl font-bold text-secondary border border-medium rounded-[4px] focus:outline-none text-input"
                             required
-                            autoFocus={index === 0}
                             onChange={(e) => {
+                              handleVerificationInput(index, e.target.value)
                               if (e.target.value && index < 3) {
                                 const nextInput = e.target.nextElementSibling as HTMLInputElement;
                                 if (nextInput) nextInput.focus();
                               }
                             }}
                             onKeyDown={(e) => {
-                              if (e.key === 'Backspace' && index > 0 && !e.currentTarget.value) {
+                              if (e.key === 'Backspace' && index > 0 && !verificationCode[index]) {
                                 const prevInput = e.currentTarget.previousElementSibling as HTMLInputElement;
                                 if (prevInput) prevInput.focus();
                               }
                             }}
+                            onPaste={(e) => handlePaste(e, index)}
                           />
                         ))}
                       </div>
@@ -369,9 +418,19 @@ const Accounts = () => {
                       <div className="mt-4 text-center space-y-2">
                         <div className="flex items-center justify-center gap-1">
                           <span className="text-sm text-gray-600">Didn&apos;t receive a code?</span>
-                          <button type="button" className="text-sm text-accent-1 hover:text-pink-700 font-medium">
-                            Resend
-                          </button>
+                          {canResend ? (
+                            <button 
+                              type="button" 
+                              className="text-sm text-accent-1 hover:text-pink-700 font-medium"
+                              onClick={() => startCountdown(30)}
+                            >
+                              Resend
+                            </button>
+                          ) : (
+                            <span className="text-sm text-gray-500">
+                              Wait {countdown}s to resend
+                            </span>
+                          )}
                         </div>
                         <button 
                           type="button"

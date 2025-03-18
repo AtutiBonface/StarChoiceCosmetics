@@ -2,8 +2,7 @@
 import { Heart, House, Menu, ShoppingCart, User } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useCallback, useMemo } from 'react'
-import { initialCartItems, initialWishlistItems } from '@/mockData'
-
+import { useCart } from '@/services/cartWishlistContext'
 const BottomBar = () => {
   const pathname = usePathname()
   const router = useRouter()
@@ -21,16 +20,7 @@ const BottomBar = () => {
     
   }, [isNavigating, pathname, , router])
 
-  // Memoize counts
-  const cartCount = useMemo(() => 
-    initialCartItems.reduce((sum, item) => sum + item.quantity, 0),
-    []
-  )
-
-  const wishlistCount = useMemo(() => 
-    initialWishlistItems.length,
-    []
-  )
+  const { cart, wishlist } = useCart()
 
   // Memoize nav items to prevent recreating on each render
   const navItems = useMemo(() => [
@@ -45,7 +35,7 @@ const BottomBar = () => {
       href: '/wishlist', 
       label: 'Wishlist',
       showBadge: true,
-      badge: wishlistCount || null,
+      badge: wishlist.length || null,
       authRequired: true
     },
     { 
@@ -53,7 +43,7 @@ const BottomBar = () => {
       href: '/cart', 
       label: 'Cart',
       showBadge: true,
-      badge: cartCount || null,
+      badge: cart.length || null,
       authRequired: true
     },
     { 
@@ -70,7 +60,7 @@ const BottomBar = () => {
       showBadge: false,
       authRequired: false
     }
-  ], [cartCount, wishlistCount])
+  ], [cart, wishlist])
 
   const isActive = (href: string) => {
     if (href === '/') {

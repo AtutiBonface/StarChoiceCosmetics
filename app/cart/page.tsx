@@ -5,20 +5,24 @@ import { Minus, Plus, Trash2, ChevronRight, ShoppingBag, Star } from 'lucide-rea
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import CartSkeleton from '@/components/skeletons/CartSkeleton'
-import { initialCartItems , CartItem } from '@/mockData'
-
+import {  CartItem } from '@/mockData'
+import { useCart } from '@/services/cartWishlistContext'
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const { cart , removeFromCart, updateCartQuantity} = useCart()
+
+  console.log(cart)
+  
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         setIsLoading(true)
         await new Promise(resolve => setTimeout(resolve, 1000))
-        setCartItems(initialCartItems)
+        setCartItems(cart)
       } catch (error) {
         console.error('Failed to fetch cart items:', error)
       } finally {
@@ -29,7 +33,7 @@ const Cart = () => {
     fetchCartItems()
   }, [])
 
-  const updateQuantity = (id: number, change: number) => {
+  /* const updateQuantity = (id: number, change: number) => {
     setCartItems(items =>
       items.map(item =>
         item.id === id
@@ -37,11 +41,11 @@ const Cart = () => {
           : item
       )
     )
-  }
+  } */
 
-  const removeItem = (id: number) => {
+  /* const removeItem = (id: number) => {
     setCartItems(items => items.filter(item => item.id !== id))
-  }
+  } */
 
   // Move rendering function outside JSX for better organization
   const renderRating = (rating: number) => (
@@ -152,7 +156,7 @@ const Cart = () => {
                           <div className="flex flex-wrap items-center justify-between gap-4 mt-4">
                             <div className="flex items-center border border-medium rounded overflow-hidden">
                               <button
-                                onClick={() => updateQuantity(item.id, -1)}
+                                onClick={() => updateCartQuantity(item.id, -1)}
                                 className="p-2 hover:bg-gray-100 transition-colors text-secondary"
                                 aria-label="Decrease quantity"
                               >
@@ -160,7 +164,7 @@ const Cart = () => {
                               </button>
                               <span className="w-12 text-center font-medium">{item.quantity}</span>
                               <button
-                                onClick={() => updateQuantity(item.id, 1)}
+                                onClick={() => updateCartQuantity(item.id, -1)}
                                 className="p-2 hover:bg-gray-100 transition-colors text-secondary"
                                 aria-label="Increase quantity"
                               >
@@ -173,7 +177,7 @@ const Cart = () => {
                                 Total: KES {(item.price * item.quantity).toLocaleString()}
                               </span>
                               <button
-                                onClick={() => removeItem(item.id)}
+                                onClick={() => removeFromCart(item.id)}
                                 className="text-red-500 hover:text-red-600 p-2 hover:bg-gray-50 rounded-full transition-colors"
                                 aria-label="Remove item"
                               >
@@ -237,7 +241,7 @@ const Cart = () => {
                               onChange={(e) => {
                                 const newQty = parseInt(e.target.value);
                                 const change = newQty - item.quantity;
-                                updateQuantity(item.id, change);
+                                updateCartQuantity(item.id, change);
                               }}
                               className="border border-medium rounded-[2px] w-[40px]  focus:outline-none text-sm p-1"
                             >
@@ -249,7 +253,7 @@ const Cart = () => {
                           
                           <div className="flex items-center gap-3">
                             <button
-                              onClick={() => removeItem(item.id)}
+                              onClick={() => removeFromCart(item.id)}
                               className="text-red-600 text-xs hover:text-accent-1"
                             >
                               <Trash2 className='h-5 w-5'/>

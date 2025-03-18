@@ -5,6 +5,8 @@ import BottomBar from "@/components/navigation/bottombar";
 import Whatsapp from "@/components/navigation/whatsapp";
 import { usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
+import { CartProvider } from '@/services/cartWishlistContext';
+
 
 const TopBar = dynamic(() => import('@/components/navigation/topbar'), {
   ssr: true,
@@ -41,18 +43,25 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <title>Star Choice Cosmetics</title>
+        <meta name="description" content="Your beauty destination" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-      >
-        <TopBar />
-        <main className={`flex-1 ${hasBottomNav ? 'pb-16' : ''} w-full mt-16 md:mt-38`}>
-          {children}
-        </main>
-        <Whatsapp />        
-        <BottomBar />
-        <div className="hidden md:block mt-auto">
-          <Footer />
-        </div>
+      > 
+        <CartProvider>
+          <TopBar />
+          <main className={`flex-1 ${hasBottomNav ? 'pb-16' : ''} w-full mt-16 md:mt-38`}>
+            {children}
+          </main>
+          <Whatsapp />        
+          <BottomBar />
+          <div className="hidden md:block mt-auto">
+            <Footer />
+          </div>
+        </CartProvider>
       </body>
     </html>
   );

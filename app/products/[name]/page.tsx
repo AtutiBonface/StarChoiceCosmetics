@@ -9,6 +9,7 @@ import { Product, products } from '@/mockData'
 import { useParams } from 'next/navigation'
 import { ProductSkeleton } from '@/components/skeletons'
 
+
 type TabType = 'info' | 'reviews'
 
 const ProductPreview = () => {
@@ -252,7 +253,7 @@ const ProductPreview = () => {
                 >
                   <Heart 
                     size={20} 
-                    className={isWishlist ? 'fill-current' : ''} 
+                    className={isWishlist ? 'fill-red-500' : ''} 
                   />
                 </button>
               </div>
