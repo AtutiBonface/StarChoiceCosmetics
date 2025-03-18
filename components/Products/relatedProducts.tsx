@@ -6,11 +6,9 @@ export  const RelatedProducts = () => {
   return (
     <>
       <DesktopProductGrid 
-        title="Related Products" 
         products={products} 
       />
       <MobileProductGrid 
-        title="Related Products" 
         products={products} 
       />
     </>

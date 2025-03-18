@@ -1,4 +1,4 @@
-// services/cartService.js
+/* // services/cartService.js
 
 const CART_KEY = 'cart';
 
@@ -17,3 +17,4 @@ export const getCartItems = () => {
 export const clearCart = () => {
   localStorage.removeItem(CART_KEY);
 };
+ */

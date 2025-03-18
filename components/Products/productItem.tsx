@@ -55,7 +55,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
           {/* Discount Badge */}
           {product.discount && (
             <div className="absolute top-2 left-2 z-10">
-              <span className="bg-accent-1 text-contrast text-xs font-medium px-2 py-1 rounded-full">
+              <span className="bg-orange-400 text-contrast text-xs font-medium px-2 py-1 rounded-full">
                 {product.discount}% OFF
               </span>
             </div>
@@ -64,7 +64,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
           {/* New Badge */}
           {product.isNew && (
             <div className="absolute top-2 right-2 z-10">
-              <span className="bg-success text-contrast text-xs font-medium px-2 py-1 rounded-full">
+              <span className="bg-green-500 text-contrast text-xs font-medium px-2 py-1 rounded-full">
                 New
               </span>
             </div>

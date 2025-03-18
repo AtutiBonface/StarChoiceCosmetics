@@ -43,10 +43,10 @@ const PromotionSlider = () => {
             <div className="max-w-7xl mx-auto w-full h-full relative">
                 {/* Desktop and tablet content overlay */}
               <div className="absolute inset-0 hidden md:flex items-center">
-                <div className={`w-full md:w-1/2 lg:w-1/3 p-6 lg:p-8 ${
+                <div className={`w-full md:w-1/3 lg:w-1/3 p-6 lg:p-8 ${
                   promotion.position === 'right' 
-                    ? 'ml-auto mr-4 md:mr-8 lg:mr-16' 
-                    : 'ml-4 md:ml-8 lg:ml-16'
+                    ? 'ml-auto mr-4 md:mr-10 lg:mr-18' 
+                    : 'ml-4 md:ml-10 lg:ml-18'
                 }`}>
                   <div className="bg-white/90 p-4 md:p-6 lg:p-8 rounded-md shadow-lg">
                     <div className="text-accent-1 font-bold text-lg mb-2">{promotion.brand}</div>
@@ -68,7 +68,7 @@ const PromotionSlider = () => {
           
             {/* Mobile content - compact version */}
             <div className="absolute inset-x-0 bottom-0 md:hidden">
-              <div className="bg-white/70 px-2 py-1 shadow-lg">
+              <div className="bg-white/90 px-2 py-1 shadow-lg">
                 <div className="text-accent-1 font-bold text-sm">{promotion.brand}</div>
                 <div className="flex justify-between items-center">
                   <span className="text-primary text-xs font-medium truncate pr-2 max-w-[60%]">

@@ -53,7 +53,7 @@ const DesktopProductGrid: React.FC<DesktopProductGridProps> = ({
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-2 py-2 hidden md:block">
+    <section className="max-w-6xl  mx-auto px-2 py-2 hidden md:block">
       <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 md:gap-4">
         {products.slice(0, visibleItems).map((product) => (
           <ProductItem 

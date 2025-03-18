@@ -181,11 +181,10 @@ const SearchResults = () => {
 
             <>
               <DesktopProductGrid 
-                title="" 
+               
                 products={filteredProducts} 
               />
               <MobileProductGrid 
-                title=""
                 products={filteredProducts} 
               />
             </>

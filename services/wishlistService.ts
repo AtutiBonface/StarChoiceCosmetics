@@ -1,4 +1,4 @@
-// Purpose: Service for wishlist functionality
+/* // Purpose: Service for wishlist functionality
 
 const WISHLIST_KEY = 'wishlist';
 
@@ -17,3 +17,4 @@ export const getWishlistItems = () => {
 export const clearWishlist = () => {
   localStorage.removeItem(WISHLIST_KEY);
 };
+ */
