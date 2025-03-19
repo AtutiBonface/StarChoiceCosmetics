@@ -83,7 +83,6 @@ const ProfileSidebar = () => {
       
       await axios.get('/api/logout').then(()=>{
         window.location.href = "/"
-        alert("Logged out successfully")
       }).catch((error)=>{
         alert("Failed to logout")
         console.error(error)

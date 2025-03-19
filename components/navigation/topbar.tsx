@@ -226,9 +226,9 @@ const TopBar = () => {
           )}       
 
           {/* Actions Section - Hidden on mobile */}
-          <div className="hidden md:flex items-center gap-4">
+          <div ref={dropdownRef}  className="hidden md:flex items-center gap-4">
             {/* Account Dropdown */}
-            <div  ref={dropdownRef} className="dropdown-container relative">
+            <div  className="dropdown-container relative">
               {/* Account Button */}
               <button 
                 className="flex items-center gap-1 hover:text-accent-1"

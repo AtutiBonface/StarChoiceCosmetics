@@ -5,7 +5,7 @@ import Link from 'next/link'
 import FilterSidebar from '@/components/Products/filtersidebar'
 import { products } from '@/mockData'
 import { useSearchParams } from 'next/navigation'
-import  DesktopProductGrid  from '@/components/Products/desktopProductGrid'
+import  DesktopProductGrid  from '@/components/Products/ProductGrid'
 import  MobileProductGrid  from '@/components/Products/mobileProductGrid'
 
 
@@ -75,15 +75,13 @@ const SearchResults = () => {
 
   const filteredProducts = products.filter(product => {
     const matchesBrand = filters.brands.length === 0 || filters.brands.includes(product.brand)
-    //const matchesCategory = filters.categories.length === 0 || filters.categories.includes(product.category)
+    const matchesCategory = filters.categories.length === 0 || filters.categories.includes(product.category)
     const matchesPriceRange = !filters.priceRange || 
       (product.price >= filters.priceRange.min && 
       (filters.priceRange.max === null || product.price <= filters.priceRange.max))
-    //const matchesSkinType = filters.skinType.length === 0 || filters.skinType.includes(product.skinType)
-    //const matchesConcerns = filters.concerns.length === 0 || filters.concerns.some(concern => product.concerns.includes(concern))
-    //const matchesFormulation = filters.formulation.length === 0 || filters.formulation.includes(product.formulation)
+    const matchesConcerns = filters.concerns.length === 0 || filters.concerns.some(concern => product.concerns.includes(concern))
 
-    return matchesBrand  && matchesPriceRange 
+    return matchesBrand  && matchesPriceRange && matchesCategory && matchesConcerns 
   })
 
 
@@ -180,13 +178,19 @@ const SearchResults = () => {
             </div>
 
             <>
-              <DesktopProductGrid 
-               
+              <div className="hidden md:block">{/* replace this with pagnated page usisahau */}
+                <DesktopProductGrid 
+                
                 products={filteredProducts} 
               />
+              </div>
+
+
+
+
               <MobileProductGrid 
-                products={filteredProducts} 
-              />
+                products={filteredProducts}/>
+                
             </>
             
           </div>

@@ -2,45 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const categories = [
-  {
-    id: 1,
-    name: 'Hair Cream',
-    image: '/icons/hair-cream.jpeg',
-    href: `/categories?category=hair-cream`,
-  },
-  {
-    id: 2,
-    name: 'Makeup Brushes',
-    image: '/icons/makeup-brashes.webp',
-    href: `/categories?category=makeup-brushes`,
-  },
-  {
-    id: 3,
-    name: 'Perfumes',
-    image: '/icons/perfumes.webp',
-    href: `/categories?category=perfumes`,
-  },
-  {
-    id: 4,
-    name: 'Skincare Cream',
-    image: '/icons/skincare.jpg',
-    href: `/categories?category=skincare-cream`,
-  },
-  {
-    id: 5,
-    name: 'Makeup Lipstick',
-    image: '/icons/lipstick.jpeg',
-    href: `/categories?category=makeup-lipstick`,
-  },
-  {
-    id: 7,
-    name: 'Nail Polish',
-    image: '/icons/nail-polish.jpeg',
-    href: `/categories?category=nail-polish`,
-  },
-];
+import { categories } from '@/mockData';
 
 const CategoryCarousel = () => {
   const scrollRef = useRef<HTMLDivElement>(null);

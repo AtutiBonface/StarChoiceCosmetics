@@ -1,4 +1,4 @@
-import DesktopProductGrid from "./desktopProductGrid";
+import DesktopProductGrid from "./ProductGrid";
 import MobileProductGrid from "./mobileProductGrid";
 import {  Product } from "@/mockData";
 // Example 2: Using the components separately

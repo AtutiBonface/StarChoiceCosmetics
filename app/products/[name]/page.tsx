@@ -8,6 +8,7 @@ import { RelatedProducts } from '@/components/Products/relatedProducts'
 import { Product, products } from '@/mockData'
 import { useParams } from 'next/navigation'
 import { ProductSkeleton } from '@/components/skeletons'
+import { useCart } from '@/services/cartWishlistContext'
 
 
 type TabType = 'info' | 'reviews'
@@ -16,17 +17,17 @@ const ProductPreview = () => {
   const [selectedImage, setSelectedImage] = useState(0)
   const params = useParams()
   const name = params?.name
-  const [quantity, setQuantity] = useState(1)
   const [isWishlist, setIsWishlist] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
   const [activeTab, setActiveTab] = useState<TabType>('info')
   const [isLoading, setIsLoading] = useState(true)
-  const [product, setProduct] = useState<Product | null>(null)
+  const [product, setProduct] = useState<Product | null>(null)  
+  const {cart, addToCart, isInCart , isInWishlist,addToWishlist ,removeFromWishlist, updateCartQuantity,} = useCart()
+  const [quantity, setQuantity] = useState<number>(cart.find(item => item.productId === product?.id)?.quantity || 1)
 
 
-  console.log("the product is name is", name)
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -68,9 +69,42 @@ const ProductPreview = () => {
   }
 
   const handleAddToCart = () => {
-    setToastMessage('Product added to cart successfully!')
-    setToastType('success')
-    setShowToast(true)
+    try {
+      if(isInCart(product.id)){
+        setToastMessage('Product is already in cart.')
+        setToastType('info')
+        setShowToast(true)
+        return
+      }
+      addToCart(product)
+      setToastMessage('Product added to cart successfully!')
+      setToastType('success')
+      setShowToast(true)
+    }catch{  
+      setToastMessage('Failed to add to cart')
+      setToastType('error')
+      setShowToast(true)
+    }
+
+  }
+  const handleAddToWishList = () => {
+    try { 
+      if(isInWishlist(product.id)){
+        removeFromWishlist(product.id)
+        setToastMessage('Product removed from wishlist successfully!')
+        setToastType('info')
+        setShowToast(true)
+        return
+      }
+      addToWishlist(product)
+      setToastMessage('Product added to wishlist successfully!')
+      setToastType('success') 
+      setShowToast(true)
+    }catch{ 
+      setToastMessage('Failed to add to wishlist')
+      setToastType('error')
+      setShowToast(true)
+    }
   }
 
   // Rating stars renderer
@@ -98,14 +132,24 @@ const ProductPreview = () => {
         <div className="flex items-center gap-4">
           <div className="flex items-center border border-medium rounded-[4px]">
             <button
-              onClick={() => setQuantity(q => Math.max(1, q - 1))}
+              onClick={() => {
+                setQuantity(q => Math.max(1, q - 1))
+                if(isInCart(product.id)){
+                   updateCartQuantity(product.id, quantity)
+                 }
+              }}
               className="p-2 hover:bg-gray-100"
             >
               <Minus size={16} />
             </button>
             <span className="w-12 text-center">{quantity}</span>
             <button
-              onClick={() => product && setQuantity(q => Math.min(product.stock, q + 1))}
+              onClick={() => {    
+                setQuantity(q => Math.min(product.stock, q + 1))
+                if(isInCart(product.id)){
+                     updateCartQuantity(product.id, quantity)
+                   }
+              }}
               className="p-2 hover:bg-gray-100"
             >
               <Plus size={16} />
@@ -222,14 +266,26 @@ const ProductPreview = () => {
                 <span className="text-sm font-medium text-secondary">Quantity:</span>
                 <div className="flex items-center border border-medium rounded-[4px]">
                   <button
-                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                    onClick={() => {
+                      setQuantity(q => Math.max(1, q - 1))
+                      if(isInCart(product.id)){
+                        updateCartQuantity(product.id, quantity)
+                      }
+                    }
+                    }
                     className="p-2 hover:bg-gray-100"
                   >
                     <Minus size={16} />
                   </button>
                   <span className="w-12 text-center">{quantity}</span>
                   <button
-                    onClick={() => product && setQuantity(q => Math.min(product.stock, q + 1))}
+                    onClick={() => {
+                      setQuantity(q => Math.min(product.stock, q + 1))
+                      if(isInCart(product.id)){
+                        updateCartQuantity(product.id, quantity)
+                      }
+                    }
+                    }
                     className="p-2 hover:bg-gray-100"
                   >
                     <Plus size={16} />
@@ -244,16 +300,19 @@ const ProductPreview = () => {
                   Add to Cart
                 </button>
                 <button
-                  onClick={() => setIsWishlist(!isWishlist)}
+                  onClick={() => {
+                    handleAddToWishList()
+                    setIsWishlist(!isWishlist)}
+                  }
                   className={`p-3 rounded-[4px] border ${
-                    isWishlist 
+                    isWishlist || isInWishlist(product.id)
                       ? 'bg-accent-1 text-white border-accent-1' 
-                      : 'border-medium hover:border-accent-1'
+                      : 'border-medium bg-transparent'
                   }`}
                 >
                   <Heart 
                     size={20} 
-                    className={isWishlist ? 'fill-red-500' : ''} 
+                    className={isWishlist || isInWishlist(product.id) ? 'fill-red-500' : 'fill-white'} 
                   />
                 </button>
               </div>

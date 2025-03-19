@@ -6,7 +6,7 @@ interface CartContextType {
   wishlist: WishlistItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
-  updateCartQuantity: (productId: number, quantity: number) => void;
+  updateCartQuantity: (productId: number, quantity: number) => void; 
   addToWishlist: (product: Product) => void;
   removeFromWishlist: (productId: number) => void;
   isInCart: (productId: number) => boolean;
@@ -61,7 +61,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         );
       }
       const newItem: CartItem = {
-        id: Date.now(),
+        id: product.id,
         productId: product.id,
         name: product.name,
         price: product.price,
@@ -97,7 +97,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         return prevWishlist;
       }
       const newItem: WishlistItem = {
-        id: Date.now(),
+        id: product.id,
         productId: product.id,
         name: product.name,
         price: product.price,
@@ -128,6 +128,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const cartQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  const cartItemQuantity = (productId: number) => {
+    const item = cart.find(item => item.productId === productId);
+    return item ? item.quantity : 0;
+  };
+
   const clearCart = () => {
     setCart([]);
   };
@@ -144,6 +149,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     isInWishlist,
     cartTotal,
     cartQuantity,
+    cartItemQuantity,
     clearCart,
   };
 

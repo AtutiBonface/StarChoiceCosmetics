@@ -9,12 +9,13 @@ import {  CartItem } from '@/mockData'
 import { useCart } from '@/services/cartWishlistContext'
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const { cart , removeFromCart, updateCartQuantity} = useCart()
+  const { cart , removeFromCart ,cartItemQuantity , updateCartQuantity} = useCart()
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
 
-  console.log(cart)
+  
+
   
 
   useEffect(() => {

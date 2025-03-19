@@ -1,5 +1,5 @@
 'use client'
-import DesktopProductGrid  from "./desktopProductGrid";
+import DesktopProductGrid  from "./ProductGrid";
 import MobileProductGrid  from "./mobileProductGrid";
 import { products} from "@/mockData";
 export  const TopSelling = () => {  

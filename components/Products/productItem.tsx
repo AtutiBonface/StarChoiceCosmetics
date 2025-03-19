@@ -80,6 +80,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
               src={product.images[0].url}
               alt={product.name}
               fill
+              loading='lazy'
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               className="object-contain group-hover:scale-105 transition-transform duration-200"
             />

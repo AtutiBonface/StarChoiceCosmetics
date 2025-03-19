@@ -25,6 +25,8 @@ interface Product {
   discount?: number | null
   isNew?: boolean
   info: ProductInfo
+  concerns: string[]
+  category: string
 }
 
 interface ProductInfo {
@@ -244,6 +246,8 @@ const products: Product[] = [
     rating: 4.5,
     discount: 13,
     isNew: true,
+    concerns: ["Dark spots", "Sun protection", "Aging"],
+    category: "Skincare",
     info: {
       details: `• Innovative formula with Luminous630®
         • SPF50 protection against UV damage
@@ -293,6 +297,8 @@ const products: Product[] = [
     rating: 4.2,
     discount: 10,
     isNew: false,
+    concerns: ["Dryness", "Hydration", "Sensitivity"],
+    category: "Skincare",
     info: {
       details: `• Developed with dermatologists
         • Fragrance-free and non-comedogenic
@@ -342,6 +348,8 @@ const products: Product[] = [
     rating: 4.7,
     discount: 8,
     isNew: false,
+    concerns: ["Hydration", "Dryness", "Dullness"],
+    category: "Skincare",
     info: {
       details: `• Oil-free formula
         • Contains hyaluronic acid
@@ -392,6 +400,8 @@ const products: Product[] = [
     rating: 4.8,
     discount: 7,
     isNew: false,
+    concerns: ["Sensitivity", "Dryness", "Cleansing"],
+    category: "Skincare",
     info: {
       details: `• Soap-free and fragrance-free
         • Hypoallergenic
@@ -442,6 +452,8 @@ const products: Product[] = [
     rating: 4.6,
     discount: 10,
     isNew: false,
+    concerns: ["Blemishes", "Congestion", "Sebum control"],
+    category: "Skincare",
     info: {
       details: `• Contains 10% Niacinamide and 1% Zinc
         • Reduces blemishes and congestion
@@ -489,6 +501,8 @@ const products: Product[] = [
     rating: 4.3,
     discount: null,
     isNew: false,
+    concerns: ["Dryness", "Hydration", "Repair"],
+    category: "Body Care",
     info: {
       details: `• Provides 48-hour hydration
         • Repairs very dry skin
@@ -538,6 +552,8 @@ const products: Product[] = [
     rating: 4.9,
     discount: 12,
     isNew: true,
+    concerns: ["Pores", "Wrinkles", "Dullness"],
+    category: "Skincare",
     info: {
       details: `• 2% Salicylic Acid (BHA)
         • Unclogs pores and reduces blackheads
@@ -588,6 +604,8 @@ const products: Product[] = [
     rating: 4.7,
     discount: 10,
     isNew: false,
+    concerns: ["Hydration", "Dryness", "Softness"],
+    category: "Skincare",
     info: {
       details: `• Provides 24-hour hydration
         • Lightweight and non-greasy
@@ -637,6 +655,8 @@ const products: Product[] = [
     rating: 4.8,
     discount: 9,
     isNew: true,
+    concerns: ["Texture", "Tone", "Firmness"],
+    category: "Skincare",
     info: {
       details: `• Improves skin texture and firmness
         • Contains signal peptides and growth factors
@@ -685,6 +705,8 @@ const products: Product[] = [
     rating: 4.6,
     discount: 11,
     isNew: false,
+    concerns: ["Dryness", "Distressed skin", "Hydration"],
+    category: "Skincare",
     info: {
       details: `• Provides instant relief for dry skin
         • Contains colloidal oatmeal and shea butter
@@ -734,6 +756,8 @@ const products: Product[] = [
     rating: 4.5,
     discount: 7,
     isNew: true,
+    concerns: ["Hydration", "Exfoliation", "Brightening"],
+    category: "Skincare",
     info: {
       details: `• Hydrates and exfoliates overnight
         • Contains watermelon extract and AHAs
@@ -783,6 +807,8 @@ const products: Product[] = [
     rating: 4.3,
     discount: 12,
     isNew: false,
+    concerns: ["Dryness", "Moisturization", "Softness"],
+    category: "Body Care",
     info: {
       details: `• Enriched with glycerin and honey
         • 24-hour moisture
@@ -832,6 +858,8 @@ const products: Product[] = [
     rating: 4.7,
     discount: 14,
     isNew: true,
+    concerns: ["Cleansing", "Makeup removal", "Sensitivity"],
+    category: "Skincare",
     info: {
       details: `• No rinse formula
         • Removes makeup and cleanses
@@ -880,6 +908,8 @@ const products: Product[] = [
     rating: 4.6,
     discount: 12,
     isNew: false,
+    concerns: ["Wrinkles", "Firmness", "Plumping"],
+    category: "Skincare",
     info: {
       details: `• Anti-aging formula
         • Contains Pro-Xylane
@@ -912,6 +942,68 @@ const products: Product[] = [
         date: "2024-03-05"
       }
     ]
+  },
+  {
+    id: 29,
+    name: "Nivea Perfect & Radiant Luminous630",
+    brand: "Nivea",
+    price: 1299,
+    oldPrice: 1499,
+    description: "A brightening cream that helps reduce dark marks and even skin tone.",
+    images: [
+      { id: 1, url: "/products/nivea/nivea-luminous-1.webp" }
+    ],
+    stock: 10,
+    hasVariants: false,
+    rating: 4.5,
+    concerns: ["Dark spots", "Uneven skin tone", "Dullness"],
+    discount: null,
+    isNew: false,
+    category: "Skincare",
+    info: {
+      details: `• Reduces dark marks
+        • Evens skin tone
+        • With Luminous630® technology`,
+      ingredients: "Aqua, Luminous630, Glycerin...",
+      howToUse: "Apply twice daily to face after cleansing.",
+      specifications: {
+        "Size": "50ml",
+        "Skin Type": "All Skin Types",
+        "Formulation": "Cream",
+        "Package Type": "Jar"
+      }
+    }
+  },
+  {
+    id: 30,
+    name: "CeraVe Hydrating Facial Cleanser",
+    brand: "CeraVe",
+    price: 2500,
+    oldPrice: 2800,
+    description: "A gentle daily facial cleanser with ceramides and hyaluronic acid.",
+    images: [
+      { id: 1, url: "/products/cerave/cerave-cleanser-1.webp" }
+    ],
+    stock: 0,
+    hasVariants: false,
+    rating: 4.2,
+    concerns: ["Dryness", "Sensitivity", "Dehydration"],
+    discount: null,
+    isNew: false,
+    category: "Skincare",
+    info: {
+      details: `• Non-foaming cleanser
+        • With 3 essential ceramides
+        • Fragrance-free`,
+      ingredients: "Aqua, Ceramides, Hyaluronic Acid...",
+      howToUse: "Use morning and evening to cleanse face and neck.",
+      specifications: {
+        "Size": "236ml",
+        "Skin Type": "Normal to Dry",
+        "Formulation": "Cream Cleanser",
+        "Package Type": "Pump Bottle"
+      }
+    }
   }
 ]
 
@@ -986,6 +1078,45 @@ const initialWishlistItems: WishlistItem[] = [
     reviewCount: 324
   }
 ]
+const categories = [
+  {
+    id: 1,
+    name: 'Hair Cream',
+    image: '/icons/hair-cream.jpeg',
+    href: `/categories?category=Hair Cream`,
+  },
+  {
+    id: 2,
+    name: 'Makeup Brushes',
+    image: '/icons/makeup-brashes.webp',
+    href: `/categories?category=Makeup Brushes`,
+  },
+  {
+    id: 3,
+    name: 'Perfumes',
+    image: '/icons/perfumes.webp',
+    href: `/categories?category=Perfumes`,
+  },
+  {
+    id: 4,
+    name: 'Skincare Cream',
+    image: '/icons/skincare.jpg',
+    href: `/categories?category=Skincare`,
+  },
+  {
+    id: 5,
+    name: 'Makeup Lipstick',
+    image: '/icons/lipstick.jpeg',
+    href: `/categories?category=Makeup Lipstick`,
+  },
+  {
+    id: 7,
+    name: 'Nail Polish',
+    image: '/icons/nail-polish.jpeg',
+    href: `/categories?category=nail-polish`,
+  },
+];
+
 
 export {
   brands,
@@ -993,7 +1124,8 @@ export {
   initialCartItems,
   initialWishlistItems,
   offers,
-  promotions
+  promotions,
+  categories
 }
 
 export type {
