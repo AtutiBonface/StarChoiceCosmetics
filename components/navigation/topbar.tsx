@@ -216,13 +216,47 @@ const TopBar = () => {
 
           {/* Mobile Search Button - Only show when search is not active */}
           {!showMobileSearch && (
-            <button 
-              onClick={toggleMobileSearch}
-              className="md:hidden p-2 rounded-full hover:bg-accent-light"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5 text-accent-1" />
-            </button>
+            <div className='flex items-center'>            
+              <button 
+                onClick={toggleMobileSearch}
+                className="md:hidden p-2 rounded-full hover:bg-accent-light"
+                aria-label="Search"
+              >
+                <Search className="w-5 h-5 text-accent-1" />
+              </button>
+              {shouldShowBack && (
+                <div className="h-full flex items-center">
+                  
+                  <button 
+                    onClick={()=> router.push('/wishlist')}
+                    className="md:hidden p-2 h-full rounded-full hover:bg-accent-light relative"
+                    aria-label="Search"
+                  >
+                    {wishlist.length > 0 && (
+                      <span className="absolute -top-1 right-0 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
+                        {wishlist.length}
+                      </span> 
+                    )}
+    
+                    <Heart className="w-5 h-5 text-accent-1" />
+                  </button>
+
+                  <button 
+                    onClick={()=> router.push('/cart')}
+                    className="md:hidden p-2 rounded-full hover:bg-accent-light relative"
+                    aria-label="Search"
+                  >
+                    {cart.length > 0 && (
+                      <span className="absolute -top-1 right-0 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
+                        {cart.length}
+                      </span>
+                    )}
+    
+                    <ShoppingCart className="w-5 h-5 text-accent-1" />
+                  </button>
+                </div>                
+              )}
+              </div>
           )}       
 
           {/* Actions Section - Hidden on mobile */}
@@ -403,6 +437,39 @@ const TopBar = () => {
                 <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
                   {cart.length > 0 ? (
                     <>
+                      {/* Cart Items Preview */}
+                      <div className="max-h-64 overflow-y-auto mb-4">
+                        {cart.slice(0, 3).map((item) => (
+                          <div key={item.id} className="flex gap-3 py-2 border-b border-medium last:border-0">
+                            <div className="relative w-12 h-12 flex-shrink-0">
+                              <Image
+                                src={item.image}
+                                alt={item.name}
+                                fill
+                                className="object-cover rounded-[4px]"
+                                sizes="48px"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-xs text-primary line-clamp-1">{item.name}</h3>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-xs text-accent-1">
+                                  KES {item.price.toLocaleString()}
+                                </span>
+                                <span className="text-xs text-secondary">
+                                  × {item.quantity}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {cart.length > 3 && (
+                          <p className="text-xs text-secondary text-center mt-2">
+                            +{cart.length - 3} more items
+                          </p>
+                        )}
+                      </div>
+
                       <div className="flex justify-between text-sm mb-2">
                         <span className="font-medium text-primary">Items:</span>
                         <span className="text-primary">

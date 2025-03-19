@@ -5,8 +5,8 @@ import Link from 'next/link'
 import FilterSidebar from '@/components/Products/filtersidebar'
 import { products } from '@/mockData'
 import { useSearchParams } from 'next/navigation'
-import  DesktopProductGrid  from '@/components/Products/ProductGrid'
 import  MobileProductGrid  from '@/components/Products/mobileProductGrid'
+import PaginatedProductGrid from '@/components/Products/PaginatedProductGrid'
 
 
 type PriceRange = {
@@ -178,19 +178,12 @@ const SearchResults = () => {
             </div>
 
             <>
-              <div className="hidden md:block">{/* replace this with pagnated page usisahau */}
-                <DesktopProductGrid 
-                
-                products={filteredProducts} 
-              />
+              <div className="hidden md:block">
+                <PaginatedProductGrid products={filteredProducts} />
               </div>
-
-
-
-
               <MobileProductGrid 
-                products={filteredProducts}/>
-                
+                products={filteredProducts}
+              />
             </>
             
           </div>

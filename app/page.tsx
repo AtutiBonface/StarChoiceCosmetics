@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic';
 import { products } from '@/mockData';
 import { BrandsSkeleton, DesktopGridSkeleton } from '@/components/skeletons';
+import CategorySkeleton from '@/components/skeletons/CategorySkeleton';
 import React from 'react';
-import CategoryCarousel from '@/components/category/category';
+
 const TopBrands = dynamic(() => import("@/components/BrandsCard/top-brands"), {
   loading: () => <BrandsSkeleton/>,
   ssr: true
@@ -18,8 +19,10 @@ const ProductGrid = dynamic(() => import('@/components/Products/ProductGrid'), {
   ssr: true
 });
 
-
-
+const CategoryCarousel = dynamic(() => import("@/components/category/category"), {
+  loading: () => <CategorySkeleton />,
+  ssr: true
+});
 
 export default function Home() {
   return (  

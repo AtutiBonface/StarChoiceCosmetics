@@ -5,14 +5,13 @@ import { Minus, Plus, Trash2, ChevronRight, ShoppingBag, Star } from 'lucide-rea
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import CartSkeleton from '@/components/skeletons/CartSkeleton'
-import {  CartItem } from '@/mockData'
 import { useCart } from '@/services/cartWishlistContext'
 import Toast from '@/components/Products/toast-notification'
 
 const Cart = () => {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const { cart, isInWishlist,addToWishlist, removeFromCart, cartItemQuantity, updateCartQuantity } = useCart()
+  const { cart, isInWishlist, removeFromCart, cartItemQuantity, updateCartQuantity } = useCart()
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error'>('success')
@@ -25,14 +24,14 @@ const Cart = () => {
     return () => clearTimeout(loadingTimeout)
   }, [])
 
-  const handleAddToWishlist = (item: CartItem) => {
-    if(!isInWishlist(item.id)){
+  const handleAddToWishlist = (productId: number) => {
+    if(!isInWishlist(productId)){
       //addToWishlist(item)
       setToastMessage('Item added to wishlist')
       setToastType('success')
       setShowToast(true)
     }
-    removeFromCart(item.id)
+    removeFromCart(productId)
   }
 
   const renderRating = (rating: number) => (
@@ -258,7 +257,7 @@ const Cart = () => {
                             </button>
                             <span className="text-gray-300">|</span>
                             <button onClick={()=>{
-                              handleAddToWishlist(item)
+                              handleAddToWishlist(item.id)
                              
                             }} className="text-gray-700 text-sm hover:text-accent-1">
                               Save for later

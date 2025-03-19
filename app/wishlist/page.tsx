@@ -1,49 +1,42 @@
 'use client'
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronRight, Heart, ShoppingCart, Trash2, Star, Loader } from 'lucide-react'
+import { ChevronRight, Heart, ShoppingCart, Trash2, Star, Plus, Minus} from 'lucide-react'
 import WishlistSkeleton from '@/components/skeletons/WishlistSkeleton'
 import Toast from '@/components/Products/toast-notification'
-import { initialWishlistItems , WishlistItem } from '@/mockData'
+import { useCart } from '@/services/cartWishlistContext'
+import { products } from '@/mockData'
 export default function WishlistPage() {
  
-  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('success')
-  const [isAddingToCart, setIsAddingToCart] = useState<number | null>(null)
+  const { addToCart, removeFromWishlist, wishlist , removeFromCart,isInCart , updateCartQuantity, cartItemQuantity } = useCart()
 
   
   useEffect(() => {
-    const fetchWishlistItems = async () => {
-      try {
-        setIsLoading(true)
-        
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        setWishlistItems(initialWishlistItems)
-      } catch (error) {
-        console.error('Failed to fetch wishlist:', error)
-      } finally {
+      const loadingTimeout = setTimeout(() => {
         setIsLoading(false)
-      }
-    }
+      }, 1000)
+  
+      return () => clearTimeout(loadingTimeout)
+    }, [])
 
-    fetchWishlistItems()
-  }, [])
-
-  const removeFromWishlist = (id :number) => {
-    setWishlistItems(items => items.filter(item => item.id !== id))
-  }
-
+  
   const handleAddToCart = async (itemId: number) => {
-    if (isAddingToCart) return
-    
-    setIsAddingToCart(itemId)
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000))
+    const item = products.find((item) => item.id === itemId)
+    if (!item) return  
       
+    try {
+      if(isInCart(itemId)){
+        setToastMessage('Product already exists in the Card.')
+        setToastType('info')
+        setShowToast(true)
+        return
+      }
+      addToCart(item)      
       setToastMessage('Product added to cart successfully!')
       setToastType('success')
       setShowToast(true)
@@ -51,9 +44,7 @@ export default function WishlistPage() {
       setToastMessage('Failed to add product to cart')
       setToastType('error')
       setShowToast(true)
-    } finally {
-      setIsAddingToCart(null)
-    }
+    } 
   }
 
   // Function to render star rating
@@ -74,20 +65,6 @@ export default function WishlistPage() {
     )
   }
 
-  // Memoize wishlist data processing
-  const processedWishlistItems = useMemo(() => {
-    return wishlistItems.map(item => ({
-      ...item,
-      formattedPrice: item.price.toLocaleString(),
-      formattedOldPrice: item.oldPrice?.toLocaleString()
-    }))
-  }, [wishlistItems])
-
-  // Product image dimensions
-  const imageSize = {
-    height: 300,
-    width: 300,
-  }
 
   if (isLoading) {
     return <WishlistSkeleton />
@@ -113,7 +90,7 @@ export default function WishlistPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-2 py-4">
-        {wishlistItems.length === 0 ? (
+        {wishlist.length === 0 ? (
           <div className="text-center py-12">
             <div className="mb-4">
               <Heart className="w-12 h-12 text-accent-1 mx-auto" />
@@ -130,25 +107,21 @@ export default function WishlistPage() {
           <>
             {/* Desktop View - Grid Layout */}
             <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:mx-12">
-              {processedWishlistItems.map((item) => (
+              {wishlist.map((item) => (
                 <div 
                   key={item.id}
                   className="group bg-transparent p-4 rounded-[4px] relative"
                 >
                   {/* Product Image with fixed dimensions */}
                   <div 
-                    className="relative mb-4"
-                    style={{ 
-                      height: imageSize.height,
-                      width: '100%',
-                    }}
+                    className="relative mb-4 h-40 w-full flex items-center justify-center" 
+                    
                   >
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
-                      sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover rounded-[4px]"
+                      className="object-cover rounded-[4px] p-2"
                       priority={true}
                       loading="eager"
                     />
@@ -170,11 +143,11 @@ export default function WishlistPage() {
 
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-lg font-bold text-accent-1">
-                      KES {item.formattedPrice}
+                      KES {item.price?.toLocaleString()}
                     </span>
-                    {item.formattedOldPrice && (
+                    {item.oldPrice && (
                       <span className="text-sm text-gray-500 line-through">
-                        KES {item.formattedOldPrice}
+                        KES {item.oldPrice.toLocaleString()}
                       </span>
                     )}
                   </div>
@@ -186,34 +159,52 @@ export default function WishlistPage() {
                   </div>
 
                   {/* Actions */}
-                  <button 
-                    onClick={() => handleAddToCart(item.id)}
-                    disabled={!item.inStock || isAddingToCart === item.id}
-                    className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-[4px] transition-colors
-                      ${item.inStock 
-                        ? 'bg-accent-1 text-white hover:bg-accent-1/90' 
-                        : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                      } ${isAddingToCart === item.id ? 'opacity-70' : ''}`}
-                  >
-                    {isAddingToCart === item.id ? (
-                      <>
-                        <Loader className="h-5 w-5 animate-spin text-white" />
-                        Adding...
-                      </>
-                    ) : (
-                      <>
-                        <ShoppingCart size={18} />
-                        {item.inStock ? 'Add to Cart' : 'Out of Stock'}
-                      </>
-                    )}
-                  </button>
+                  {isInCart(item.id) ? (
+                    <div className="flex items-center justify-between  overflow-hidden">
+                      <button
+                        onClick={() => {
+                            const newQuantity = cartItemQuantity(item.id) - 1;
+                                if (newQuantity < 1) {
+                                  removeFromCart(item.id);
+                                } else {
+                                  updateCartQuantity(item.id, newQuantity);  
+                              }
+                        }}
+                        className="p-2  transition-colors text-contrast rounded-[4px] bg-accent-1"
+                        aria-label="Decrease quantity"
+                      >
+                        <Minus size={16} className='text-white' />
+                      </button>
+                      <span className="w-12 text-center font-medium">{cartItemQuantity(item.id)}</span>
+                      <button
+                        onClick={() => updateCartQuantity(item.id, cartItemQuantity(item.id) + 1)}
+                        className="p-2  transition-colors text-contrast rounded-[4px] bg-accent-1"
+                        aria-label="Increase quantity"
+                      >
+                        <Plus size={16} className='text-white' />
+                      </button>
+                    </div>
+                  ) : (
+                    <button 
+                      onClick={() => handleAddToCart(item.id)}
+                      disabled={!item.inStock}
+                      className={`w-full flex items-center justify-center gap-2 py-2 px-4 rounded-[4px] transition-colors
+                        ${item.inStock 
+                          ? 'bg-accent-1 text-white hover:bg-accent-1/90' 
+                          : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                        } 'opacity-70'`}
+                    >
+                      <ShoppingCart size={18} />
+                      {item.inStock ? 'Add to Cart' : 'Out of Stock'}
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
 
             {/* Mobile View with optimized images */}
             <div className="sm:hidden space-y-4">
-              {processedWishlistItems.map((item) => (
+              {wishlist.map((item) => (
                 <div 
                   key={item.id}
                   className="flex  rounded-[4px] overflow-hidden relative"
@@ -249,38 +240,57 @@ export default function WishlistPage() {
                       {/* Price */}
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-base font-bold text-accent-1">
-                          KES {item.formattedPrice}
+                          KES {item.price}
                         </span>
-                        {item.formattedOldPrice && (
+                        {item.oldPrice && (
                           <span className="text-xs text-gray-500 line-through">
-                            KES {item.formattedOldPrice}
+                            KES {item.oldPrice}
                           </span>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 mt-2">
-                      <button 
-                        onClick={() => handleAddToCart(item.id)}
-                        disabled={!item.inStock || isAddingToCart === item.id}
-                        className={`flex-1 flex items-center justify-center gap-1 py-2 text-md rounded-[4px] transition-colors
-                          ${item.inStock 
-                            ? 'bg-accent-1 text-white hover:bg-accent-1/90' 
-                            : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                          } ${isAddingToCart === item.id ? 'opacity-70' : ''}`}
-                      >
-                        {isAddingToCart === item.id ? (
-                          <>
-                            <Loader className="h-5 w-5 animate-spin text-white" />
-                            Adding...
-                          </>
-                        ) : (
+                    <div className="flex items-center justify-between gap-2 mt-2">
+                    {isInCart(item.id) ? (
+                        <div className="flex items-center justify-between  overflow-hidden">
+                          <button
+                            onClick={() => {
+                                const newQuantity = cartItemQuantity(item.id) - 1;
+                                if (newQuantity < 1) {
+                                  removeFromCart(item.id);
+                                } else {
+                                  updateCartQuantity(item.id, newQuantity);  
+                              }
+                            }}
+                            className="p-2  transition-colors text-contrast rounded-[4px] bg-accent-1"
+                            aria-label="Decrease quantity"
+                          >
+                            <Minus size={16} className='text-white' />
+                          </button>
+                          <span className="w-12 text-center font-medium">{cartItemQuantity(item.id)}</span>
+                          <button
+                            onClick={() => updateCartQuantity(item.id, cartItemQuantity(item.id) + 1)}
+                            className="p-2  transition-colors text-contrast rounded-[4px] bg-accent-1"
+                            aria-label="Increase quantity"
+                          >
+                            <Plus size={16} className='text-white' />
+                          </button>
+                        </div>
+                      ) : (
+                        <button 
+                          onClick={() => handleAddToCart(item.id)}
+                          disabled={!item.inStock}
+                          className={`flex-1 flex items-center justify-center gap-1 py-2 text-md rounded-[4px] transition-colors
+                            ${item.inStock 
+                              ? 'bg-accent-1 text-white hover:bg-accent-1/90' 
+                              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                            }`}>
                           <>
                             <ShoppingCart className='w-5 h-5 mr-2'/>
                             {item.inStock ? 'Add to Cart' : 'Out of Stock'}
-                          </>
-                        )}
-                      </button>
+                          </>                        
+                        </button>
+                    )}
                       <button
                         onClick={() => removeFromWishlist(item.id)}
                         className="p-2  rounded-[4px] hover:bg-gray-200 transition-colors"

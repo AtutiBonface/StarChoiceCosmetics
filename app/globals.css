@@ -184,7 +184,16 @@ body {
 }
 
 button{
-  cursor: pointer;
+  cursor: pointer !important;
+}
+.promotion-card::before{
+  content: "";
+  position: absolute;
+  top: 32px;
+  right: -12px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: orange transparent transparent  orange;
 }
 .product-title{
     position: relative;

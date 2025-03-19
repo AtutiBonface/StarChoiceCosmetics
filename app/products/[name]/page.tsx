@@ -24,8 +24,7 @@ const ProductPreview = () => {
   const [activeTab, setActiveTab] = useState<TabType>('info')
   const [isLoading, setIsLoading] = useState(true)
   const [product, setProduct] = useState<Product | null>(null)  
-  const {cart, addToCart, isInCart , isInWishlist,addToWishlist ,removeFromWishlist, updateCartQuantity,} = useCart()
-  const [quantity, setQuantity] = useState<number>(cart.find(item => item.productId === product?.id)?.quantity || 1)
+  const {addToCart,cartItemQuantity, removeFromCart, isInCart , isInWishlist,addToWishlist ,removeFromWishlist, updateCartQuantity,} = useCart()
 
 
   useEffect(() => {
@@ -129,39 +128,63 @@ const ProductPreview = () => {
       
       {/* Sticky Mobile Actions */}
       <div className="fixed h-18 bottom-0 left-0 right-0 bg-primary border-t border-medium p-2 md:hidden z-50">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center border border-medium rounded-[4px]">
-            <button
-              onClick={() => {
-                setQuantity(q => Math.max(1, q - 1))
-                if(isInCart(product.id)){
-                   updateCartQuantity(product.id, quantity)
-                 }
-              }}
-              className="p-2 hover:bg-gray-100"
-            >
-              <Minus size={16} />
-            </button>
-            <span className="w-12 text-center">{quantity}</span>
-            <button
-              onClick={() => {    
-                setQuantity(q => Math.min(product.stock, q + 1))
-                if(isInCart(product.id)){
-                     updateCartQuantity(product.id, quantity)
-                   }
-              }}
-              className="p-2 hover:bg-gray-100"
-            >
-              <Plus size={16} />
-            </button>
-          </div>
-          <button 
-            onClick={handleAddToCart} 
-            className="flex-1 bg-accent-1 text-white py-3 px-6 rounded-[4px] hover:bg-accent-1/90 transition-colors flex items-center justify-center gap-2"
+        <div className="flex items-center gap-4 justify-center px-2">   
+
+          {isInCart(product.id) ? (
+            <div className="flex flex-1 h-12 items-center justify-between  rounded-[4px]">
+              <button
+                onClick={() => {
+                  const newQuantity = cartItemQuantity(product.id) - 1;
+                  if (newQuantity < 1) {
+                    removeFromCart(product.id);
+                  } else {
+                    updateCartQuantity(product.id, newQuantity);
+                  }
+                }
+                }
+                className="p-2  bg-accent-1 h-12 w-12 flex items-center justify-center rounded-[4px] hover:bg-gray-100"
+              >
+                <Minus size={16} className='text-white ' />
+              </button>
+              <span className="w-12 text-xl text-center">{cartItemQuantity(product.id)}</span>
+              <button
+                onClick={() => {
+                  const newQuantity = cartItemQuantity(product.id) + 1;
+                  if (newQuantity > product.stock) {
+                    setToastMessage('Product is out of stock.')
+                    setToastType('error')
+                    setShowToast(true)
+                    return
+                  }
+                  updateCartQuantity(product.id, newQuantity);
+                }}
+
+                className="p-2 bg-accent-1 h-12 w-12 flex items-center justify-center rounded-[4px] hover:bg-gray-100"
+              >
+                <Plus size={16} className='text-white' />
+              </button>
+            </div>
+            ) : (
+              <button onClick={handleAddToCart} className="flex-1 bg-accent-1 text-white py-3 px-6 rounded-[4px] hover:bg-accent-1/90 transition-colors flex items-center justify-center gap-2">
+                  <ShoppingCart size={20} />
+                  Add to Cart
+              </button>
+            )}    
+
+
+
+          <button
+            onClick={() => {
+              handleAddToWishList()
+              setIsWishlist(!isWishlist)}
+            }
+            className={`ml-2  rounded-[4px] text-red-500 h-12 w-12 flex items-center justify-center`}
           >
-            <ShoppingCart size={20} />
-            Add to Cart
+            <Heart                        
+              className={`h-10 w-10 ${isWishlist || isInWishlist(product.id) ? 'fill-red-500' : 'fill-white'}`} 
+            />
           </button>
+            
         </div>
       </div>
 
@@ -262,57 +285,62 @@ const ProductPreview = () => {
               </div>
 
               {/* Quantity Selector */}
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-medium text-secondary">Quantity:</span>
-                <div className="flex items-center border border-medium rounded-[4px]">
-                  <button
-                    onClick={() => {
-                      setQuantity(q => Math.max(1, q - 1))
-                      if(isInCart(product.id)){
-                        updateCartQuantity(product.id, quantity)
-                      }
-                    }
-                    }
-                    className="p-2 hover:bg-gray-100"
-                  >
-                    <Minus size={16} />
-                  </button>
-                  <span className="w-12 text-center">{quantity}</span>
-                  <button
-                    onClick={() => {
-                      setQuantity(q => Math.min(product.stock, q + 1))
-                      if(isInCart(product.id)){
-                        updateCartQuantity(product.id, quantity)
-                      }
-                    }
-                    }
-                    className="p-2 hover:bg-gray-100"
-                  >
-                    <Plus size={16} />
-                  </button>
-                </div>
-              </div>
+             
 
               {/* Actions */}
-              <div className="flex gap-4">
-                <button onClick={handleAddToCart} className="flex-1 bg-accent-1 text-white py-3 px-6 rounded-[4px] hover:bg-accent-1/90 transition-colors flex items-center justify-center gap-2">
-                  <ShoppingCart size={20} />
-                  Add to Cart
-                </button>
+              <div className="flex gap-4 hidden md:flex">
+                  {isInCart(product.id) ? (
+                    <div className="flex gap-4 h-12 items-center justify-between  rounded-[4px]">
+                      <button
+                        onClick={() => {
+                          const newQuantity = cartItemQuantity(product.id) - 1;
+                          if (newQuantity < 1) {
+                            removeFromCart(product.id);
+                          } else {
+                            updateCartQuantity(product.id, newQuantity);
+                          }
+                        }
+                        }
+                        className="p-2  bg-accent-1 h-12 w-12 flex items-center justify-center rounded-[4px] hover:bg-gray-100"
+                      >
+                        <Minus size={16} className='text-white ' />
+                      </button>
+                      <span className="w-12 text-xl text-center">{cartItemQuantity(product.id)}</span>
+                      <button
+                        onClick={() => {
+                          const newQuantity = cartItemQuantity(product.id) + 1;
+                          if (newQuantity > product.stock) {
+                            setToastMessage('Product is out of stock.')
+                            setToastType('error')
+                            setShowToast(true)
+                            return
+                          }
+                          updateCartQuantity(product.id, newQuantity);
+                        }}
+
+                        className="p-2 bg-accent-1 h-12 w-12 flex items-center justify-center rounded-[4px] hover:bg-gray-100"
+                      >
+                        <Plus size={16} className='text-white' />
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={handleAddToCart} className="flex-1 bg-accent-1 text-white py-3 px-6 rounded-[4px] hover:bg-accent-1/90 transition-colors flex items-center justify-center gap-2">
+                        <ShoppingCart size={20} />
+                        Add to Cart
+                    </button>
+                  )}    
+
+
+
                 <button
                   onClick={() => {
                     handleAddToWishList()
                     setIsWishlist(!isWishlist)}
                   }
-                  className={`p-3 rounded-[4px] border ${
-                    isWishlist || isInWishlist(product.id)
-                      ? 'bg-accent-1 text-white border-accent-1' 
-                      : 'border-medium bg-transparent'
-                  }`}
+                  className={`ml-2  rounded-[4px] text-red-500 h-12 w-12 flex items-center justify-center`}
                 >
-                  <Heart 
-                    size={20} 
-                    className={isWishlist || isInWishlist(product.id) ? 'fill-red-500' : 'fill-white'} 
+                  <Heart                        
+                    className={`h-10 w-10 ${isWishlist || isInWishlist(product.id) ? 'fill-red-500' : 'fill-white'}`} 
                   />
                 </button>
               </div>

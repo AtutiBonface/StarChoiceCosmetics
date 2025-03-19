@@ -43,12 +43,18 @@ const PromotionSlider = () => {
             <div className="max-w-7xl mx-auto w-full h-full relative">
                 {/* Desktop and tablet content overlay */}
               <div className="absolute inset-0 hidden md:flex items-center">
-                <div className={`w-full md:w-1/3 lg:w-1/3 p-6 lg:p-8 ${
+                <div className={`w-full md:w-1/3 lg:w-1/3  ${
                   promotion.position === 'right' 
-                    ? 'ml-auto mr-4 md:mr-10 lg:mr-18' 
-                    : 'ml-4 md:ml-10 lg:ml-18'
+                    ? 'ml-auto mr-4 md:mr-10 lg:mr-18'
+                    : promotion.position === 'left'
+                    ? 'ml-4 md:ml-10 lg:ml-18'
+                    : 'hidden' 
                 }`}>
-                  <div className="bg-white/90 p-4 md:p-6 lg:p-8 rounded-md shadow-lg">
+                  <div className=" promotion-card bg-white/90 p-4 md:p-6 lg:p-8 rounded-[4px] shadow-lg relative z-10">
+                    <span className="bg-orange-400 h-6  text-contrast text-xs font-medium px-2 py-1 rounded-[1px] absolute top-2 -right-3 z-10">
+                     {promotion.discount}% OFF
+                    </span>              
+                    
                     <div className="text-accent-1 font-bold text-lg mb-2">{promotion.brand}</div>
                     <h2 className="text-primary text-md md:text-lg lg:text-lg font-bold  leading-tight">{promotion.title}.</h2>
                     <p className="text-secondary text-sm md:text-sm lg:text-sm font-bold mt-2">{promotion.subtitle}.</p>

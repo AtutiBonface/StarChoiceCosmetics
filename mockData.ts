@@ -81,6 +81,7 @@ type promotionProps = {
   subtitle: string;
   buttonText: string;
   position: string;
+  discount?: number;
 
 }
 const promotions = [
@@ -92,7 +93,8 @@ const promotions = [
       title: "Get glowing skin from top to toe",
       subtitle: "With these smooth skin tips",
       buttonText: "Buy Now",
-      position: "left" // content position: left or right
+      position: "left", // content position: left or right
+      discount: 15
     },
     {
       id: 2,
@@ -102,7 +104,8 @@ const promotions = [
       title: "Revitalize your skin",
       subtitle: "Natural ingredients for radiant results",
       buttonText: "Shop Now",
-      position: "left"
+      position: "left",
+      discount: 30
     },
     {
       id: 3,
@@ -112,7 +115,8 @@ const promotions = [
       title: "Perfect your routine",
       subtitle: "Discover expert beauty secrets",
       buttonText: "Purchase Now",
-      position: "right"
+      position: "none",
+      discount: 40
     }
   ];
 const brands: Brand[] = [

@@ -1,4 +1,4 @@
-import { ShoppingCart, Star } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, Star } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import Toast from './toast-notification';
@@ -16,7 +16,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
   const [showToast, setShowToast] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
-  const { addToCart } = useCart();
+  const { addToCart, isInCart, removeFromCart, updateCartQuantity, cartItemQuantity } = useCart();
 
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -59,7 +59,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
           {/* Discount Badge */}
           {product.discount && (
             <div className="absolute top-2 left-2 z-10">
-              <span className="bg-orange-400 text-contrast text-xs font-medium px-2 py-1 rounded-full">
+              <span className="bg-orange-400 text-contrast text-xs font-medium px-2 py-1 rounded-[4px]">
                 {product.discount}% OFF
               </span>
             </div>
@@ -68,7 +68,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
           {/* New Badge */}
           {product.isNew && (
             <div className="absolute top-2 right-2 z-10">
-              <span className="bg-green-500 text-contrast text-xs font-medium px-2 py-1 rounded-full">
+              <span className="bg-green-500 text-contrast text-xs font-medium px-2 py-1 rounded-[4px]">
                 New
               </span>
             </div>
@@ -118,24 +118,51 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
         </div>
 
         {/* Action Button */}
-        {product.hasVariants ? (
-          <button 
-            className="w-full bg-secondary hover:bg-secondary/90 text-contrast py-2 px-4 rounded-[4px] transition-colors text-sm sm:text-base"
-          >
-            Select Options
-          </button>
+
+        {isInCart(product.id) ? (
+          <div className="flex items-center justify-between  overflow-hidden">
+            <button
+              onClick={() => {
+                const newQuantity = cartItemQuantity(product.id) - 1;
+                if (newQuantity < 1) {
+                  removeFromCart(product.id);
+                } else {
+                  updateCartQuantity(product.id, newQuantity);  
+              }}}
+              className="p-2  transition-colors text-contrast rounded-[4px] bg-accent-1"
+              aria-label="Decrease quantity"
+            >
+              <Minus size={16} className='text-white' />
+            </button>
+            <span className="w-12 text-center font-medium">{cartItemQuantity(product.id)}</span>
+            <button
+              onClick={() => updateCartQuantity(product.id, cartItemQuantity(product.id) + 1)}
+              className="p-2  transition-colors text-contrast rounded-[4px] bg-accent-1"
+              aria-label="Increase quantity"
+            >
+              <Plus size={16} className='text-white' />
+            </button>
+          </div>
         ) : (
-          <button 
-            onClick={handleClick}
-            disabled={isAdding}
-            className={`w-full bg-accent-1 hover:bg-accent-1/90 text-contrast py-2 px-4 rounded-[4px] transition-colors flex items-center justify-center gap-2 text-sm sm:text-base
-              ${isAdding ? 'opacity-70 cursor-not-allowed' : ''}`}
-          >
-            <ShoppingCart size={16} className={isAdding ? 'animate-spin' : ''} />
-            {isAdding ? 'Adding...' : 'Add to Cart'}
-          </button>
-        )}
-      </div>
+          product.hasVariants ? (
+            <button 
+              className="w-full bg-secondary hover:bg-secondary/90 text-contrast py-2 px-4 rounded-[4px] transition-colors text-sm sm:text-base"
+            >
+              Select Options
+            </button>
+          ) : (
+            <button 
+              onClick={handleClick}
+              disabled={isAdding}
+              className={`w-full bg-accent-1 hover:bg-accent-1/90 text-contrast py-2 px-4 rounded-[4px] transition-colors flex items-center justify-center gap-2 text-sm sm:text-base
+                ${isAdding ? 'opacity-70 cursor-not-allowed' : ''}`}
+            >
+              <ShoppingCart size={16} className={isAdding ? 'animate-spin' : ''} />
+              {isAdding ? 'Adding...' : 'Add to Cart'}
+            </button>
+        ))}
+        </div>
+     
     </>
   );
 };
