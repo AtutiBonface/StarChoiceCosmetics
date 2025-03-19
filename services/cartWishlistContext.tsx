@@ -13,6 +13,7 @@ interface CartContextType {
   isInWishlist: (productId: number) => boolean;
   cartTotal: number;
   cartQuantity: number;
+  cartItemQuantity: (productId: number) => number;
   clearCart: () => void;
 }
 
@@ -82,6 +83,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateCartQuantity = (productId: number, quantity: number) => {
+    if (quantity < 1) return; // Prevent negative quantities
+    
     setCart(prevCart =>
       prevCart.map(item =>
         item.productId === productId

@@ -219,7 +219,7 @@ export default function WishlistPage() {
                   className="flex  rounded-[4px] overflow-hidden relative"
                 >
                   {/* Product Image */}
-                  <div className="relative  rounded-l-[5px] w-32  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image">
+                  <div className="relative  rounded-l-[5px] w-35 flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image">
                     <div className="relative w-30 h-30 flex items-center justify-center">
                       <Image
                         src={item.image}
@@ -227,8 +227,7 @@ export default function WishlistPage() {
                         fill
                         sizes="128px"
                         className="object-contain transition-transform duration-200 rounded-[4px] group-hover:scale-105"
-                        priority={true}
-                        loading="eager"
+                        loading="lazy"
                       />
                     </div>
                   </div>

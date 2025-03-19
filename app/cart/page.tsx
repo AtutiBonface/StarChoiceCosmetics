@@ -7,48 +7,34 @@ import { useRouter } from 'next/navigation'
 import CartSkeleton from '@/components/skeletons/CartSkeleton'
 import {  CartItem } from '@/mockData'
 import { useCart } from '@/services/cartWishlistContext'
+import Toast from '@/components/Products/toast-notification'
 
 const Cart = () => {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
-  const { cart , removeFromCart ,cartItemQuantity , updateCartQuantity} = useCart()
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
-
-  
-
-  
+  const { cart, isInWishlist,addToWishlist, removeFromCart, cartItemQuantity, updateCartQuantity } = useCart()
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+  const [toastType, setToastType] = useState<'success' | 'error'>('success')
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        setIsLoading(true)
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        setCartItems(cart)
-      } catch (error) {
-        console.error('Failed to fetch cart items:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
 
-    fetchCartItems()
+    return () => clearTimeout(loadingTimeout)
   }, [])
 
-  /* const updateQuantity = (id: number, change: number) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    )
-  } */
+  const handleAddToWishlist = (item: CartItem) => {
+    if(!isInWishlist(item.id)){
+      //addToWishlist(item)
+      setToastMessage('Item added to wishlist')
+      setToastType('success')
+      setShowToast(true)
+    }
+    removeFromCart(item.id)
+  }
 
-  /* const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id))
-  } */
-
-  // Move rendering function outside JSX for better organization
   const renderRating = (rating: number) => (
     <div className="flex items-center">
       <span className="text-amber-500 mr-1 text-sm">{rating}</span>
@@ -64,8 +50,7 @@ const Cart = () => {
     </div>
   )
 
-  // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
   const shipping = subtotal >= 5000 ? 0 : 500
   const total = subtotal + shipping
 
@@ -75,19 +60,25 @@ const Cart = () => {
 
   return (
     <div>
+      <Toast
+        message={toastMessage}
+        type={toastType}
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       {/* Breadcrumb Navigation */}
       <div className="w-full bg-secondary">
         <div className="max-w-7xl mx-auto px-4 py-2">
           <div className="flex items-center gap-2 text-sm text-secondary">
             <Link href="/" className="hover:text-accent-1">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-accent-1">Shopping Cart ({cartItems.length} {cartItems.length === 1 ? 'item' : 'items'})</span>
+            <span className="text-accent-1">Shopping Cart ({cart.length} {cart.length === 1 ? 'item' : 'items'})</span>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-2 py-2">     
-        {cartItems.length === 0 ? (
+        {cart.length === 0 ? (
           <div className="text-center py-12">
             <div className="mb-4">
               <ShoppingBag className="w-12 h-12 text-accent-1 mx-auto" />
@@ -109,7 +100,7 @@ const Cart = () => {
               {/* Cart Items Container */}
               <div className="bg-primary rounded-[4px] overflow-hidden mb-">
                 <div>
-                  {cartItems.map((item) => (
+                  {cart.map((item) => (
                     <div key={item.id} className="p-2 md:p-4  mb-2 rounded-[4px]">
                       {/* Desktop View */}
 
@@ -157,7 +148,7 @@ const Cart = () => {
                           <div className="flex flex-wrap items-center justify-between gap-4 mt-4">
                             <div className="flex items-center border border-medium rounded overflow-hidden">
                               <button
-                                onClick={() => updateCartQuantity(item.id, -1)}
+                                onClick={() => updateCartQuantity(item.id, cartItemQuantity(item.id) - 1)}
                                 className="p-2 hover:bg-gray-100 transition-colors text-secondary"
                                 aria-label="Decrease quantity"
                               >
@@ -165,7 +156,7 @@ const Cart = () => {
                               </button>
                               <span className="w-12 text-center font-medium">{item.quantity}</span>
                               <button
-                                onClick={() => updateCartQuantity(item.id, -1)}
+                                onClick={() => updateCartQuantity(item.id, cartItemQuantity(item.id) + 1)}
                                 className="p-2 hover:bg-gray-100 transition-colors text-secondary"
                                 aria-label="Increase quantity"
                               >
@@ -178,7 +169,9 @@ const Cart = () => {
                                 Total: KES {(item.price * item.quantity).toLocaleString()}
                               </span>
                               <button
-                                onClick={() => removeFromCart(item.id)}
+                                onClick={() => {
+                                  removeFromCart(item.id)
+                                }}
                                 className="text-red-500 hover:text-red-600 p-2 hover:bg-gray-50 rounded-full transition-colors"
                                 aria-label="Remove item"
                               >
@@ -193,14 +186,15 @@ const Cart = () => {
                       <div className="sm:hidden  pb-2  ">
                         <div className="flex items-stretch gap-4">
                         <div 
-                            className="relative  rounded-l-[5px] w-32  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image"
+                            className="relative  rounded-l-[5px] w-35  flex-shrink-0 cursor-pointer group flex items-center justify-center bg-image"
                           >
                             <div className="relative w-30 h-30 flex-shrink-0">
                               <Image
                                 src={item.image}
                                 alt={item.name}
                                 fill
-                                className="object-contain rounded"
+                                className="object-contain rounded-[4px] px-1"
+                                loading="lazy"
                               />
                             </div>
                           </div>
@@ -235,14 +229,13 @@ const Cart = () => {
                               </div>
                             </div>
                             <div className="mt-3 flex items-center justify-between">
-                          <div className="flex items-center gap-1">
-                            <span className="text-md text-gray-700">Qty:</span>
+                          <div className="flex items-center gap-1 mr-8">
+                            <span className="text-md  text-gray-700">Qty:</span>
                             <select 
                               value={item.quantity}
                               onChange={(e) => {
                                 const newQty = parseInt(e.target.value);
-                                const change = newQty - item.quantity;
-                                updateCartQuantity(item.id, change);
+                                updateCartQuantity(item.id, newQty);
                               }}
                               className="border border-medium rounded-[2px] w-[40px]  focus:outline-none text-sm p-1"
                             >
@@ -254,13 +247,20 @@ const Cart = () => {
                           
                           <div className="flex items-center gap-3">
                             <button
-                              onClick={() => removeFromCart(item.id)}
+                              onClick={() => 
+                                {
+                                  removeFromCart(item.id)
+                                }
+                              }
                               className="text-red-600 text-xs hover:text-accent-1"
                             >
                               <Trash2 className='h-5 w-5'/>
                             </button>
                             <span className="text-gray-300">|</span>
-                            <button className="text-gray-700 text-sm hover:text-accent-1">
+                            <button onClick={()=>{
+                              handleAddToWishlist(item)
+                             
+                            }} className="text-gray-700 text-sm hover:text-accent-1">
                               Save for later
                             </button>
                           </div>
@@ -278,7 +278,7 @@ const Cart = () => {
                 <div className="lg:hidden bg-secondary mb-4 p-4 border border-medium rounded-[4px]">
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-sm text-secondary">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</p>
+                    <p className="text-sm text-secondary">Subtotal ({cart.reduce((sum, item) => sum + item.quantity, 0)} items)</p>
                     <p className="font-bold text-lg text-accent-1">KES {total.toLocaleString()}</p>
                   </div>
                   <button 
@@ -312,7 +312,7 @@ const Cart = () => {
               <h2 className="text-xl font-bold text-secondary mb-6">Order Summary</h2>
               <div className="space-y-4 text-sm">
                 <div className="flex justify-between pb-2">
-                  <span className="text-secondary">Subtotal ({cartItems.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
+                  <span className="text-secondary">Subtotal ({cart.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
                   <span className="font-medium text-secondary">KES {subtotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between pb-2">
