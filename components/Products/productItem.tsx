@@ -87,7 +87,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
           </div>
 
           {/* Product Name */}
-          <h3 className="text-sm font-medium mb-2 h-12 overflow-hidden group-hover:text-accent-1">
+          <h3 className="text-sm font-medium mb-2 h-12 text-primary overflow-hidden group-hover:text-accent-1">
             <span className="line-clamp-2">{product.name}</span>
           </h3>
         </div>

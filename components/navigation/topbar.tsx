@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState, useCallback,  useRef } from 'react'
-import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown } from 'lucide-react'
+import { Search, User, ShoppingCart, Heart, ArrowLeft, LogOut, Package, ChevronDown, X } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
@@ -161,7 +161,40 @@ const TopBar = () => {
             )}
           </div>
 
-          {/* Center section with search */}
+          {/* Mobile Search Input - Show when search is active */}
+          {showMobileSearch && (
+            <form 
+              onSubmit={handleSearch} 
+              className="absolute top-0 left-0 w-full h-16 bg-primary px-4 flex items-center z-50"
+            >
+              <button 
+                onClick={() => setShowMobileSearch(false)}
+                className="p-2 mr-2 flex-shrink-0"
+                aria-label="Close search"
+              >
+                <X className="w-5 h-5 text-accent-1" />
+              </button>
+              <div className="relative flex-1">
+                <input
+                  id="mobile-search-input"
+                  type="text"
+                  placeholder="Search products..."
+                  className="w-full px-4 py-2 border border-medium focus:outline-none text-input rounded-[4px]"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 bg-accent-1 h-full w-[40px] rounded-r-[4px] flex items-center justify-center"
+                >
+                  <Search className="w-4 h-4 text-white" />
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* Center section with search - Only show on desktop */}
           <div className={`hidden md:flex justify-center flex-1 max-w-2xl ${isSearchFocused ? 'z-10' : ''}`}>
             <form onSubmit={handleSearch} className="w-full max-w-xl">
               <div className="relative w-full">
@@ -185,7 +218,7 @@ const TopBar = () => {
           </div>
 
           {/* Right section with fixed width to balance the layout */}
-          <div className="flex-shrink-0 w-[200px] flex justify-end">
+          <div className="flex-shrink-0 flex justify-end">
             {/* ...existing mobile search and action buttons code... */}
             {!showMobileSearch && (
               <div className='flex items-center'>            

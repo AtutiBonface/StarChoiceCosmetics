@@ -1,4 +1,3 @@
-'use client'
 import { X, ChevronDown } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -101,7 +100,7 @@ const FilterSidebar = ({
                   onClick={() => toggleSection('brands')} 
                   className="w-full flex justify-between items-center font-medium py-2 hover:text-accent-1"
                 >
-                  <span>Brands</span>
+                  <span className="text-primary">Brands</span>
                   <ChevronDown 
                     size={18} 
                     className={`transition-transform duration-200 ${
@@ -128,7 +127,7 @@ const FilterSidebar = ({
                           }}
                           className="rounded border-medium text-accent-1 focus:ring-accent-1"
                         />
-                        <span className="text-sm text-primary">{brand}</span>
+                        <span className="text-sm text-secondary">{brand}</span>
                       </label>
                     ))}
                   </div>
@@ -141,7 +140,7 @@ const FilterSidebar = ({
                   onClick={() => toggleSection('priceRange')} 
                   className="w-full flex justify-between items-center font-medium py-1"
                 >
-                  <span>Price Range</span>
+                  <span className="text-primary">Price Range</span>
                   <ChevronDown 
                     size={18} 
                     className={`transition-transform ${expandedSections.priceRange ? 'rotate-180' : ''}`} 
@@ -159,7 +158,7 @@ const FilterSidebar = ({
                           onChange={() => setFilters({ ...filters, priceRange: range })}
                           className="text-pink-600"
                         />
-                        <span className="text-sm">
+                        <span className="text-sm text-secondary">
                           {range.max
                             ? `KES ${range.min.toLocaleString()} - ${range.max.toLocaleString()}`
                             : `Above KES ${range.min.toLocaleString()}`}
@@ -176,7 +175,7 @@ const FilterSidebar = ({
                   onClick={() => toggleSection('categories')} 
                   className="w-full flex justify-between items-center font-medium py-1"
                 >
-                  <span>Categories</span>
+                  <span className="text-primary">Categories</span>
                   <ChevronDown 
                     size={18} 
                     className={`transition-transform ${expandedSections.categories ? 'rotate-180' : ''}`} 
@@ -198,7 +197,7 @@ const FilterSidebar = ({
                           }}
                           className="rounded text-pink-600"
                         />
-                        <span className="text-sm">{category}</span>
+                        <span className="text-sm text-secondary">{category}</span>
                       </label>
                     ))}
                   </div>
