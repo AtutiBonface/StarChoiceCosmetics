@@ -113,7 +113,7 @@ const ProfileSidebar = () => {
               <div
                 key={item.name}
                 className={`
-                  flex items-center justify-between w-full p-3 rounded-[4px] transition-colors
+                  flex items-center justify-between w-full p-3 np rounded-[4px] transition-colors
                   ${isActive 
                     ? 'bg-secondary text-accent-1' 
                     : 'text-secondary hover:bg-gray-50'
@@ -154,7 +154,7 @@ const ProfileSidebar = () => {
                     {item.showBadge && item.badge !== null && (
                       <span className={`
                         ${item.badgeColor || 'bg-accent-1'} 
-                        text-white text-xs px-2 py-0.5 rounded-full
+                         text-white text-xs px-2 py-0.5 rounded-full
                         min-w-[20px] text-center
                       `}>
                         {item.badge}

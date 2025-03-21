@@ -40,7 +40,7 @@ export default function ReturnsPage() {
           <div className="flex items-center gap-2 text-sm text-secondary">
             <Link href="/" className="hover:text-pink-600">Home</Link>
             <ChevronRight size={16} />
-            <span className="text-pink-600">Returns Policy</span>
+            <span className="text-accent-1">Returns Policy</span>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function ReturnsPage() {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-12 bg-pink-50 border border-pink-100 rounded-[4px] p-6">
+        <div className="mt-12 bg-secondary border border-medium rounded-[4px] p-6">
           <h2 className="text-xl font-semibold text-secondary mb-4">
             Need Help with a Return?
           </h2>
@@ -89,13 +89,13 @@ export default function ReturnsPage() {
           <div className="flex gap-4">
             <Link 
               href="/contact"
-              className="inline-flex items-center justify-center px-6 py-2 bg-pink-600 text-white rounded-[4px] hover:bg-pink-700 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-2 bg-accent-1 text-white rounded-[4px] hover:bg-pink-700 transition-colors"
             >
               Contact Us
             </Link>
             <Link
               href="/faqs"
-              className="inline-flex items-center justify-center px-6 py-2 border border-pink-600 text-pink-600 rounded-[4px] hover:bg-pink-50 transition-colors"
+              className="inline-flex items-center justify-center px-6 py-2 border border-medium text-accent-1 rounded-[4px] hover:bg-pink-50 transition-colors"
             >
               View FAQs
             </Link>

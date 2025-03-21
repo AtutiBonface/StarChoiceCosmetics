@@ -7,7 +7,6 @@ import { useRouter, usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import axios from 'axios'
-import { X } from 'lucide-react'
 import { useCart } from '@/services/cartWishlistContext'
 
 const AnnouncementBar = dynamic(() => import('./announcementbar'), { 
@@ -135,34 +134,36 @@ const TopBar = () => {
   return (
     <div className='fixed top-0 left-0 w-full z-50 border-b border-medium bg-primary'>
       <AnnouncementBar />
-      <div className="max-w-7xl mx-auto border-b border-medium">
+      <div className="max-w-7xl mx-auto">
         <div className="h-16 w-full text-secondary px-4 flex justify-between items-center z-50">          
-          {shouldShowBack && !showMobileSearch && (
-            <button 
-              onClick={() => router.back()}
-              className="md:hidden p-2 rounded-full hover:bg-accent-light mr-2 flex-shrink-0"
-              aria-label="Go back"
-            >
-              <ArrowLeft className="w-5 h-5 text-accent-1" />
-            </button>
-          )}
-          
-          {/* Logo - Hide on mobile when search is active */}
-          {!showMobileSearch && (
-            <Link href="/" className="flex items-center gap-2 text-xl font-bold">
-              <div className="relative h-8 w-32 md:h-10 md:w-40">
-                <Image 
-                  {...logoProps}
-                  alt="StarChoice Cosmetics Logo"
-                  className="object-contain"
-                />
-              </div>
-            </Link>
-          )}
+          {/* Left section with logo and back button */}
+          <div className="flex items-center flex-shrink-0 w-[200px]">
+            {shouldShowBack && !showMobileSearch && (
+              <button 
+                onClick={() => router.back()}
+                className="md:hidden p-2 rounded-full hover:bg-accent-light mr-2 flex-shrink-0"
+                aria-label="Go back"
+              >
+                <ArrowLeft className="w-5 h-5 text-accent-1" />
+              </button>
+            )}
+            
+            {!showMobileSearch && (
+              <Link href="/" className="flex items-center gap-2 text-xl font-bold">
+                <div className="relative h-8 w-32 md:h-10 md:w-40">
+                  <Image 
+                    {...logoProps}
+                    alt="StarChoice Cosmetics Logo"
+                    className="object-contain"
+                  />
+                </div>
+              </Link>
+            )}
+          </div>
 
-          {/* Desktop Search - Hidden on mobile */}
-          <div className={`hidden md:block flex-1 max-w-md mx-2 md:max-w-xl md:mx-8 ${isSearchFocused ? 'z-10' : ''}`}>
-            <form onSubmit={handleSearch} className="relative flex items-center gap-2">
+          {/* Center section with search */}
+          <div className={`hidden md:flex justify-center flex-1 max-w-2xl ${isSearchFocused ? 'z-10' : ''}`}>
+            <form onSubmit={handleSearch} className="w-full max-w-xl">
               <div className="relative w-full">
                 <input
                   type="text"
@@ -182,318 +183,290 @@ const TopBar = () => {
               </div>
             </form>
           </div>
-          
 
-         {/* Mobile Search Input - Show when search is active */}
-          {showMobileSearch && (
-            <form onSubmit={handleSearch} className="flex-1 flex items-center">
-              <button 
-                onClick={() => setShowMobileSearch(false)}
-                className="p-2 mr-2"
-                aria-label="Close search"
-              >
-                <X className="w-5 h-5 text-accent-1" />
-              </button>
-              <div className="relative flex-1">
-                <input
-                  id="mobile-search-input"
-                  type="text"
-                  placeholder="Search products..."
-                  className="w-full px-4 py-2 border border-medium focus:outline-none text-input rounded-[4px]"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  autoFocus
-                />
+          {/* Right section with fixed width to balance the layout */}
+          <div className="flex-shrink-0 w-[200px] flex justify-end">
+            {/* ...existing mobile search and action buttons code... */}
+            {!showMobileSearch && (
+              <div className='flex items-center'>            
                 <button 
-                  type="submit"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 bg-accent-1 h-full w-[40px] rounded-r-[4px] flex items-center justify-center"
+                  onClick={toggleMobileSearch}
+                  className="md:hidden p-2 rounded-full hover:bg-accent-light"
+                  aria-label="Search"
                 >
-                  <Search className="w-4 h-4 text-white" />
+                  <Search className="w-5 h-5 text-accent-1" />
                 </button>
-              </div>
-            </form>
-          )}
+                {shouldShowBack && (
+                  <div className="h-full flex items-center">
+                    
+                    <button 
+                      onClick={()=> router.push('/wishlist')}
+                      className="md:hidden p-2 h-full rounded-full hover:bg-accent-light relative"
+                      aria-label="Search"
+                    >
+                      {wishlist.length > 0 && (
+                        <span className="absolute -top-1 right-0 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
+                          {wishlist.length}
+                        </span> 
+                      )}
+      
+                      <Heart className="w-5 h-5 text-accent-1" />
+                    </button>
+  
+                    <button 
+                      onClick={()=> router.push('/cart')}
+                      className="md:hidden p-2 rounded-full hover:bg-accent-light relative"
+                      aria-label="Search"
+                    >
+                      {cart.length > 0 && (
+                        <span className="absolute -top-1 right-0 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
+                          {cart.length}
+                        </span>
+                      )}
+      
+                      <ShoppingCart className="w-5 h-5 text-accent-1" />
+                    </button>
+                  </div>                
+                )}
+                </div>
+            )}       
 
-          {/* Mobile Search Button - Only show when search is not active */}
-          {!showMobileSearch && (
-            <div className='flex items-center'>            
-              <button 
-                onClick={toggleMobileSearch}
-                className="md:hidden p-2 rounded-full hover:bg-accent-light"
-                aria-label="Search"
-              >
-                <Search className="w-5 h-5 text-accent-1" />
-              </button>
-              {shouldShowBack && (
-                <div className="h-full flex items-center">
-                  
-                  <button 
-                    onClick={()=> router.push('/wishlist')}
-                    className="md:hidden p-2 h-full rounded-full hover:bg-accent-light relative"
-                    aria-label="Search"
-                  >
-                    {wishlist.length > 0 && (
-                      <span className="absolute -top-1 right-0 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                        {wishlist.length}
-                      </span> 
+            {/* Actions Section - Hidden on mobile */}
+            <div ref={dropdownRef}  className="hidden md:flex items-center gap-4">
+              {/* Account Dropdown */}
+              <div  className="dropdown-container relative">
+                {/* Account Button */}
+                <button 
+                  className="flex items-center gap-1 hover:text-accent-1"
+                  onClick={() => handleDropdown('account')}
+                >
+                  <div className="relative">
+                    <User className="w-5 h-5" />
+                  </div>
+                  <span className="hidden sm:flex items-center gap-1">
+                    Account
+                    <ChevronDown className="w-4 h-4" />
+                  </span>
+                </button>
+                {activeDropdown === 'account' && (
+                  <div className="absolute right-0 mt-2 w-64 bg-primary rounded-[4px] shadow-lg border border-medium overflow-hidden">
+                    {isAuthenticated ? (
+                      <>
+                        {/* User Info Section */}
+                        <div className="p-4 border-b border-medium bg-primary">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-accent-1 flex items-center justify-center">
+                              <User className="w-5 h-5 text-contrast" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium text-primary">Admin</h3>
+                              <p className="text-xs text-secondary">admin@admin.com</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Navigation Links */}
+                        <div className="py-2">
+                          <Link 
+                            href="/customer/orders" 
+                            className="flex items-center gap-3 px-4 py-2.5 hover:bg-accent-light text-sm text-primary transition-colors"
+                          >
+                            <Package size={16} />
+                            <div>
+                              <span>My Orders</span>
+                              <p className="text-xs text-secondary">Track, return, or buy again</p>
+                            </div>
+                          </Link>
+                          <Link 
+                            href="/customer/profile" 
+                            className="flex items-center gap-3 px-4 py-2.5 hover:bg-accent-light text-sm text-primary transition-colors"
+                          >
+                            <User size={16} />
+                            <div>
+                              <span>My Profile</span>
+                              <p className="text-xs text-secondary">Manage your details</p>
+                            </div>
+                          </Link>
+                          <button 
+                            className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-error-color/10 text-sm text-error-color transition-colors border-t border-medium mt-2"
+                            onClick={handleLogout}
+                          >
+                            <LogOut size={16} />
+                            <span>Logout</span>
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="p-6">
+                        <div className="text-center mb-4">
+                          <h3 className="font-medium text-lg text-primary mb-1">Welcome Back</h3>
+                          <p className="text-sm text-secondary">Sign in to access your account</p>
+                        </div>
+                        <Link 
+                          href="/account" 
+                          className="block w-full bg-accent-1 text-contrast text-center py-2.5 rounded-[4px] text-sm hover:bg-accent-1/90 transition-colors"
+                        >
+                          Login / Register
+                        </Link>
+                      </div>
                     )}
-    
-                    <Heart className="w-5 h-5 text-accent-1" />
-                  </button>
+                  </div>
+                )}
+              </div>
 
-                  <button 
-                    onClick={()=> router.push('/cart')}
-                    className="md:hidden p-2 rounded-full hover:bg-accent-light relative"
-                    aria-label="Search"
-                  >
-                    {cart.length > 0 && (
-                      <span className="absolute -top-1 right-0 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
+              {/* Wishlist Dropdown */}
+              <div ref={dropdownRef} className="dropdown-container relative">
+                {/* Wishlist Button */}
+                <button 
+                  className="flex items-center gap-1 hover:text-accent-1"
+                  onClick={() => {                 
+                      handleDropdown('wishlist')
+                   
+                  }}
+                >
+                  <div className="relative">
+                    <Heart className="w-5 h-5" />
+                    {(wishlist.length > 0)&& (
+                      <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
+                        {wishlist.length}
+                      </span>
+                    )}
+                  </div>
+                  <span className="hidden sm:flex items-center gap-1">
+                    Wishlist
+                    <ChevronDown className="w-4 h-4" />
+                  </span>
+                </button>
+                {activeDropdown === 'wishlist' && (                                
+                   
+                  <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
+                    {wishlist.length > 0 ? (
+                      <>
+                        {/* Show only first item */}
+                        <Link 
+                          href={`/products/${wishlist[0].id}`}
+                          className="flex gap-3 hover:bg-accent-light p-2 -m-2 rounded-[4px] transition-colors"
+                        >
+                          <div className="relative w-16 h-16 flex-shrink-0">
+                            <Image
+                              src={wishlist[0].image}
+                              alt={wishlist[0].name || "Wishlist item"}
+                              fill
+                              className="object-cover rounded-[4px]"
+                              sizes="64px"
+                            />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-sm text-primary line-clamp-1">{wishlist[0].name}</h3>
+                            <p className="text-accent-1 font-bold text-sm">
+                              KES {wishlist[0].price.toLocaleString()}
+                            </p>
+                            {wishlist.length > 1 && (
+                              <p className="text-sm text-primary mt-1">
+                                +{wishlist.length - 1} more items
+                              </p>
+                            )}
+                          </div>
+                        </Link>
+                        <Link 
+                          href="/wishlist" 
+                          className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm mt-4 hover:bg-accent-1/90"
+                        >
+                          View All Items ({wishlist.length})
+                        </Link>
+                      </>
+                    ) : (
+                      <p className="text-sm text-primary text-center">Your wishlist is empty</p>
+                    )}
+
+                  </div>                
+                )}
+              </div>
+
+              {/* Cart Dropdown */}
+              <div ref={dropdownRef} className="dropdown-container relative">
+                {/* Cart Button */}
+                <button
+                  className="flex items-center gap-1 hover:text-accent-1"
+                  onClick={() => {                 
+                      handleDropdown('cart')                  
+                  }}
+                >
+                  <div className="relative">
+                    <ShoppingCart className="w-5 h-5" />
+                    {(cart.length > 0)  && (
+                      <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
                         {cart.length}
                       </span>
                     )}
-    
-                    <ShoppingCart className="w-5 h-5 text-accent-1" />
-                  </button>
-                </div>                
-              )}
-              </div>
-          )}       
-
-          {/* Actions Section - Hidden on mobile */}
-          <div ref={dropdownRef}  className="hidden md:flex items-center gap-4">
-            {/* Account Dropdown */}
-            <div  className="dropdown-container relative">
-              {/* Account Button */}
-              <button 
-                className="flex items-center gap-1 hover:text-accent-1"
-                onClick={() => handleDropdown('account')}
-              >
-                <div className="relative">
-                  <User className="w-5 h-5" />
-                </div>
-                <span className="hidden sm:flex items-center gap-1">
-                  Account
-                  <ChevronDown className="w-4 h-4" />
-                </span>
-              </button>
-              {activeDropdown === 'account' && (
-                <div className="absolute right-0 mt-2 w-64 bg-primary rounded-[4px] shadow-lg border border-medium overflow-hidden">
-                  {isAuthenticated ? (
-                    <>
-                      {/* User Info Section */}
-                      <div className="p-4 border-b border-medium bg-primary">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-accent-1 flex items-center justify-center">
-                            <User className="w-5 h-5 text-contrast" />
-                          </div>
-                          <div>
-                            <h3 className="font-medium text-primary">Admin</h3>
-                            <p className="text-xs text-secondary">admin@admin.com</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Navigation Links */}
-                      <div className="py-2">
-                        <Link 
-                          href="/customer/orders" 
-                          className="flex items-center gap-3 px-4 py-2.5 hover:bg-accent-light text-sm text-primary transition-colors"
-                        >
-                          <Package size={16} />
-                          <div>
-                            <span>My Orders</span>
-                            <p className="text-xs text-secondary">Track, return, or buy again</p>
-                          </div>
-                        </Link>
-                        <Link 
-                          href="/customer/profile" 
-                          className="flex items-center gap-3 px-4 py-2.5 hover:bg-accent-light text-sm text-primary transition-colors"
-                        >
-                          <User size={16} />
-                          <div>
-                            <span>My Profile</span>
-                            <p className="text-xs text-secondary">Manage your details</p>
-                          </div>
-                        </Link>
-                        <button 
-                          className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-error-color/10 text-sm text-error-color transition-colors border-t border-medium mt-2"
-                          onClick={handleLogout}
-                        >
-                          <LogOut size={16} />
-                          <span>Logout</span>
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="p-6">
-                      <div className="text-center mb-4">
-                        <h3 className="font-medium text-lg text-primary mb-1">Welcome Back</h3>
-                        <p className="text-sm text-secondary">Sign in to access your account</p>
-                      </div>
-                      <Link 
-                        href="/account" 
-                        className="block w-full bg-accent-1 text-contrast text-center py-2.5 rounded-[4px] text-sm hover:bg-accent-1/90 transition-colors"
-                      >
-                        Login / Register
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* Wishlist Dropdown */}
-            <div ref={dropdownRef} className="dropdown-container relative">
-              {/* Wishlist Button */}
-              <button 
-                className="flex items-center gap-1 hover:text-accent-1"
-                onClick={() => {                 
-                    handleDropdown('wishlist')
-                 
-                }}
-              >
-                <div className="relative">
-                  <Heart className="w-5 h-5" />
-                  {(wishlist.length > 0)&& (
-                    <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {wishlist.length}
-                    </span>
-                  )}
-                </div>
-                <span className="hidden sm:flex items-center gap-1">
-                  Wishlist
-                  <ChevronDown className="w-4 h-4" />
-                </span>
-              </button>
-              {activeDropdown === 'wishlist' && (                                
-                 
-                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
-                  {wishlist.length > 0 ? (
-                    <>
-                      {/* Show only first item */}
-                      <Link 
-                        href={`/products/${wishlist[0].id}`}
-                        className="flex gap-3 hover:bg-accent-light p-2 -m-2 rounded-[4px] transition-colors"
-                      >
-                        <div className="relative w-16 h-16 flex-shrink-0">
-                          <Image
-                            src={wishlist[0].image}
-                            alt={wishlist[0].name || "Wishlist item"}
-                            fill
-                            className="object-cover rounded-[4px]"
-                            sizes="64px"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-sm text-primary line-clamp-1">{wishlist[0].name}</h3>
-                          <p className="text-accent-1 font-bold text-sm">
-                            KES {wishlist[0].price.toLocaleString()}
-                          </p>
-                          {wishlist.length > 1 && (
-                            <p className="text-sm text-primary mt-1">
-                              +{wishlist.length - 1} more items
+                  </div>
+                  <span className="hidden sm:flex items-center gap-1">
+                    Cart
+                    <ChevronDown className="w-4 h-4" />
+                  </span>
+                </button>
+                {activeDropdown === 'cart' && (
+                  <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
+                    {cart.length > 0 ? (
+                      <>
+                        {/* Cart Items Preview */}
+                        <div className="max-h-64 overflow-y-auto mb-4">
+                          {cart.slice(0, 3).map((item) => (
+                            <div key={item.id} className="flex gap-3 py-2 border-b border-medium last:border-0">
+                              <div className="relative w-12 h-12 flex-shrink-0">
+                                <Image
+                                  src={item.image}
+                                  alt={item.name}
+                                  fill
+                                  className="object-cover rounded-[4px]"
+                                  sizes="48px"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-xs text-primary line-clamp-1">{item.name}</h3>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <span className="text-xs text-accent-1">
+                                    KES {item.price.toLocaleString()}
+                                  </span>
+                                  <span className="text-xs text-secondary">
+                                    × {item.quantity}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                          {cart.length > 3 && (
+                            <p className="text-xs text-secondary text-center mt-2">
+                              +{cart.length - 3} more items
                             </p>
                           )}
                         </div>
-                      </Link>
-                      <Link 
-                        href="/wishlist" 
-                        className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm mt-4 hover:bg-accent-1/90"
-                      >
-                        View All Items ({wishlist.length})
-                      </Link>
-                    </>
-                  ) : (
-                    <p className="text-sm text-primary text-center">Your wishlist is empty</p>
-                  )}
 
-                </div>                
-              )}
-            </div>
-
-            {/* Cart Dropdown */}
-            <div ref={dropdownRef} className="dropdown-container relative">
-              {/* Cart Button */}
-              <button
-                className="flex items-center gap-1 hover:text-accent-1"
-                onClick={() => {                 
-                    handleDropdown('cart')                  
-                }}
-              >
-                <div className="relative">
-                  <ShoppingCart className="w-5 h-5" />
-                  {(cart.length > 0)  && (
-                    <span className="absolute -top-2 -right-2 w-4 h-4 bg-accent-1 text-contrast text-xs rounded-full flex items-center justify-center">
-                      {cart.length}
-                    </span>
-                  )}
-                </div>
-                <span className="hidden sm:flex items-center gap-1">
-                  Cart
-                  <ChevronDown className="w-4 h-4" />
-                </span>
-              </button>
-              {activeDropdown === 'cart' && (
-                <div className="absolute right-0 mt-2 w-72 bg-primary rounded-[4px] shadow-lg border border-medium p-4">
-                  {cart.length > 0 ? (
-                    <>
-                      {/* Cart Items Preview */}
-                      <div className="max-h-64 overflow-y-auto mb-4">
-                        {cart.slice(0, 3).map((item) => (
-                          <div key={item.id} className="flex gap-3 py-2 border-b border-medium last:border-0">
-                            <div className="relative w-12 h-12 flex-shrink-0">
-                              <Image
-                                src={item.image}
-                                alt={item.name}
-                                fill
-                                className="object-cover rounded-[4px]"
-                                sizes="48px"
-                              />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h3 className="text-xs text-primary line-clamp-1">{item.name}</h3>
-                              <div className="flex items-center gap-2 mt-1">
-                                <span className="text-xs text-accent-1">
-                                  KES {item.price.toLocaleString()}
-                                </span>
-                                <span className="text-xs text-secondary">
-                                  × {item.quantity}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                        {cart.length > 3 && (
-                          <p className="text-xs text-secondary text-center mt-2">
-                            +{cart.length - 3} more items
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="font-medium text-primary">Items:</span>
-                        <span className="text-primary">
-                          {cartQuantity}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm mb-3">
-                        <span className="font-medium text-primary">Subtotal:</span>
-                        <span className="font-bold text-accent-1">
-                          KES {cartTotal.toLocaleString()}
-                        </span>
-                      </div>
-                      <Link 
-                        href="/cart" 
-                        className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm hover:bg-accent-1/90"
-                      >
-                        View Cart
-                      </Link>
-                    </>
-                  ) : (
-                    <p className="text-sm text-primary text-center">Your cart is empty</p>
-                  )}
-                </div>
-              )}
+                        <div className="flex justify-between text-sm mb-2">
+                          <span className="font-medium text-primary">Items:</span>
+                          <span className="text-primary">
+                            {cartQuantity}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-sm mb-3">
+                          <span className="font-medium text-primary">Subtotal:</span>
+                          <span className="font-bold text-accent-1">
+                            KES {cartTotal.toLocaleString()}
+                          </span>
+                        </div>
+                        <Link 
+                          href="/cart" 
+                          className="block w-full bg-accent-1 text-contrast text-center py-2 rounded-[4px] text-sm hover:bg-accent-1/90"
+                        >
+                          View Cart
+                        </Link>
+                      </>
+                    ) : (
+                      <p className="text-sm text-primary text-center">Your cart is empty</p>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
