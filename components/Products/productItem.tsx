@@ -144,13 +144,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
             </button>
           </div>
         ) : (
-          product.hasVariants ? (
-            <button 
-              className="w-full bg-secondary hover:bg-secondary/90 text-contrast py-2 px-4 rounded-[4px] transition-colors text-sm sm:text-base"
-            >
-              Select Options
-            </button>
-          ) : (
+         
             <button 
               onClick={handleClick}
               disabled={isAdding}
@@ -160,7 +154,7 @@ export const ProductItem: React.FC<ProductProps> = ({ product, handleAddToCart }
               <ShoppingCart size={16} className={isAdding ? 'animate-spin' : ''} />
               {isAdding ? 'Adding...' : 'Add to Cart'}
             </button>
-        ))}
+        )}
         </div>
      
     </>

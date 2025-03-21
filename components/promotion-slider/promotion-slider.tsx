@@ -40,7 +40,7 @@ const PromotionSlider = () => {
             />
             
             
-            <div className="max-w-7xl mx-auto w-full h-full relative">
+            <div className="max-w-6xl mx-auto w-full h-full relative">
                 {/* Desktop and tablet content overlay */}
               <div className="absolute inset-0 hidden md:flex items-center">
                 <div className={`w-full md:w-1/3 lg:w-1/3  ${
@@ -110,7 +110,7 @@ const PromotionSlider = () => {
         </div>
         
         {/* Navigation arrows */}
-        <div className="max-w-7xl mx-auto w-full h-full relative">
+        <div className="max-w-6xl mx-auto w-full h-full relative">
           <button
             className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-accent-1 text-white cursor-pointer p-1 md:p-2 rounded-[4px] w-8 h-8 md:w-10 md:h-10 flex items-center justify-center z-10"
             onClick={() => setCurrentSlide(prev => (prev === 0 ? promotions.length - 1 : prev - 1))}
