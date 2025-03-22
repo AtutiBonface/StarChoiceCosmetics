@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Package, MessageSquare, Star, Heart, Clock, ChevronRight,  User, LogOut, Lock, CreditCard, MapPin, LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { initialWishlistItems } from '@/mockData';
+import { useCart } from '@/services/cartWishlistContext';
 
 
 interface UserData {
@@ -29,55 +29,59 @@ interface NavItem {
   badgeColor?: string
 }
 
-const navigation: NavItem[] = [
-  { 
-    name: 'My Account',
-    href: '/customer/account', 
-    icon: User, 
-    isMobileStatic: true
-  },
-  { 
-    name: 'My Orders', 
-    href: '/customer/orders', 
-    icon: Package,
-    showBadge: true,
-    badge: 2,
-    badgeColor: 'bg-accent-1'
-  },
-  { 
-    name: 'My Inbox', 
-    href: '/customer/inbox', 
-    icon: MessageSquare,
-    showBadge: true,
-    badge: 2,
-    badgeColor: 'bg-blue-500'
-  },
-  { 
-    name: 'Pending Reviews', 
-    href: '/customer/reviews', 
-    icon: Star,
-    showBadge: true,
-    badge: 2, 
-    badgeColor: 'bg-yellow-500'
-  },
-  { 
-    name: 'My Wishlist', 
-    href: '/wishlist', 
-    icon: Heart,
-    showBadge: true,
-    badge: initialWishlistItems.length > 0 ? initialWishlistItems.length : null,
-    badgeColor: 'bg-red-500'
-  },
-  { name: 'Recently Viewed', href: '/customer/recently-viewed', icon: Clock },
-  { name: 'Payment Settings', href: '/customer/payment', icon: CreditCard },
-  { name: 'Address Book', href: '/customer/address', icon: MapPin },
-  { name: 'Account Management', href: '/customer/profile', icon: Lock },
-]
- 
+
 const ProfileSidebar = () => {
   const pathname = usePathname()
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
+  const {wishlist} = useCart()
+
+
+  const navigation: NavItem[] = [
+    { 
+      name: 'My Account',
+      href: '/customer/account', 
+      icon: User, 
+      isMobileStatic: true
+    },
+    { 
+      name: 'My Orders', 
+      href: '/customer/orders', 
+      icon: Package,
+      showBadge: true,
+      badge: 2,
+      badgeColor: 'bg-accent-1'
+    },
+    { 
+      name: 'My Inbox', 
+      href: '/customer/inbox', 
+      icon: MessageSquare,
+      showBadge: true,
+      badge: 2,
+      badgeColor: 'bg-blue-500'
+    },
+    { 
+      name: 'Pending Reviews', 
+      href: '/customer/reviews', 
+      icon: Star,
+      showBadge: true,
+      badge: 2, 
+      badgeColor: 'bg-yellow-500'
+    },
+    { 
+      name: 'My Wishlist', 
+      href: '/wishlist', 
+      icon: Heart,
+      showBadge: true,
+      badge: wishlist.length,
+      badgeColor: 'bg-red-500'
+    },
+    { name: 'Recently Viewed', href: '/customer/recently-viewed', icon: Clock },
+    { name: 'Payment Settings', href: '/customer/payment', icon: CreditCard },
+    { name: 'Address Book', href: '/customer/address', icon: MapPin },
+    { name: 'Account Management', href: '/customer/profile', icon: Lock },
+  ]
+   
 
   const handleLogout = async() => {
       
