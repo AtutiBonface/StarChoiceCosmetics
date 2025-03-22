@@ -43,6 +43,7 @@ const TopBar = () => {
           'Cache-Control': 'no-cache'
         }
       })
+      console.log(resp.data)
       setIsAuthenticated(resp.data?.isAuthenticated)
     } catch (error) {
       console.error('Auth check failed:', error)

@@ -106,7 +106,7 @@ export default function WishlistPage() {
         ) : (
           <>
             {/* Desktop View - Grid Layout */}
-            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:mx-12">
+            <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8 md:mx-12">
               {wishlist.map((item) => (
                 <div 
                   key={item.id}
@@ -114,14 +114,14 @@ export default function WishlistPage() {
                 >
                   {/* Product Image with fixed dimensions */}
                   <div 
-                    className="relative mb-4 h-40 w-full flex items-center justify-center" 
+                    className="relative mb-4 h-40  w-full flex items-center justify-center" 
                     
                   >
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
-                      className="object-cover rounded-[4px] p-2"
+                      className="object-contain rounded-[4px] p-2 h-full w-full"
                       priority={true}
                       loading="eager"
                     />
